@@ -167,16 +167,6 @@ export default function App() {
             </div>
           </a>
 
-          {/* MIDDLE: Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-8 text-[10px] font-bold text-black uppercase tracking-widest">
-            <a href="#overview" className="hover:text-blue-600 transition-colors">Overview</a>
-            <a href="#stats" className="hover:text-blue-600 transition-colors">Metrics</a>
-            <a href="#roi" className="hover:text-blue-600 transition-colors">ROI Calculator</a>
-            <a href="#ecosystem" className="hover:text-blue-600 transition-colors">Personas</a>
-            <a href="#how-it-works" className="hover:text-blue-600 transition-colors">How It Works</a>
-
-          </nav>
-
           {/* RIGHT: Actions */}
           <div className="hidden sm:flex items-center gap-6">
             <a href="#login" className="text-[10px] font-bold text-black uppercase tracking-widest hover:text-blue-600 transition-colors">
