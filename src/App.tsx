@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react"
 import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import ParticleText from "./components/ui/ParticleText"
+import LightTunnel from "./components/ui/LightTunnel"
 import {
   ArrowRight,
   ArrowLeft,
@@ -118,9 +119,43 @@ export default function App() {
             initial={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: "easeInOut" }}
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#09090f]"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#09090f] overflow-hidden"
           >
-            <div className="w-full h-full flex items-center justify-center max-w-[90vw]">
+            {/* Background LightTunnel */}
+            <div className="absolute inset-0 w-full h-full opacity-60">
+              <LightTunnel
+                cableColor="#2563eb"
+                pulseColor="#60a5fa"
+                tunnelColor="#0f172a"
+                tunnelOpacity={0}
+                speed={0.1}
+                flowDirection="outward"
+                pulseSpeed={2}
+                pulseLength={0.28}
+                pulseBlend={1}
+                pulseWidth={1}
+                cableCount={20}
+                thickness={0.35}
+                rimWidth={0.15}
+                waviness={0.3}
+                sway={0.5}
+                size={1.0}
+                centerX={0.0}
+                centerY={0.0}
+                glow={1.0}
+                fadeNear={0.5}
+                fadeFar={2}
+                brightness={1.0}
+                colorVariance={true}
+                grain={true}
+                grainIntensity={0.05}
+                opacity={1.0}
+                mouseInteraction={true}
+                mouseStrength={0.1}
+              />
+            </div>
+            {/* Foreground ParticleText */}
+            <div className="relative z-10 w-full h-full flex items-center justify-center max-w-[90vw] pointer-events-none">
               <ParticleText
                 text="WATERADS"
                 particleSize={2.5}
