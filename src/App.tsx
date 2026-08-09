@@ -1217,84 +1217,88 @@ export default function App() {
           </h2>
         </div>
 
-        <div className="w-full px-6 md:px-12 max-w-[1600px] mx-auto">
+        <div className="w-full px-6 md:px-12 max-w-[1400px] mx-auto">
           
-          {/* Top Half */}
-          <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
             
-            {/* Left: Newsletter */}
-            <div className="flex-1 max-w-md">
-              <h3 className="text-[26px] md:text-[32px] font-semibold text-[#111] tracking-tight leading-[1.1] mb-12">
-                Subscribe for new projects and insights, once a month.
-              </h3>
+            {/* Left Column: Newsletter + Contact */}
+            <div className="flex flex-col justify-between">
               
-              <form className="border-b border-gray-300 pb-3 flex items-center justify-between">
-                <input 
-                  type="email" 
-                  placeholder="Your email address" 
-                  className="w-full bg-transparent text-sm font-medium text-black placeholder:text-gray-500 outline-none"
-                />
-                <button type="button" className="text-[11px] font-bold text-black uppercase tracking-widest flex items-center gap-1 shrink-0 ml-4 hover:opacity-60 transition-opacity">
-                  SUBMIT <ArrowUpRight className="w-3 h-3" />
-                </button>
-              </form>
+              <div className="max-w-md">
+                <h3 className="text-[26px] md:text-[32px] font-semibold text-[#111] tracking-tight leading-[1.1] mb-12">
+                  Subscribe for new projects and insights, once a month.
+                </h3>
+                <form className="border-b border-gray-300 pb-3 flex items-center justify-between">
+                  <input 
+                    type="email" 
+                    placeholder="Your email address" 
+                    className="w-full bg-transparent text-sm font-medium text-black placeholder:text-gray-500 outline-none"
+                  />
+                  <button type="button" className="text-[11px] font-bold text-black uppercase tracking-widest flex items-center gap-1 shrink-0 ml-4 hover:opacity-60 transition-opacity">
+                    SUBMIT <ArrowUpRight className="w-3 h-3" />
+                  </button>
+                </form>
+              </div>
+
+              {/* Desktop Contact (hidden on mobile to move it below Nav) */}
+              <div className="hidden lg:flex flex-col gap-2 mt-40">
+                <a href="mailto:HELLO@WATERADS.ORG" className="text-[11px] font-bold text-[#111] hover:text-blue-600 transition-colors uppercase tracking-widest">HELLO@WATERADS.ORG</a>
+                <a href="tel:+15550123456" className="text-[11px] font-bold text-[#111] hover:text-blue-600 transition-colors uppercase tracking-widest">WHATSAPP +1 555 012 3456</a>
+              </div>
+
             </div>
 
-            {/* Right: Platform Solutions */}
-            <div className="flex-1 max-w-xl flex flex-col">
-              {[
-                { name: "Brand Advertisers", tag: "Kyzenn", icon: <Building2 className="w-5 h-5 text-white" />, bg: "bg-blue-400" },
-                { name: "Water Bottling Plants", tag: "Cardo Holdings", icon: <Factory className="w-5 h-5 text-white" />, bg: "bg-slate-900" },
-                { name: "Printing Press Partners", tag: "Baladi", icon: <Printer className="w-5 h-5 text-white" />, bg: "bg-emerald-600" }
-              ].map((item, i) => (
-                <a key={i} href="#" className="group flex flex-col sm:flex-row sm:items-center justify-between py-6 border-b border-gray-100 hover:opacity-70 transition-opacity gap-4 sm:gap-0">
-                  <div className="flex items-center gap-6">
-                    <div className={`w-12 h-12 rounded-xl ${item.bg} flex items-center justify-center shadow-inner`}>
-                      {item.icon}
+            {/* Right Column: Solutions + Nav Links */}
+            <div className="flex flex-col justify-between">
+              
+              <div className="flex flex-col w-full xl:max-w-xl">
+                {[
+                  { name: "Brand Advertisers", tag: "Kyzenn", icon: <Building2 className="w-5 h-5 text-white" />, bg: "bg-blue-400" },
+                  { name: "Water Bottling Plants", tag: "Cardo Holdings", icon: <Factory className="w-5 h-5 text-white" />, bg: "bg-slate-900" },
+                  { name: "Printing Press Partners", tag: "Baladi", icon: <Printer className="w-5 h-5 text-white" />, bg: "bg-emerald-600" }
+                ].map((item, i) => (
+                  <a key={i} href="#" className="group flex flex-col sm:flex-row sm:items-center justify-between py-6 border-b border-gray-100 hover:opacity-70 transition-opacity gap-4 sm:gap-0">
+                    <div className="flex items-center gap-6">
+                      <div className={`w-12 h-12 rounded-xl ${item.bg} flex items-center justify-center shadow-inner shrink-0`}>
+                        {item.icon}
+                      </div>
+                      <span className="text-sm font-bold text-[#111]">{item.name}</span>
                     </div>
-                    <span className="text-sm font-bold text-[#111]">{item.name}</span>
-                  </div>
-                  <div className="flex items-center gap-1 text-[11px] font-bold text-[#111] uppercase tracking-widest">
-                    VIEW PROJECT <ArrowRight className="w-3.5 h-3.5" />
-                  </div>
-                </a>
-              ))}
+                    <div className="flex items-center gap-1 text-[11px] font-bold text-[#111] uppercase tracking-widest shrink-0">
+                      VIEW PROJECT <ArrowRight className="w-3.5 h-3.5" />
+                    </div>
+                  </a>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap sm:flex-nowrap gap-12 sm:gap-16 xl:gap-32 mt-20 lg:mt-40">
+                <div className="flex flex-col gap-4">
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">B2B OFFLINE DESIGN</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">FINANCIAL SERVICES</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">FRAMER WEB DESIGN</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">PROJECTS</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">SOLUTIONS</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">INDUSTRIES</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">SERVICES</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">WORKFLOW</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">ENGAGEMENTS</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">BLOG</a>
+                </div>
+                <div className="flex flex-col gap-4">
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">CONTACT</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">PRIVACY POLICY</a>
+                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">TERMS OF USE</a>
+                </div>
+              </div>
+
             </div>
 
-          </div>
-
-          {/* Massive Spacer to mimic the long scroll */}
-          <div className="h-40 md:h-64" />
-
-          {/* Bottom Half */}
-          <div className="flex flex-col md:flex-row justify-between gap-16">
-            
-            {/* Contact */}
-            <div className="flex flex-col gap-2">
+            {/* Mobile Contact (Shows under Nav links on small screens) */}
+            <div className="flex lg:hidden flex-col gap-2 mt-8">
               <a href="mailto:HELLO@WATERADS.ORG" className="text-[11px] font-bold text-[#111] hover:text-blue-600 transition-colors uppercase tracking-widest">HELLO@WATERADS.ORG</a>
               <a href="tel:+15550123456" className="text-[11px] font-bold text-[#111] hover:text-blue-600 transition-colors uppercase tracking-widest">WHATSAPP +1 555 012 3456</a>
             </div>
 
-            {/* Nav Links */}
-            <div className="flex gap-16 md:gap-32">
-              <div className="flex flex-col gap-4">
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">B2B OFFLINE DESIGN</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">FINANCIAL SERVICES</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">FRAMER WEB DESIGN</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">PROJECTS</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">SOLUTIONS</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">INDUSTRIES</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">SERVICES</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">WORKFLOW</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">ENGAGEMENTS</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">BLOG</a>
-              </div>
-              <div className="flex flex-col gap-4">
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">CONTACT</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">PRIVACY POLICY</a>
-                <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">TERMS OF USE</a>
-              </div>
-            </div>
           </div>
 
           {/* Very Bottom Copyright & Social */}
