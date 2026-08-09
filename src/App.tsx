@@ -84,31 +84,7 @@ export default function App() {
   const [isLoaded, setIsLoaded] = useState(false)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
 
-  // -- Cinematic Scroll State for Ecosystem --
-  const ecosystemRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ecosystemRef,
-    offset: ["start start", "end end"]
-  });
-
-  const lineWidth = useTransform(scrollYProgress, [0, 0.75], ["0%", "75%"]);
-  const lineHeight = useTransform(scrollYProgress, [0, 0.75], ["0%", "80%"]);
-  
-  const n1Opacity = useTransform(scrollYProgress, [0, 0.05], [0, 1]);
-  const n1Scale = useTransform(scrollYProgress, [0, 0.05], [0.8, 1]);
-  const t1Opacity = useTransform(scrollYProgress, [0, 0.05], [0.4, 1]);
-  
-  const n2Opacity = useTransform(scrollYProgress, [0.2, 0.25], [0, 1]);
-  const n2Scale = useTransform(scrollYProgress, [0.2, 0.25], [0.8, 1]);
-  const t2Opacity = useTransform(scrollYProgress, [0.2, 0.25], [0.4, 1]);
-  
-  const n3Opacity = useTransform(scrollYProgress, [0.45, 0.5], [0, 1]);
-  const n3Scale = useTransform(scrollYProgress, [0.45, 0.5], [0.8, 1]);
-  const t3Opacity = useTransform(scrollYProgress, [0.45, 0.5], [0.4, 1]);
-  
-  const n4Opacity = useTransform(scrollYProgress, [0.7, 0.75], [0, 1]);
-  const n4Scale = useTransform(scrollYProgress, [0.7, 0.75], [0.8, 1]);
-  const t4Opacity = useTransform(scrollYProgress, [0.7, 0.75], [0.4, 1]);
+  // -- Removed scroll-based cinematic state for simpler whileInView animations --
   
   // AI Planner State
   const [targetArea, setTargetArea] = useState("Metropolitan Hubs")
@@ -318,115 +294,172 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── 8. THE ECOSYSTEM GRAPH (CINEMATIC SCROLL) ── */}
-      <section ref={ecosystemRef} className="relative z-10 bg-[#fafafa] h-[400vh]">
+      {/* ── 8. THE ECOSYSTEM GRAPH (CINEMATIC MARQUEE + REFLECTION) ── */}
+      <section id="ecosystem" className="relative z-10 bg-[#f4f4f5] py-32 md:py-48 overflow-hidden flex flex-col items-center justify-center min-h-screen">
         
-        {/* Sticky Container */}
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-start items-center overflow-hidden pt-32 md:pt-48">
-          
-          <div className="text-center mb-16 md:mb-32 px-6 relative z-20">
-            <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
-              The Ecosystem
-            </h3>
-            <h2 className="text-4xl md:text-[64px] font-medium tracking-tight text-black leading-tight">
-              A perfectly connected<br className="hidden md:block" /> offline network.
+        {/* Background Marquee Text */}
+        <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[200vw] flex z-0 pointer-events-none opacity-[0.03]">
+          <motion.div 
+            animate={{ x: ["0%", "-50%"] }}
+            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+            className="flex whitespace-nowrap"
+          >
+            <h2 className="text-[15vw] font-serif tracking-tighter leading-none text-black">
+              &nbsp;E C O S Y S T E M &nbsp;&middot;&nbsp; N E T W O R K &nbsp;&middot;&nbsp; E C O S Y S T E M &nbsp;&middot;&nbsp; N E T W O R K
             </h2>
-          </div>
-
-          <div className="relative w-full max-w-6xl mx-auto px-6 md:px-12">
-            
-            {/* Background Line (Horizontal Desktop) */}
-            <div className="absolute top-[32px] left-[12.5%] w-[75%] h-[2px] bg-slate-200 hidden md:block z-0" />
-            
-            {/* Animated Progress Line (Horizontal Desktop) */}
-            <motion.div 
-              style={{ width: lineWidth }}
-              className="absolute top-[32px] left-[12.5%] h-[4px] bg-black hidden md:block origin-left z-0" 
-            />
-
-            {/* Background Line (Vertical Mobile) */}
-            <div className="absolute top-[10%] bottom-[10%] left-1/2 -translate-x-1/2 w-[2px] bg-slate-200 md:hidden z-0" />
-            
-            {/* Animated Progress Line (Vertical Mobile) */}
-            <motion.div 
-              style={{ height: lineHeight }}
-              className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[4px] bg-black md:hidden origin-top z-0" 
-            />
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-0 relative z-10 w-full py-8 md:py-0">
-              
-              {/* Node 1: Brands */}
-              <div className="flex flex-col items-center text-center relative group">
-                <div className="w-16 h-16 relative z-10">
-                  <div className="absolute inset-0 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400">
-                    <Building2 className="w-6 h-6" />
-                  </div>
-                  <motion.div style={{ opacity: n1Opacity, scale: n1Scale }} className="absolute inset-0 rounded-full bg-black flex items-center justify-center text-white shadow-xl">
-                    <Building2 className="w-6 h-6" />
-                  </motion.div>
-                </div>
-                <motion.div style={{ opacity: t1Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/90 backdrop-blur-sm p-2 rounded-lg">
-                  <h4 className="text-xl font-bold text-black mb-1 md:mb-2">Brands</h4>
-                  <p className="text-xs font-medium text-slate-500 px-4">Initiate targeted local campaigns.</p>
-                </motion.div>
-              </div>
-
-              {/* Node 2: Printing Press */}
-              <div className="flex flex-col items-center text-center relative">
-                <div className="w-16 h-16 relative z-10">
-                  <div className="absolute inset-0 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400">
-                    <Printer className="w-6 h-6" />
-                  </div>
-                  <motion.div style={{ opacity: n2Opacity, scale: n2Scale }} className="absolute inset-0 rounded-full bg-black flex items-center justify-center text-white shadow-xl">
-                    <Printer className="w-6 h-6" />
-                  </motion.div>
-                </div>
-                <motion.div style={{ opacity: t2Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/90 backdrop-blur-sm p-2 rounded-lg">
-                  <h4 className="text-xl font-bold text-black mb-1 md:mb-2">Printing Press</h4>
-                  <p className="text-xs font-medium text-slate-500 px-4">Produces serialized label rolls.</p>
-                </motion.div>
-              </div>
-
-              {/* Node 3: Water Plant */}
-              <div className="flex flex-col items-center text-center relative">
-                <div className="w-16 h-16 relative z-10">
-                  <div className="absolute inset-0 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400">
-                    <Factory className="w-6 h-6" />
-                  </div>
-                  <motion.div style={{ opacity: n3Opacity, scale: n3Scale }} className="absolute inset-0 rounded-full bg-black flex items-center justify-center text-white shadow-xl">
-                    <Factory className="w-6 h-6" />
-                  </motion.div>
-                </div>
-                <motion.div style={{ opacity: t3Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/90 backdrop-blur-sm p-2 rounded-lg">
-                  <h4 className="text-xl font-bold text-black mb-1 md:mb-2">Water Plant</h4>
-                  <p className="text-xs font-medium text-slate-500 px-4">Bottles and applies labels.</p>
-                </motion.div>
-              </div>
-
-              {/* Node 4: Distributors */}
-              <div className="flex flex-col items-center text-center relative">
-                <div className="w-16 h-16 relative z-10">
-                  <div className="absolute inset-0 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400">
-                    <Truck className="w-6 h-6" />
-                  </div>
-                  <motion.div style={{ opacity: n4Opacity, scale: n4Scale }} className="absolute inset-0 rounded-full bg-black flex items-center justify-center text-white shadow-xl">
-                    <Truck className="w-6 h-6" />
-                    <motion.div 
-                      animate={{ scale: [1, 1.4], opacity: [0.5, 0] }} 
-                      transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                      className="absolute inset-0 rounded-full border-2 border-black" 
-                    />
-                  </motion.div>
-                </div>
-                <motion.div style={{ opacity: t4Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/90 backdrop-blur-sm p-2 rounded-lg">
-                  <h4 className="text-xl font-bold text-black mb-1 md:mb-2">Distributors</h4>
-                  <p className="text-xs font-medium text-slate-500 px-4">Deliver to target consumer zones.</p>
-                </motion.div>
-              </div>
-
-            </div>
-          </div>
+          </motion.div>
         </div>
+
+        {/* Background Mesh Gradient Orbs for Glassmorphism */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[500px] z-10 pointer-events-none opacity-50">
+          <motion.div 
+            animate={{ 
+              x: [0, 50, 0], 
+              y: [0, -30, 0],
+              scale: [1, 1.1, 1]
+            }}
+            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-[10%] left-[15%] w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-[80px]" 
+          />
+          <motion.div 
+            animate={{ 
+              x: [0, -40, 0], 
+              y: [0, 40, 0],
+              scale: [1, 1.2, 1]
+            }}
+            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute top-[20%] right-[15%] w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-[100px]" 
+          />
+          <motion.div 
+            animate={{ 
+              x: [0, 30, 0], 
+              y: [0, 20, 0],
+              scale: [1, 0.9, 1]
+            }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
+            className="absolute -bottom-10 left-[40%] w-64 h-64 bg-sky-200 rounded-full mix-blend-multiply filter blur-[80px]" 
+          />
+        </div>
+
+        {/* Floating Ecosystem Card */}
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="relative z-20 w-full max-w-5xl px-6 md:px-12 flex flex-col"
+        >
+          {/* The Card Itself */}
+          <motion.div 
+            animate={{ y: [-10, 10] }}
+            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+            className="w-full bg-white/60 backdrop-blur-3xl rounded-[2rem] md:rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-white/80 ring-1 ring-black/[0.03] p-10 md:p-20 relative overflow-hidden z-20"
+          >
+            {/* Subtle Noise Texture overlay */}
+            <div className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
+            
+            {/* Inner top/left highlight for 3D glass effect */}
+            <div className="absolute inset-0 rounded-[2rem] md:rounded-[3rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1),inset_1px_0_1px_rgba(255,255,255,0.8)] pointer-events-none" />
+
+            {/* Gradient Overlay for lighting */}
+            <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-white/40 to-white/10 pointer-events-none" />
+
+            {/* Header inside the card */}
+            <div className="text-center mb-16 md:mb-24 relative z-20">
+              <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
+                The Ecosystem
+              </h3>
+              <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-black leading-tight drop-shadow-sm">
+                A perfectly connected<br className="hidden md:block" /> offline network.
+              </h2>
+            </div>
+
+            {/* The Nodes Grid */}
+            <div className="relative w-full mx-auto mt-12 md:mt-20 mb-8 md:mb-12">
+              
+              {/* Animated Progress Line */}
+              <motion.div 
+                initial={{ width: "0%" }}
+                whileInView={{ width: "80%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="absolute top-[40px] left-[10%] h-[1px] bg-slate-300 hidden md:block origin-left z-0" 
+              />
+              <motion.div 
+                initial={{ height: "0%" }}
+                whileInView={{ height: "80%" }}
+                viewport={{ once: true }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+                className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[1px] bg-slate-300 md:hidden origin-top z-0" 
+              />
+              
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-0 relative z-10 w-full py-8 md:py-0">
+                {[
+                  { icon: Building2, title: "Brands", desc: "Initiate targeted local campaigns." },
+                  { icon: Printer, title: "Printing Press", desc: "Produces serialized label rolls." },
+                  { icon: Factory, title: "Water Plant", desc: "Bottles and applies labels." },
+                  { icon: Truck, title: "Distributors", desc: "Deliver to target consumer zones." },
+                ].map((node, i) => (
+                  <motion.div 
+                    key={i}
+                    initial={{ opacity: 0, y: 15, scale: 0.98 }}
+                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.15 }}
+                    className="flex flex-col items-center text-center relative"
+                  >
+                    <div className="w-20 h-20 relative z-10 mb-6">
+                      <div className="absolute inset-0 rounded-full bg-white/90 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,1)] border border-white/60 flex items-center justify-center text-slate-500 transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] hover:text-blue-500">
+                        <node.icon className="w-6 h-6" strokeWidth={1.25} />
+                      </div>
+                    </div>
+                    <div>
+                      <h4 className="text-[17px] font-bold text-[#111827] mb-2">{node.title}</h4>
+                      <p className="text-[13px] font-medium text-[#64748b] px-4 max-w-[200px] mx-auto leading-relaxed">{node.desc}</p>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Reflection */}
+          <div 
+            className="w-full h-[250px] md:h-[350px] mt-2 relative pointer-events-none opacity-30 select-none overflow-hidden z-0"
+            style={{
+              maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 80%)",
+              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 80%)"
+            }}
+          >
+            <motion.div 
+              animate={{ y: [10, -10] }}
+              transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+              className="absolute top-0 left-0 right-0"
+              style={{ transform: "scaleY(-1)" }}
+            >
+               {/* Reflection fake card */}
+               <div className="w-full bg-white/40 rounded-[2rem] md:rounded-[3rem] p-10 md:p-20 blur-[4px] border border-white/50">
+                 <div className="text-center mb-16 md:mb-24 relative z-20 opacity-80">
+                   <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">The Ecosystem</h3>
+                   <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-black leading-tight">
+                     A perfectly connected<br className="hidden md:block" /> offline network.
+                   </h2>
+                 </div>
+                 <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-0 mt-12 md:mt-20 mb-8 md:mb-12 relative opacity-50">
+                    <div className="absolute top-[40px] left-[10%] w-[80%] h-[1px] bg-slate-300 hidden md:block" />
+                    {[1,2,3,4].map((i) => (
+                      <div key={i} className="flex flex-col items-center">
+                        <div className="w-20 h-20 rounded-full bg-white/80 border border-white/50 mb-6" />
+                        <div className="w-24 h-5 bg-slate-300/50 rounded mb-2" />
+                        <div className="w-32 h-3 bg-slate-200/50 rounded" />
+                      </div>
+                    ))}
+                 </div>
+               </div>
+            </motion.div>
+          </div>
+
+        </motion.div>
       </section>
 
       {/* ── 8.5 PROCESS FLOW SECTION ── */}
