@@ -250,7 +250,152 @@ export default function App() {
       <EcosystemSection />
 
       {/* ── NEW: DELIVERY TRUCK TRANSITION ── */}
-      <DeliveryVehicleTransition />
+      <DeliveryVehicleTransition />      {/* ── 8.5 PROCESS FLOW SECTION ── */}
+      <section className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto bg-white">
+        
+        {/* Header Row */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
+          <motion.h2 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="text-7xl md:text-[140px] font-black tracking-tighter leading-none text-black uppercase"
+          >
+            FLOW
+          </motion.h2>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="max-w-[200px] text-xs md:text-sm font-bold text-black leading-snug md:mb-6"
+          >
+            How we turn a campaign brief into a highly measurable offline network.
+          </motion.p>
+        </div>
+
+        {/* Meta Data Row */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="flex justify-between items-center text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest border-t border-slate-200 pt-6 mb-12"
+        >
+          <span>PROCESS: 4 STEPS</span>
+          <span>DURATION: ~ 2-4 WEEKS</span>
+        </motion.div>
+
+        {/* 4 Column Diagonal Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-4 min-h-[600px] border-t border-slate-200">
+          
+          {/* Step 1 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="relative border-b md:border-b-0 md:border-r border-slate-200 p-8 flex flex-col pt-12 min-h-[300px] md:min-h-0"
+          >
+            <h3 className="text-2xl font-black text-black uppercase tracking-tight mb-4">CREATE</h3>
+            <p className="text-sm font-medium text-slate-500 leading-relaxed mb-16 pr-4">
+              We define your target network, duration, and can quantity based on brand goals.
+            </p>
+            
+            {/* Progress Bar (Liquid Animation) */}
+            <div className="mt-auto pt-8">
+              <span className="text-[10px] font-extrabold text-black mb-2 block">25%</span>
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "25%" }}
+                transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+                className="h-1.5 bg-black" 
+              />
+            </div>
+          </motion.div>
+
+          {/* Step 2 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="relative border-b md:border-b-0 md:border-r border-slate-200 p-8 flex flex-col pt-12 md:pt-32 min-h-[300px] md:min-h-0"
+          >
+            <h3 className="text-2xl font-black text-black uppercase tracking-tight mb-4">PRINT</h3>
+            <p className="text-sm font-medium text-slate-500 leading-relaxed mb-16 pr-4">
+              We serialize the advertising labels and produce them with extreme precision.
+            </p>
+            
+            {/* Progress Bar (Liquid Animation) */}
+            <div className="mt-auto pt-8">
+              <span className="text-[10px] font-extrabold text-black mb-2 block">50%</span>
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "50%" }}
+                transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+                className="h-1.5 bg-black" 
+              />
+            </div>
+          </motion.div>
+
+          {/* Step 3 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="relative border-b md:border-b-0 md:border-r border-slate-200 p-8 flex flex-col pt-12 md:pt-52 min-h-[300px] md:min-h-0"
+          >
+            <h3 className="text-2xl font-black text-black uppercase tracking-tight mb-4">DISTRIBUTE</h3>
+            <p className="text-sm font-medium text-slate-500 leading-relaxed mb-16 pr-4">
+              Plants apply the labels and dispatch cans to strictly targeted geographic zones.
+            </p>
+            
+            {/* Progress Bar (Liquid Animation) */}
+            <div className="mt-auto pt-8">
+              <span className="text-[10px] font-extrabold text-black mb-2 block">75%</span>
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "75%" }}
+                transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+                className="h-1.5 bg-black" 
+              />
+            </div>
+          </motion.div>
+
+          {/* Step 4 */}
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="relative p-8 flex flex-col pt-12 md:pt-[280px] min-h-[300px] md:min-h-0"
+          >
+            <h3 className="text-2xl font-black text-black uppercase tracking-tight mb-4">MEASURE</h3>
+            <p className="text-sm font-medium text-slate-500 leading-relaxed mb-16 pr-4">
+              Unique QR scans capture real-time engagement and provide robust campaign tracking.
+            </p>
+            
+            {/* Progress Bar (Liquid Animation) */}
+            <div className="mt-auto pt-8">
+              <span className="text-[10px] font-extrabold text-black mb-2 block">100%</span>
+              <motion.div 
+                initial={{ width: 0 }}
+                whileInView={{ width: "100%" }}
+                transition={{ duration: 1.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true }}
+                className="h-1.5 bg-black" 
+              />
+            </div>
+          </motion.div>
+
+        </div>
+      </section>
 
       {/* ── 9. QR TRACKING SECTION ── */}
       <section className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto border-t border-slate-100">
