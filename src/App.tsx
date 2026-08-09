@@ -20,6 +20,7 @@ import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
+import ScrollStack, { ScrollStackItem } from "./components/ui/ScrollStack"
 
 // Simple CountUp Component
 function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
@@ -226,114 +227,82 @@ export default function App() {
           <span>DURATION: ~ 2-4 WEEKS</span>
         </motion.div>
 
-        {/* 4 Column Diagonal Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-4 min-h-[600px] border-t border-slate-200">
+        {/* 4 Column Diagonal Grid -> Scroll Stack */}
+        <ScrollStack useWindowScroll={true} itemDistance={80} stackPosition="20%" className="mt-12">
           
           {/* Step 1 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            className="relative border-b md:border-b-0 md:border-r border-slate-200 p-8 flex flex-col pt-12 min-h-[300px] md:min-h-0"
-          >
-            <h3 className="text-2xl font-black text-black uppercase tracking-tight mb-4">CREATE</h3>
-            <p className="text-sm font-medium text-slate-500 leading-relaxed mb-16 pr-4">
-              We define your target network, duration, and can quantity based on brand goals.
-            </p>
-            
-            {/* Progress Bar (Liquid Animation) */}
-            <div className="mt-auto pt-8">
-              <span className="text-[10px] font-extrabold text-black mb-2 block">25%</span>
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "25%" }}
-                transition={{ duration: 1.5, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                className="h-1.5 bg-black" 
-              />
+          <ScrollStackItem itemClassName="bg-white border border-slate-200">
+            <div className="flex flex-col h-full justify-between">
+              <div>
+                <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight mb-4">CREATE</h3>
+                <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed max-w-lg">
+                  We define your target network, duration, and can quantity based on brand goals.
+                </p>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="mt-8">
+                <span className="text-[10px] font-extrabold text-black mb-2 block">25%</span>
+                <div className="h-1.5 bg-black w-[25%]" />
+              </div>
             </div>
-          </motion.div>
+          </ScrollStackItem>
 
           {/* Step 2 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            className="relative border-b md:border-b-0 md:border-r border-slate-200 p-8 flex flex-col pt-12 md:pt-32 min-h-[300px] md:min-h-0"
-          >
-            <h3 className="text-2xl font-black text-black uppercase tracking-tight mb-4">PRINT</h3>
-            <p className="text-sm font-medium text-slate-500 leading-relaxed mb-16 pr-4">
-              We serialize the advertising labels and produce them with extreme precision.
-            </p>
-            
-            {/* Progress Bar (Liquid Animation) */}
-            <div className="mt-auto pt-8">
-              <span className="text-[10px] font-extrabold text-black mb-2 block">50%</span>
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "50%" }}
-                transition={{ duration: 1.5, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                className="h-1.5 bg-black" 
-              />
+          <ScrollStackItem itemClassName="bg-white border border-slate-200">
+            <div className="flex flex-col h-full justify-between">
+              <div>
+                <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight mb-4">PRINT</h3>
+                <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed max-w-lg">
+                  We serialize the advertising labels and produce them with extreme precision.
+                </p>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="mt-8">
+                <span className="text-[10px] font-extrabold text-black mb-2 block">50%</span>
+                <div className="h-1.5 bg-black w-[50%]" />
+              </div>
             </div>
-          </motion.div>
+          </ScrollStackItem>
 
           {/* Step 3 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            className="relative border-b md:border-b-0 md:border-r border-slate-200 p-8 flex flex-col pt-12 md:pt-52 min-h-[300px] md:min-h-0"
-          >
-            <h3 className="text-2xl font-black text-black uppercase tracking-tight mb-4">DISTRIBUTE</h3>
-            <p className="text-sm font-medium text-slate-500 leading-relaxed mb-16 pr-4">
-              Plants apply the labels and dispatch cans to strictly targeted geographic zones.
-            </p>
-            
-            {/* Progress Bar (Liquid Animation) */}
-            <div className="mt-auto pt-8">
-              <span className="text-[10px] font-extrabold text-black mb-2 block">75%</span>
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "75%" }}
-                transition={{ duration: 1.5, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                className="h-1.5 bg-black" 
-              />
+          <ScrollStackItem itemClassName="bg-white border border-slate-200">
+            <div className="flex flex-col h-full justify-between">
+              <div>
+                <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight mb-4">DISTRIBUTE</h3>
+                <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed max-w-lg">
+                  Plants apply the labels and dispatch cans to strictly targeted geographic zones.
+                </p>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="mt-8">
+                <span className="text-[10px] font-extrabold text-black mb-2 block">75%</span>
+                <div className="h-1.5 bg-black w-[75%]" />
+              </div>
             </div>
-          </motion.div>
+          </ScrollStackItem>
 
           {/* Step 4 */}
-          <motion.div 
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            className="relative p-8 flex flex-col pt-12 md:pt-[280px] min-h-[300px] md:min-h-0"
-          >
-            <h3 className="text-2xl font-black text-black uppercase tracking-tight mb-4">MEASURE</h3>
-            <p className="text-sm font-medium text-slate-500 leading-relaxed mb-16 pr-4">
-              Unique QR scans capture real-time engagement and provide robust campaign tracking.
-            </p>
-            
-            {/* Progress Bar (Liquid Animation) */}
-            <div className="mt-auto pt-8">
-              <span className="text-[10px] font-extrabold text-black mb-2 block">100%</span>
-              <motion.div 
-                initial={{ width: 0 }}
-                whileInView={{ width: "100%" }}
-                transition={{ duration: 1.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                className="h-1.5 bg-black" 
-              />
+          <ScrollStackItem itemClassName="bg-white border border-slate-200">
+            <div className="flex flex-col h-full justify-between">
+              <div>
+                <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight mb-4">MEASURE</h3>
+                <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed max-w-lg">
+                  Unique QR scans capture real-time engagement and provide robust campaign tracking.
+                </p>
+              </div>
+              
+              {/* Progress Bar */}
+              <div className="mt-8">
+                <span className="text-[10px] font-extrabold text-black mb-2 block">100%</span>
+                <div className="h-1.5 bg-black w-[100%]" />
+              </div>
             </div>
-          </motion.div>
+          </ScrollStackItem>
 
-        </div>
+        </ScrollStack>
       </section>
 
       {/* ── 9. QR TRACKING SECTION ── */}
