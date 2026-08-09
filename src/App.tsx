@@ -158,7 +158,6 @@ export default function App() {
             <a href="#roi" className="hover:text-blue-600 transition-colors">ROI Calculator</a>
             <a href="#ecosystem" className="hover:text-blue-600 transition-colors">Personas</a>
             <a href="#how-it-works" className="hover:text-blue-600 transition-colors">How It Works</a>
-            <a href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</a>
           </nav>
 
           {/* RIGHT: Actions */}
