@@ -91,19 +91,24 @@ export default function App() {
     offset: ["start start", "end end"]
   });
 
-  const lineWidth = useTransform(scrollYProgress, [0, 1], ["0%", "75%"]);
-  const lineHeight = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const lineWidth = useTransform(scrollYProgress, [0, 0.75], ["0%", "75%"]);
+  const lineHeight = useTransform(scrollYProgress, [0, 0.75], ["0%", "80%"]);
   
+  const n1Opacity = useTransform(scrollYProgress, [0, 0.05], [0, 1]);
   const n1Scale = useTransform(scrollYProgress, [0, 0.05], [0.8, 1]);
+  const t1Opacity = useTransform(scrollYProgress, [0, 0.05], [0.4, 1]);
   
-  const n2Opacity = useTransform(scrollYProgress, [0.15, 0.33], [0.2, 1]);
-  const n2Scale = useTransform(scrollYProgress, [0.15, 0.33], [0.8, 1]);
+  const n2Opacity = useTransform(scrollYProgress, [0.2, 0.25], [0, 1]);
+  const n2Scale = useTransform(scrollYProgress, [0.2, 0.25], [0.8, 1]);
+  const t2Opacity = useTransform(scrollYProgress, [0.2, 0.25], [0.4, 1]);
   
-  const n3Opacity = useTransform(scrollYProgress, [0.45, 0.66], [0.2, 1]);
-  const n3Scale = useTransform(scrollYProgress, [0.45, 0.66], [0.8, 1]);
+  const n3Opacity = useTransform(scrollYProgress, [0.45, 0.5], [0, 1]);
+  const n3Scale = useTransform(scrollYProgress, [0.45, 0.5], [0.8, 1]);
+  const t3Opacity = useTransform(scrollYProgress, [0.45, 0.5], [0.4, 1]);
   
-  const n4Opacity = useTransform(scrollYProgress, [0.8, 1], [0.2, 1]);
-  const n4Scale = useTransform(scrollYProgress, [0.8, 1], [0.8, 1]);
+  const n4Opacity = useTransform(scrollYProgress, [0.7, 0.75], [0, 1]);
+  const n4Scale = useTransform(scrollYProgress, [0.7, 0.75], [0.8, 1]);
+  const t4Opacity = useTransform(scrollYProgress, [0.7, 0.75], [0.4, 1]);
   
   // AI Planner State
   const [targetArea, setTargetArea] = useState("Metropolitan Hubs")
@@ -314,12 +319,12 @@ export default function App() {
       </section>
 
       {/* ── 8. THE ECOSYSTEM GRAPH (CINEMATIC SCROLL) ── */}
-      <section ref={ecosystemRef} className="relative z-10 bg-[#fafafa] h-[300vh]">
+      <section ref={ecosystemRef} className="relative z-10 bg-[#fafafa] h-[400vh]">
         
         {/* Sticky Container */}
-        <div className="sticky top-0 h-screen w-full flex flex-col justify-center items-center overflow-hidden pt-20">
+        <div className="sticky top-0 h-screen w-full flex flex-col justify-start items-center overflow-hidden pt-32 md:pt-48">
           
-          <div className="text-center mb-16 md:mb-32 px-6">
+          <div className="text-center mb-16 md:mb-32 px-6 relative z-20">
             <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
               The Ecosystem
             </h3>
@@ -331,42 +336,52 @@ export default function App() {
           <div className="relative w-full max-w-6xl mx-auto px-6 md:px-12">
             
             {/* Background Line (Horizontal Desktop) */}
-            <div className="absolute top-[32px] left-[12.5%] w-[75%] h-[2px] bg-slate-200 hidden md:block" />
+            <div className="absolute top-[32px] left-[12.5%] w-[75%] h-[2px] bg-slate-200 hidden md:block z-0" />
             
             {/* Animated Progress Line (Horizontal Desktop) */}
             <motion.div 
               style={{ width: lineWidth }}
-              className="absolute top-[32px] left-[12.5%] h-[3px] bg-black hidden md:block origin-left z-0" 
+              className="absolute top-[32px] left-[12.5%] h-[4px] bg-black hidden md:block origin-left z-0" 
             />
 
             {/* Background Line (Vertical Mobile) */}
-            <div className="absolute top-[10%] bottom-[10%] left-1/2 -translate-x-1/2 w-[2px] bg-slate-200 md:hidden" />
+            <div className="absolute top-[10%] bottom-[10%] left-1/2 -translate-x-1/2 w-[2px] bg-slate-200 md:hidden z-0" />
             
             {/* Animated Progress Line (Vertical Mobile) */}
             <motion.div 
               style={{ height: lineHeight }}
-              className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[3px] bg-black md:hidden origin-top z-0" 
+              className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[4px] bg-black md:hidden origin-top z-0" 
             />
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-0 relative z-10 w-full py-8 md:py-0">
               
               {/* Node 1: Brands */}
               <div className="flex flex-col items-center text-center relative group">
-                <motion.div style={{ scale: n1Scale }} className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center shrink-0 shadow-xl relative z-10">
-                  <Building2 className="w-6 h-6" />
-                </motion.div>
-                <div className="mt-4 md:mt-8 bg-[#fafafa]/80 backdrop-blur-sm p-2 rounded-lg">
+                <div className="w-16 h-16 relative z-10">
+                  <div className="absolute inset-0 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400">
+                    <Building2 className="w-6 h-6" />
+                  </div>
+                  <motion.div style={{ opacity: n1Opacity, scale: n1Scale }} className="absolute inset-0 rounded-full bg-black flex items-center justify-center text-white shadow-xl">
+                    <Building2 className="w-6 h-6" />
+                  </motion.div>
+                </div>
+                <motion.div style={{ opacity: t1Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/90 backdrop-blur-sm p-2 rounded-lg">
                   <h4 className="text-xl font-bold text-black mb-1 md:mb-2">Brands</h4>
                   <p className="text-xs font-medium text-slate-500 px-4">Initiate targeted local campaigns.</p>
-                </div>
+                </motion.div>
               </div>
 
               {/* Node 2: Printing Press */}
               <div className="flex flex-col items-center text-center relative">
-                <motion.div style={{ opacity: n2Opacity, scale: n2Scale }} className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center shrink-0 shadow-xl relative z-10">
-                  <Printer className="w-6 h-6" />
-                </motion.div>
-                <motion.div style={{ opacity: n2Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/80 backdrop-blur-sm p-2 rounded-lg">
+                <div className="w-16 h-16 relative z-10">
+                  <div className="absolute inset-0 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400">
+                    <Printer className="w-6 h-6" />
+                  </div>
+                  <motion.div style={{ opacity: n2Opacity, scale: n2Scale }} className="absolute inset-0 rounded-full bg-black flex items-center justify-center text-white shadow-xl">
+                    <Printer className="w-6 h-6" />
+                  </motion.div>
+                </div>
+                <motion.div style={{ opacity: t2Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/90 backdrop-blur-sm p-2 rounded-lg">
                   <h4 className="text-xl font-bold text-black mb-1 md:mb-2">Printing Press</h4>
                   <p className="text-xs font-medium text-slate-500 px-4">Produces serialized label rolls.</p>
                 </motion.div>
@@ -374,10 +389,15 @@ export default function App() {
 
               {/* Node 3: Water Plant */}
               <div className="flex flex-col items-center text-center relative">
-                <motion.div style={{ opacity: n3Opacity, scale: n3Scale }} className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center shrink-0 shadow-xl relative z-10">
-                  <Factory className="w-6 h-6" />
-                </motion.div>
-                <motion.div style={{ opacity: n3Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/80 backdrop-blur-sm p-2 rounded-lg">
+                <div className="w-16 h-16 relative z-10">
+                  <div className="absolute inset-0 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400">
+                    <Factory className="w-6 h-6" />
+                  </div>
+                  <motion.div style={{ opacity: n3Opacity, scale: n3Scale }} className="absolute inset-0 rounded-full bg-black flex items-center justify-center text-white shadow-xl">
+                    <Factory className="w-6 h-6" />
+                  </motion.div>
+                </div>
+                <motion.div style={{ opacity: t3Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/90 backdrop-blur-sm p-2 rounded-lg">
                   <h4 className="text-xl font-bold text-black mb-1 md:mb-2">Water Plant</h4>
                   <p className="text-xs font-medium text-slate-500 px-4">Bottles and applies labels.</p>
                 </motion.div>
@@ -385,15 +405,20 @@ export default function App() {
 
               {/* Node 4: Distributors */}
               <div className="flex flex-col items-center text-center relative">
-                <motion.div style={{ opacity: n4Opacity, scale: n4Scale }} className="w-16 h-16 rounded-full bg-black text-white flex items-center justify-center shrink-0 shadow-xl relative z-10">
-                  <Truck className="w-6 h-6" />
-                  <motion.div 
-                    animate={{ scale: [1, 1.3], opacity: [0.5, 0] }} 
-                    transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
-                    className="absolute inset-0 rounded-full border-2 border-black" 
-                  />
-                </motion.div>
-                <motion.div style={{ opacity: n4Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/80 backdrop-blur-sm p-2 rounded-lg">
+                <div className="w-16 h-16 relative z-10">
+                  <div className="absolute inset-0 rounded-full bg-white border-2 border-slate-200 flex items-center justify-center text-slate-400">
+                    <Truck className="w-6 h-6" />
+                  </div>
+                  <motion.div style={{ opacity: n4Opacity, scale: n4Scale }} className="absolute inset-0 rounded-full bg-black flex items-center justify-center text-white shadow-xl">
+                    <Truck className="w-6 h-6" />
+                    <motion.div 
+                      animate={{ scale: [1, 1.4], opacity: [0.5, 0] }} 
+                      transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+                      className="absolute inset-0 rounded-full border-2 border-black" 
+                    />
+                  </motion.div>
+                </div>
+                <motion.div style={{ opacity: t4Opacity }} className="mt-4 md:mt-8 bg-[#fafafa]/90 backdrop-blur-sm p-2 rounded-lg">
                   <h4 className="text-xl font-bold text-black mb-1 md:mb-2">Distributors</h4>
                   <p className="text-xs font-medium text-slate-500 px-4">Deliver to target consumer zones.</p>
                 </motion.div>
