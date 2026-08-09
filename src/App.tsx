@@ -28,7 +28,6 @@ import {
 
 import HeroSection from "./components/HeroSection"
 import EcosystemSection from "./components/EcosystemSection"
-import WaterCansTransition from "./components/WaterCansTransition"
 import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
@@ -246,9 +245,6 @@ export default function App() {
       <HeroSection />
 
 
-
-      {/* ── NEW: WATER CANS TRANSITION ── */}
-      <WaterCansTransition />
 
       {/* ── 8. THE ECOSYSTEM GRAPH (CINEMATIC MARQUEE + REFLECTION) ── */}
       <EcosystemSection />
