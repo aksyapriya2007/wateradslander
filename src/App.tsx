@@ -32,21 +32,6 @@ import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
-import DriftWall from "./components/ui/DriftWall"
-
-const driftItems = [
-  { image: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 1' },
-  { image: 'https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 2' },
-  { image: 'https://images.unsplash.com/photo-1598214886806-c87b84b7078b?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 3' },
-  { image: 'https://images.unsplash.com/photo-1546484396-fb3fc6f95f98?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 4' },
-  { image: 'https://images.unsplash.com/photo-1593941707882-a5bba14938c7?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 5' },
-  { image: 'https://images.unsplash.com/photo-1601662528567-526cd06f6582?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 6' },
-  { image: 'https://images.unsplash.com/photo-1593941707874-ef25b8b4a92b?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 7' },
-  { image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 8' },
-  { image: 'https://images.unsplash.com/photo-1509395176047-4a66953fd231?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 9' },
-  { image: 'https://images.unsplash.com/photo-1548839140-29a749e1bc4e?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 10' },
-  { image: 'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?q=80&w=600&auto=format&fit=crop', title: 'Ad Campaign 11' },
-];
 
 // Simple CountUp Component
 function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
@@ -266,32 +251,6 @@ export default function App() {
 
       {/* ── NEW: DELIVERY TRUCK TRANSITION ── */}
       <DeliveryVehicleTransition />
-
-      {/* ── 8.5 DRIFT WALL SECTION ── */}
-      <section className="relative z-10 w-full bg-[#03010A] overflow-hidden">
-        <div style={{ height: 800 }}>
-          <DriftWall
-            items={driftItems}
-            columns={6}
-            tileWidth={220}
-            tileHeight={146}
-            gap={20}
-            tilt={16}
-            turn={-14}
-            perspective={1200}
-            depth={120}
-            speed={42}
-            direction="up"
-            variance={0.45}
-            parallax={0.6}
-            lift={64}
-            fade={0.6}
-            dim={0.55}
-            overlayColor="#060010"
-            grayscale={true}
-          />
-        </div>
-      </section>
 
       {/* ── 9. QR TRACKING SECTION ── */}
       <section className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto border-t border-slate-100">
