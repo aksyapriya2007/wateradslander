@@ -3,8 +3,6 @@ import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
 import ParticleText from "./components/ui/ParticleText"
 import LightTunnel from "./components/ui/LightTunnel"
 import {
-  ArrowRight,
-  ArrowLeft,
   Menu,
   QrCode,
   Building2,
@@ -14,17 +12,27 @@ import {
   Calculator,
   Droplet,
   Hexagon,
-  CircleDashed,
+  Layers,
   Triangle,
+  ArrowRight,
+  ArrowLeft,
+  CircleDashed,
   CloudRain,
   ShieldCheck,
   Cpu,
-  Layers,
   Plus,
   Minus,
   ArrowUpRight,
   Globe
 } from "lucide-react"
+
+import HeroSection from "./components/HeroSection"
+import EcosystemSection from "./components/EcosystemSection"
+import WaterCansTransition from "./components/WaterCansTransition"
+import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
+import WaterParticles from "./components/WaterParticles"
+import GradientWaves from "./components/GradientWaves"
+import FooterSection from "./components/FooterSection"
 
 // Simple CountUp Component
 function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
@@ -179,6 +187,32 @@ export default function App() {
         )}
       </AnimatePresence>
 
+      {/* Subtle Water Flow Background */}
+      <div className="fixed inset-0 z-0 pointer-events-none opacity-80">
+        <GradientWaves
+          horizonColor="#F8FAFC"
+          waveColor="#DBEAFE"
+          crestColor="#FFFFFF"
+          speed={0.25}
+          amplitude={1.2}
+          waveScale={0.7}
+          waveRatio={0.8}
+          swell={40}
+          turbulence={25}
+          tilt={1.3}
+          zoom={1.2}
+          height={6.0}
+          fogDepth={20}
+          detail="medium"
+          opacity={0.8}
+          mouseInteraction={true}
+          parallaxStrength={0.2}
+          grain={false}
+        />
+      </div>
+
+      {/* Ambient particles */}
+      <WaterParticles />
       {/* ── HEADER ── */}
       <header
         className={`fixed top-0 inset-x-0 z-50 bg-white/70 backdrop-blur-2xl transition-all duration-700 ${
@@ -222,56 +256,8 @@ export default function App() {
       {/* Spacer for fixed header */}
       <div className="h-32 md:h-40" />
 
-      {/* ── HERO SECTION ── */}
-      <section className="relative z-10 pt-12 pb-24 px-6 w-full mx-auto text-center flex flex-col items-center overflow-hidden">
-        
-        {/* Massive Text with Gradient Clipping */}
-        <motion.h1
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-          className="font-black text-[16vw] leading-[0.85] tracking-tighter uppercase"
-          style={{
-            backgroundImage: "linear-gradient(110deg, #1e3a8a 0%, #000000 25%, #2563eb 45%, #000000 65%, #60a5fa 90%)",
-            backgroundSize: "200% auto",
-            color: "transparent",
-            WebkitBackgroundClip: "text",
-            backgroundClip: "text",
-            animation: "gradientFlow 8s ease infinite"
-          }}
-        >
-          WATERADS
-        </motion.h1>
-
-        {/* Supporting Paragraph */}
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-          className="text-base sm:text-lg md:text-xl text-black font-semibold leading-relaxed max-w-2xl mt-12"
-        >
-          A seamless offline advertising network. We connect brands with printing presses, water plants, and distributors to build smart, trackable campaigns that scale.
-        </motion.p>
-
-        {/* Primary CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
-          className="mt-10"
-        >
-          <a
-            href="#planner"
-            className="bg-black hover:bg-neutral-800 text-white font-bold text-xs sm:text-sm uppercase tracking-widest px-10 py-4 rounded-full shadow-lg transition-all duration-200 cursor-pointer inline-block hover:scale-105"
-          >
-            Start a Campaign
-          </a>
-        </motion.div>
-
-      </section>
+      {/* ── NEW GSAP HERO SECTION ── */}
+      <HeroSection />
 
       {/* ── 7. TRUST / NETWORK STRIP (PARTNER LOGOS) ── */}
       <section className="relative z-10 py-24 px-6 w-full max-w-[1400px] mx-auto border-b border-slate-200/80">
@@ -358,173 +344,14 @@ export default function App() {
         </div>
       </section>
 
+      {/* ── NEW: WATER CANS TRANSITION ── */}
+      <WaterCansTransition />
+
       {/* ── 8. THE ECOSYSTEM GRAPH (CINEMATIC MARQUEE + REFLECTION) ── */}
-      <section id="ecosystem" className="relative z-10 bg-[#f4f4f5] py-32 md:py-48 overflow-hidden flex flex-col items-center justify-center min-h-screen">
-        
-        {/* Background Marquee Text */}
-        <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[200vw] flex z-0 pointer-events-none opacity-[0.03]">
-          <motion.div 
-            animate={{ x: ["0%", "-50%"] }}
-            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-            className="flex whitespace-nowrap"
-          >
-            <h2 className="text-[15vw] font-serif tracking-tighter leading-none text-black">
-              &nbsp;E C O S Y S T E M &nbsp;&middot;&nbsp; N E T W O R K &nbsp;&middot;&nbsp; E C O S Y S T E M &nbsp;&middot;&nbsp; N E T W O R K
-            </h2>
-          </motion.div>
-        </div>
+      <EcosystemSection />
 
-        {/* Background Mesh Gradient Orbs for Glassmorphism */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[500px] z-10 pointer-events-none opacity-50">
-          <motion.div 
-            animate={{ 
-              x: [0, 50, 0], 
-              y: [0, -30, 0],
-              scale: [1, 1.1, 1]
-            }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-[10%] left-[15%] w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-[80px]" 
-          />
-          <motion.div 
-            animate={{ 
-              x: [0, -40, 0], 
-              y: [0, 40, 0],
-              scale: [1, 1.2, 1]
-            }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-            className="absolute top-[20%] right-[15%] w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-[100px]" 
-          />
-          <motion.div 
-            animate={{ 
-              x: [0, 30, 0], 
-              y: [0, 20, 0],
-              scale: [1, 0.9, 1]
-            }}
-            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-            className="absolute -bottom-10 left-[40%] w-64 h-64 bg-sky-200 rounded-full mix-blend-multiply filter blur-[80px]" 
-          />
-        </div>
-
-        {/* Floating Ecosystem Card */}
-        <motion.div 
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="relative z-20 w-full max-w-5xl px-6 md:px-12 flex flex-col"
-        >
-          {/* The Card Itself */}
-          <motion.div 
-            animate={{ y: [-10, 10] }}
-            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-            className="w-full bg-white/60 backdrop-blur-3xl rounded-[2rem] md:rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-white/80 ring-1 ring-black/[0.03] p-10 md:p-20 relative overflow-hidden z-20"
-          >
-            {/* Subtle Noise Texture overlay */}
-            <div className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-overlay" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
-            
-            {/* Inner top/left highlight for 3D glass effect */}
-            <div className="absolute inset-0 rounded-[2rem] md:rounded-[3rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1),inset_1px_0_1px_rgba(255,255,255,0.8)] pointer-events-none" />
-
-            {/* Gradient Overlay for lighting */}
-            <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-white/40 to-white/10 pointer-events-none" />
-
-            {/* Header inside the card */}
-            <div className="text-center mb-16 md:mb-24 relative z-20">
-              <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
-                The Ecosystem
-              </h3>
-              <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-black leading-tight drop-shadow-sm">
-                A perfectly connected<br className="hidden md:block" /> offline network.
-              </h2>
-            </div>
-
-            {/* The Nodes Grid */}
-            <div className="relative w-full mx-auto mt-12 md:mt-20 mb-8 md:mb-12">
-              
-              {/* Animated Progress Line */}
-              <motion.div 
-                initial={{ width: "0%" }}
-                whileInView={{ width: "80%" }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="absolute top-[40px] left-[10%] h-[1px] bg-slate-300 hidden md:block origin-left z-0" 
-              />
-              <motion.div 
-                initial={{ height: "0%" }}
-                whileInView={{ height: "80%" }}
-                viewport={{ once: true }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-                className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[1px] bg-slate-300 md:hidden origin-top z-0" 
-              />
-              
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-0 relative z-10 w-full py-8 md:py-0">
-                {[
-                  { icon: Building2, title: "Brands", desc: "Initiate targeted local campaigns." },
-                  { icon: Printer, title: "Printing Press", desc: "Produces serialized label rolls." },
-                  { icon: Factory, title: "Water Plant", desc: "Bottles and applies labels." },
-                  { icon: Truck, title: "Distributors", desc: "Deliver to target consumer zones." },
-                ].map((node, i) => (
-                  <motion.div 
-                    key={i}
-                    initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                    whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.15 }}
-                    className="flex flex-col items-center text-center relative"
-                  >
-                    <div className="w-20 h-20 relative z-10 mb-6">
-                      <div className="absolute inset-0 rounded-full bg-white/90 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,1)] border border-white/60 flex items-center justify-center text-slate-500 transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] hover:text-blue-500">
-                        <node.icon className="w-6 h-6" strokeWidth={1.25} />
-                      </div>
-                    </div>
-                    <div>
-                      <h4 className="text-[17px] font-bold text-[#111827] mb-2">{node.title}</h4>
-                      <p className="text-[13px] font-medium text-[#64748b] px-4 max-w-[200px] mx-auto leading-relaxed">{node.desc}</p>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Reflection */}
-          <div 
-            className="w-full h-[250px] md:h-[350px] mt-2 relative pointer-events-none opacity-30 select-none overflow-hidden z-0"
-            style={{
-              maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 80%)",
-              WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 80%)"
-            }}
-          >
-            <motion.div 
-              animate={{ y: [10, -10] }}
-              transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-              className="absolute top-0 left-0 right-0"
-              style={{ transform: "scaleY(-1)" }}
-            >
-               {/* Reflection fake card */}
-               <div className="w-full bg-white/40 rounded-[2rem] md:rounded-[3rem] p-10 md:p-20 blur-[4px] border border-white/50">
-                 <div className="text-center mb-16 md:mb-24 relative z-20 opacity-80">
-                   <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">The Ecosystem</h3>
-                   <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-black leading-tight">
-                     A perfectly connected<br className="hidden md:block" /> offline network.
-                   </h2>
-                 </div>
-                 <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-0 mt-12 md:mt-20 mb-8 md:mb-12 relative opacity-50">
-                    <div className="absolute top-[40px] left-[10%] w-[80%] h-[1px] bg-slate-300 hidden md:block" />
-                    {[1,2,3,4].map((i) => (
-                      <div key={i} className="flex flex-col items-center">
-                        <div className="w-20 h-20 rounded-full bg-white/80 border border-white/50 mb-6" />
-                        <div className="w-24 h-5 bg-slate-300/50 rounded mb-2" />
-                        <div className="w-32 h-3 bg-slate-200/50 rounded" />
-                      </div>
-                    ))}
-                 </div>
-               </div>
-            </motion.div>
-          </div>
-
-        </motion.div>
-      </section>
+      {/* ── NEW: DELIVERY TRUCK TRANSITION ── */}
+      <DeliveryVehicleTransition />
 
       {/* ── 8.5 PROCESS FLOW SECTION ── */}
       <section className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto bg-white">
@@ -772,114 +599,116 @@ export default function App() {
       </section>
 
       {/* ── 10. AI CAMPAIGN PLANNER WIDGET ── */}
-      <section id="planner" className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto">
-        <div className="bg-[#0a0a0a] text-white p-8 md:p-16 lg:p-24 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] border border-[#222] flex flex-col items-center">
-          
-          <div className="text-center max-w-2xl w-full mx-auto space-y-4 mb-20">
-            <div className="inline-flex items-center gap-2 mb-4">
-              <Calculator className="w-4 h-4 text-white" />
-              <span className="text-[10px] font-bold text-white uppercase tracking-widest">
-                Interactive Calculator
-              </span>
+      {false && (
+        <section id="planner" className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto">
+          <div className="bg-[#0a0a0a] text-white p-8 md:p-16 lg:p-24 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.5)] border border-[#222] flex flex-col items-center">
+            
+            <div className="text-center max-w-2xl w-full mx-auto space-y-4 mb-20">
+              <div className="inline-flex items-center gap-2 mb-4">
+                <Calculator className="w-4 h-4 text-white" />
+                <span className="text-[10px] font-bold text-white uppercase tracking-widest">
+                  Interactive Calculator
+                </span>
+              </div>
+              <h2 className="text-5xl sm:text-6xl md:text-[80px] font-black tracking-tighter leading-[0.9] uppercase text-white">
+                PLAN YOUR<br />CAMPAIGN
+              </h2>
+              <p className="text-sm md:text-base font-semibold text-gray-400 mt-6">
+                Estimate your reach, cost efficiency, and attribution projection instantly.
+              </p>
             </div>
-            <h2 className="text-5xl sm:text-6xl md:text-[80px] font-black tracking-tighter leading-[0.9] uppercase text-white">
-              PLAN YOUR<br />CAMPAIGN
-            </h2>
-            <p className="text-sm md:text-base font-semibold text-gray-400 mt-6">
-              Estimate your reach, cost efficiency, and attribution projection instantly.
-            </p>
-          </div>
 
-          <div className="w-full max-w-5xl">
-            {/* Controls Grid */}
-            <div className="grid md:grid-cols-3 gap-12 md:gap-16 border-t border-b border-white/10 py-12 mb-12">
-              
-              {/* Field 1: Target Area */}
-              <div className="flex flex-col gap-4">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block">Target Region</label>
-                <select 
-                  value={targetArea} 
-                  onChange={(e) => setTargetArea(e.target.value)}
-                  className="w-full bg-transparent border-b border-white/20 pb-3 text-lg md:text-xl font-bold text-white focus:outline-none focus:border-white appearance-none cursor-pointer rounded-none"
-                >
-                  <option value="Metropolitan Hubs" className="text-black">Metropolitan Hubs</option>
-                  <option value="Tech Parks & IT Hubs" className="text-black">Tech Parks & IT Hubs</option>
-                  <option value="Universities & Colleges" className="text-black">Universities & Colleges</option>
-                  <option value="Events & Conferences" className="text-black">Events & Conferences</option>
-                </select>
+            <div className="w-full max-w-5xl">
+              {/* Controls Grid */}
+              <div className="grid md:grid-cols-3 gap-12 md:gap-16 border-t border-b border-white/10 py-12 mb-12">
+                
+                {/* Field 1: Target Area */}
+                <div className="flex flex-col gap-4">
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block">Target Region</label>
+                  <select 
+                    value={targetArea} 
+                    onChange={(e) => setTargetArea(e.target.value)}
+                    className="w-full bg-transparent border-b border-white/20 pb-3 text-lg md:text-xl font-bold text-white focus:outline-none focus:border-white appearance-none cursor-pointer rounded-none"
+                  >
+                    <option value="Metropolitan Hubs" className="text-black">Metropolitan Hubs</option>
+                    <option value="Tech Parks & IT Hubs" className="text-black">Tech Parks & IT Hubs</option>
+                    <option value="Universities & Colleges" className="text-black">Universities & Colleges</option>
+                    <option value="Events & Conferences" className="text-black">Events & Conferences</option>
+                  </select>
+                </div>
+
+                {/* Field 2: Can Quantity */}
+                <div className="flex flex-col gap-4">
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block flex justify-between">
+                    <span>Number of Cans</span>
+                    <span className="text-white font-black">{canCount.toLocaleString()}</span>
+                  </label>
+                  <div className="relative pt-2">
+                    <input 
+                      type="range" 
+                      min="10000" 
+                      max="250000" 
+                      step="5000"
+                      value={canCount}
+                      onChange={(e) => setCanCount(Number(e.target.value))}
+                      className="w-full h-1 bg-white/20 rounded-none appearance-none cursor-pointer accent-white"
+                    />
+                  </div>
+                </div>
+
+                {/* Field 3: Duration */}
+                <div className="flex flex-col gap-4">
+                  <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block flex justify-between">
+                    <span>Duration</span>
+                    <span className="text-white font-black">{duration} Days</span>
+                  </label>
+                  <div className="relative pt-2">
+                    <input 
+                      type="range" 
+                      min="7" 
+                      max="90" 
+                      step="7"
+                      value={duration}
+                      onChange={(e) => setDuration(Number(e.target.value))}
+                      className="w-full h-1 bg-white/20 rounded-none appearance-none cursor-pointer accent-white"
+                    />
+                  </div>
+                </div>
+
               </div>
 
-              {/* Field 2: Can Quantity */}
-              <div className="flex flex-col gap-4">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block flex justify-between">
-                  <span>Number of Cans</span>
-                  <span className="text-white font-black">{canCount.toLocaleString()}</span>
-                </label>
-                <div className="relative pt-2">
-                  <input 
-                    type="range" 
-                    min="10000" 
-                    max="250000" 
-                    step="5000"
-                    value={canCount}
-                    onChange={(e) => setCanCount(Number(e.target.value))}
-                    className="w-full h-1 bg-white/20 rounded-none appearance-none cursor-pointer accent-white"
-                  />
+              {/* Results Output Cards */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-16">
+                <div className="flex flex-col border-l-2 border-white/20 pl-4">
+                  <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-2">BUDGET</span>
+                  <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">${estBudget.toLocaleString()}</span>
+                </div>
+
+                <div className="flex flex-col border-l-2 border-white/20 pl-4">
+                  <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-2">IMPRESSIONS</span>
+                  <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">{estImpressions.toLocaleString()}</span>
+                </div>
+
+                <div className="flex flex-col border-l-2 border-white/20 pl-4">
+                  <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-2">SCANS</span>
+                  <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">{estScans.toLocaleString()}</span>
+                </div>
+
+                <div className="flex flex-col border-l-2 border-white/20 pl-4">
+                  <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-2">COST / SCAN</span>
+                  <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">${estCostPerScan}</span>
                 </div>
               </div>
 
-              {/* Field 3: Duration */}
-              <div className="flex flex-col gap-4">
-                <label className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block flex justify-between">
-                  <span>Duration</span>
-                  <span className="text-white font-black">{duration} Days</span>
-                </label>
-                <div className="relative pt-2">
-                  <input 
-                    type="range" 
-                    min="7" 
-                    max="90" 
-                    step="7"
-                    value={duration}
-                    onChange={(e) => setDuration(Number(e.target.value))}
-                    className="w-full h-1 bg-white/20 rounded-none appearance-none cursor-pointer accent-white"
-                  />
-                </div>
+              <div className="text-center">
+                <button className="bg-white text-black font-black uppercase tracking-widest text-[11px] px-12 py-5 hover:bg-gray-200 transition-colors inline-flex items-center gap-2">
+                  GENERATE ESTIMATE <ArrowRight className="w-3.5 h-3.5" />
+                </button>
               </div>
-
-            </div>
-
-            {/* Results Output Cards */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 mb-16">
-              <div className="flex flex-col border-l-2 border-white/20 pl-4">
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-2">BUDGET</span>
-                <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">${estBudget.toLocaleString()}</span>
-              </div>
-
-              <div className="flex flex-col border-l-2 border-white/20 pl-4">
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-2">IMPRESSIONS</span>
-                <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">{estImpressions.toLocaleString()}</span>
-              </div>
-
-              <div className="flex flex-col border-l-2 border-white/20 pl-4">
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-2">SCANS</span>
-                <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">{estScans.toLocaleString()}</span>
-              </div>
-
-              <div className="flex flex-col border-l-2 border-white/20 pl-4">
-                <span className="text-[10px] font-bold text-gray-500 uppercase tracking-widest block mb-2">COST / SCAN</span>
-                <span className="text-3xl md:text-4xl font-black text-white tracking-tighter">${estCostPerScan}</span>
-              </div>
-            </div>
-
-            <div className="text-center">
-              <button className="bg-white text-black font-black uppercase tracking-widest text-[11px] px-12 py-5 hover:bg-gray-200 transition-colors inline-flex items-center gap-2">
-                GENERATE ESTIMATE <ArrowRight className="w-3.5 h-3.5" />
-              </button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── 11. PARTNER SECTION (BENTO BOX) ── */}
       <section id="partners" className="relative z-10 py-32 px-4 md:px-8 max-w-[1600px] mx-auto">
@@ -1224,37 +1053,37 @@ export default function App() {
       </section>
 
       {/* ── 13. FINAL CLOSING CTA (MINIMALIST) ── */}
-      <section className="relative z-10 py-32 md:py-48 px-6 max-w-4xl mx-auto text-center bg-white border-t border-slate-100">
+      <section className="relative z-10 w-full py-32 md:py-48 px-6 text-center bg-white flex justify-center items-center">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true }}
-          className="flex flex-col items-center justify-center space-y-8"
+          className="flex flex-col items-center justify-center max-w-4xl mx-auto"
         >
-          <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
+          <span className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-[0.2em] mb-6">
             Ready to Start?
           </span>
           
-          <h2 className="text-5xl sm:text-6xl md:text-[80px] font-black tracking-tighter leading-none text-black uppercase">
+          <h2 className="text-6xl md:text-[96px] font-black tracking-tighter leading-[0.85] text-[#111] uppercase mb-8">
             CONNECT YOUR<br />BRAND OR PLANT
           </h2>
           
-          <p className="text-sm md:text-base font-semibold text-slate-800 max-w-md mx-auto leading-relaxed">
-            Join hundreds of active advertisers and bottling plants generating real-time offline scan engagements today.
+          <p className="text-base md:text-xl font-bold text-slate-600 max-w-2xl mx-auto leading-relaxed mb-12">
+            Join hundreds of active advertisers and bottling plants<br className="hidden sm:block" /> generating real-time offline scan engagements today.
           </p>
 
-          <div className="mt-4 flex flex-col sm:flex-row items-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center gap-4 w-full sm:w-auto">
             <a
               href="#contact"
-              className="bg-black hover:bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-widest px-10 py-4 rounded-full shadow-md transition-all duration-200 cursor-pointer inline-flex items-center justify-center gap-2 hover:shadow-lg hover:scale-105 min-w-[220px]"
+              className="w-full sm:w-auto bg-black hover:bg-neutral-800 text-white font-bold text-[11px] uppercase tracking-widest px-8 py-5 rounded-full shadow-lg transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 hover:shadow-xl hover:scale-105 min-w-[240px]"
             >
-              GET STARTED FREE <ArrowRight className="w-3.5 h-3.5" />
+              GET STARTED FREE <ArrowRight className="w-4 h-4" />
             </a>
             
             <a
               href="#login"
-              className="bg-white border border-slate-200 hover:bg-slate-50 text-slate-800 font-bold text-[10px] uppercase tracking-widest px-10 py-4 rounded-full transition-all duration-200 cursor-pointer inline-flex items-center justify-center hover:shadow-sm min-w-[220px]"
+              className="w-full sm:w-auto bg-white border border-slate-200 hover:bg-slate-50 text-[#111] font-bold text-[11px] uppercase tracking-widest px-8 py-5 rounded-full transition-all duration-200 cursor-pointer flex items-center justify-center hover:shadow-md min-w-[240px]"
             >
               SIGN IN TO ACCOUNT
             </a>
@@ -1263,131 +1092,7 @@ export default function App() {
       </section>
 
       {/* ── FOOTER ── */}
-      <footer className="relative z-10 w-full bg-white pt-24 pb-8 overflow-hidden">
-        
-        {/* Giant Logo Mask - Full Bleed */}
-        <div className="w-full mb-20 overflow-hidden select-none px-4 md:px-12">
-          <h2 
-            className="text-[18vw] font-black tracking-tighter leading-[0.8] text-center"
-            style={{
-              backgroundImage: 'linear-gradient(110deg, #1e3a8a 0%, #000000 25%, #2563eb 45%, #000000 65%, #60a5fa 90%)',
-              backgroundSize: '200% auto',
-              WebkitBackgroundClip: 'text',
-              color: 'transparent',
-              animation: 'gradientFlow 8s ease infinite'
-            }}
-          >
-            WATERADS
-          </h2>
-        </div>
-
-        <div className="w-full px-6 md:px-12 max-w-[1400px] mx-auto">
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 lg:gap-32">
-            
-            {/* Left Column: Newsletter + Contact */}
-            <div className="flex flex-col justify-between">
-              
-              <div className="max-w-md">
-                <h3 className="text-[26px] md:text-[32px] font-semibold text-[#111] tracking-tight leading-[1.1] mb-12">
-                  Subscribe for new projects and insights, once a month.
-                </h3>
-                <form className="border-b border-gray-300 pb-3 flex items-center justify-between">
-                  <input 
-                    type="email" 
-                    placeholder="Your email address" 
-                    className="w-full bg-transparent text-sm font-medium text-black placeholder:text-gray-500 outline-none"
-                  />
-                  <button type="button" className="text-[11px] font-bold text-black uppercase tracking-widest flex items-center gap-1 shrink-0 ml-4 hover:opacity-60 transition-opacity">
-                    SUBMIT <ArrowUpRight className="w-3 h-3" />
-                  </button>
-                </form>
-              </div>
-
-              {/* Desktop Contact (hidden on mobile to move it below Nav) */}
-              <div className="hidden lg:flex flex-col gap-2 mt-40">
-                <a href="mailto:HELLO@WATERADS.ORG" className="text-[11px] font-bold text-[#111] hover:text-blue-600 transition-colors uppercase tracking-widest">HELLO@WATERADS.ORG</a>
-                <a href="tel:+15550123456" className="text-[11px] font-bold text-[#111] hover:text-blue-600 transition-colors uppercase tracking-widest">WHATSAPP +1 555 012 3456</a>
-              </div>
-
-            </div>
-
-            {/* Right Column: Solutions + Nav Links */}
-            <div className="flex flex-col justify-between">
-              
-              <div className="flex flex-col w-full xl:max-w-xl">
-                {[
-                  { name: "Brand Advertisers", tag: "Kyzenn", icon: <Building2 className="w-5 h-5 text-white" />, bg: "bg-blue-400" },
-                  { name: "Water Bottling Plants", tag: "Cardo Holdings", icon: <Factory className="w-5 h-5 text-white" />, bg: "bg-slate-900" },
-                  { name: "Printing Press Partners", tag: "Baladi", icon: <Printer className="w-5 h-5 text-white" />, bg: "bg-emerald-600" }
-                ].map((item, i) => (
-                  <a key={i} href="#" className="group flex flex-col sm:flex-row sm:items-center justify-between py-6 border-b border-gray-100 hover:opacity-70 transition-opacity gap-4 sm:gap-0">
-                    <div className="flex items-center gap-6">
-                      <div className={`w-12 h-12 rounded-xl ${item.bg} flex items-center justify-center shadow-inner shrink-0`}>
-                        {item.icon}
-                      </div>
-                      <span className="text-sm font-bold text-[#111]">{item.name}</span>
-                    </div>
-                    <div className="flex items-center gap-1 text-[11px] font-bold text-[#111] uppercase tracking-widest shrink-0">
-                      VIEW PROJECT <ArrowRight className="w-3.5 h-3.5" />
-                    </div>
-                  </a>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap sm:flex-nowrap gap-12 sm:gap-16 xl:gap-32 mt-20 lg:mt-40">
-                <div className="flex flex-col gap-4">
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">B2B OFFLINE DESIGN</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">FINANCIAL SERVICES</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">FRAMER WEB DESIGN</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">PROJECTS</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">SOLUTIONS</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">INDUSTRIES</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">SERVICES</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">WORKFLOW</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">ENGAGEMENTS</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">BLOG</a>
-                </div>
-                <div className="flex flex-col gap-4">
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">CONTACT</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">PRIVACY POLICY</a>
-                  <a href="#" className="text-[11px] font-bold text-[#111] uppercase tracking-widest hover:opacity-60 transition-opacity">TERMS OF USE</a>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Mobile Contact (Shows under Nav links on small screens) */}
-            <div className="flex lg:hidden flex-col gap-2 mt-8">
-              <a href="mailto:HELLO@WATERADS.ORG" className="text-[11px] font-bold text-[#111] hover:text-blue-600 transition-colors uppercase tracking-widest">HELLO@WATERADS.ORG</a>
-              <a href="tel:+15550123456" className="text-[11px] font-bold text-[#111] hover:text-blue-600 transition-colors uppercase tracking-widest">WHATSAPP +1 555 012 3456</a>
-            </div>
-
-          </div>
-
-          {/* Very Bottom Copyright & Social */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-8 mt-12 border-t border-gray-200">
-            <div className="flex flex-wrap items-center gap-3 text-[11px] font-bold text-[#111] uppercase tracking-widest">
-              <span>© 2026 WATERADS</span>
-              <a href="#" className="border-b border-[#111] hover:text-blue-600 hover:border-blue-600 transition-all">OFFICIAL NETWORK EXPERT</a>
-              <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-              <a href="#" className="border-b border-[#111] hover:text-blue-600 hover:border-blue-600 transition-all">PLATFORM REVIEWS</a>
-              <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-              <a href="#" className="border-b border-[#111] hover:text-blue-600 hover:border-blue-600 transition-all">API</a>
-            </div>
-
-            {/* Social Icons without lucide components to avoid the error */}
-            <div className="flex items-center gap-6 text-[11px] font-bold text-[#111] uppercase tracking-widest">
-              <a href="#" className="hover:opacity-60 transition-opacity">BE</a>
-              <a href="#" className="hover:opacity-60 transition-opacity">IG</a>
-              <a href="#" className="hover:opacity-60 transition-opacity">X</a>
-              <a href="#" className="hover:opacity-60 transition-opacity">IN</a>
-              <Globe className="w-4 h-4 ml-2" />
-            </div>
-          </div>
-
-        </div>
-      </footer>
+      <FooterSection />
 
     </div>
   )
