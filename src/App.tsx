@@ -135,7 +135,7 @@ export default function App() {
             <a href="#roi" className="hover:text-blue-600 transition-colors">ROI Calculator</a>
             <a href="#ecosystem" className="hover:text-blue-600 transition-colors">Personas</a>
             <a href="#how-it-works" className="hover:text-blue-600 transition-colors">How It Works</a>
-            <a href="#pricing" className="hover:text-blue-600 transition-colors">Pricing</a>
+
           </nav>
 
           {/* RIGHT: Actions */}
@@ -972,138 +972,6 @@ export default function App() {
         </div>
       </section>
 
-      {/* ── 12. PRICING / ENGAGEMENTS (TABELA STYLE) ── */}
-      <section id="pricing" className="relative z-10 py-32 px-4 md:px-8 max-w-[1600px] mx-auto bg-white overflow-hidden">
-        
-        {/* Background Abstract Circles */}
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] pointer-events-none opacity-40 translate-x-1/4 -translate-y-1/4">
-          <svg viewBox="0 0 200 200" className="w-full h-full text-[#d4e157]">
-            <circle cx="150" cy="50" r="80" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            <circle cx="120" cy="120" r="60" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            <path d="M20 150 Q 100 0 180 150" fill="none" stroke="currentColor" strokeWidth="0.5" />
-            <path d="M100 200 Q 180 100 200 50" fill="none" stroke="currentColor" strokeWidth="0.5" />
-          </svg>
-        </div>
-
-        {/* Header */}
-        <div className="max-w-3xl mb-24 relative z-10 md:ml-8 mt-12">
-          <h2 className="text-5xl sm:text-6xl md:text-[80px] font-medium text-black leading-[1.05] tracking-tight">
-            Discover Plans To Cater To Your Unique Needs
-          </h2>
-        </div>
-
-        {/* 3 Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-[1400px] mx-auto relative z-10">
-          
-          {/* Card 1: Starter */}
-          <div className="relative bg-[#f4f4f4] rounded-[40px] flex flex-col min-h-[640px] overflow-hidden">
-            <div className="p-10 md:p-12 flex-1">
-              <h3 className="text-3xl font-medium text-black mb-10">Starter Plan</h3>
-              <ul className="space-y-6">
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#444" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-700 leading-relaxed">Ideal for regional brand testing and pilots</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#444" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-700 leading-relaxed">Up to 25,000 bottles with single-city targeting</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#444" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-700 leading-relaxed">Core QR analytics and automated performance reports</span>
-                </li>
-              </ul>
-            </div>
-            
-            {/* Cutout Divider */}
-            <div className="relative h-px w-full">
-              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-16 bg-white rounded-full"></div>
-              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-16 bg-white rounded-full"></div>
-            </div>
-
-            <div className="p-10 md:p-12 pb-16 h-[240px] flex flex-col justify-end">
-              <div className="text-5xl md:text-6xl font-medium text-black">$0.15</div>
-              <div className="text-xl font-medium text-black mt-3">/Bottle</div>
-            </div>
-          </div>
-
-          {/* Card 2: Growth */}
-          <div className="relative bg-[#444444] rounded-[40px] flex flex-col min-h-[640px] overflow-hidden transform md:-translate-y-6 shadow-2xl">
-            <div className="p-10 md:p-12 flex-1">
-              <h3 className="text-3xl font-medium text-white mb-10">Growth Plan</h3>
-              <ul className="space-y-6">
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-200 leading-relaxed">Designed for multi-city campaign scaling</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-200 leading-relaxed">Up to 250,000 bottles with advanced geolocation features</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="white" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-200 leading-relaxed">Unlock real-time heatmaps to optimize ad placement</span>
-                </li>
-              </ul>
-            </div>
-            
-            {/* Cutout Divider */}
-            <div className="relative h-px w-full">
-              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-16 bg-white rounded-full"></div>
-              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-16 bg-white rounded-full"></div>
-            </div>
-
-            <div className="p-10 md:p-12 pb-16 h-[240px] flex flex-col justify-end">
-              <div className="relative inline-block self-start mb-3">
-                 <div className="absolute -top-10 -right-8 text-[#d4e157] font-medium italic text-lg -rotate-[12deg] whitespace-nowrap">
-                    Most popular!
-                 </div>
-                 <span className="text-5xl md:text-[64px] font-medium text-white relative z-10 block leading-none">$0.10</span>
-                 <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[140%] h-[160%] text-[#d4e157] pointer-events-none" viewBox="0 0 100 40" preserveAspectRatio="none">
-                    <path d="M10,20 C10,5 90,5 90,20 C90,35 10,35 10,20 Z" fill="none" stroke="currentColor" strokeWidth="1" />
-                    <path d="M15,20 C15,8 85,8 85,20 C85,32 15,32 15,20 Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
-                 </svg>
-              </div>
-              <div className="text-xl font-medium text-white">/Bottle</div>
-            </div>
-          </div>
-
-          {/* Card 3: Enterprise */}
-          <div className="relative bg-[#f4f4f4] rounded-[40px] flex flex-col min-h-[640px] overflow-hidden">
-            <div className="p-10 md:p-12 flex-1">
-              <h3 className="text-3xl font-medium text-black mb-10">Enterprise Plan</h3>
-              <ul className="space-y-6">
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#444" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-700 leading-relaxed">Tailored for large-scale national operations</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#444" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-700 leading-relaxed">1,000,000+ volume with dedicated account manager</span>
-                </li>
-                <li className="flex items-start gap-4">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="#444" className="shrink-0 mt-1"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>
-                  <span className="text-[15px] font-medium text-gray-700 leading-relaxed">Comprehensive suite of API and webhook tools for seamless integration</span>
-                </li>
-              </ul>
-            </div>
-            
-            {/* Cutout Divider */}
-            <div className="relative h-px w-full">
-              <div className="absolute top-1/2 -translate-y-1/2 -left-8 w-16 h-16 bg-white rounded-full"></div>
-              <div className="absolute top-1/2 -translate-y-1/2 -right-8 w-16 h-16 bg-white rounded-full"></div>
-            </div>
-
-            <div className="p-10 md:p-12 pb-16 h-[240px] flex flex-col justify-end">
-              <div className="text-[40px] md:text-5xl font-medium text-black mb-8 leading-none">Custom Pricing</div>
-              <a href="#contact" className="inline-flex items-center justify-center border border-black rounded-full px-8 py-3 text-[15px] font-medium text-black hover:bg-black hover:text-white transition-colors self-start">
-                Contact Us
-              </a>
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       {/* ── 12.5 TESTIMONIALS (TABELA STYLE) ── */}
       <section id="testimonials" className="relative z-10 py-32 px-4 md:px-8 max-w-[1600px] mx-auto">
