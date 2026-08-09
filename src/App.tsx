@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import ParticleText from "./components/ui/ParticleText"
 import {
   ArrowRight,
   ArrowLeft,
@@ -81,6 +82,7 @@ const faqs = [
 ];
 
 export default function App() {
+  const [showLoader, setShowLoader] = useState(true)
   const [isLoaded, setIsLoaded] = useState(false)
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null)
 
@@ -92,8 +94,12 @@ export default function App() {
   const [duration, setDuration] = useState(30)
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 50)
-    return () => clearTimeout(timer)
+    const timer1 = setTimeout(() => setIsLoaded(true), 50)
+    const timer2 = setTimeout(() => setShowLoader(false), 3800)
+    return () => {
+      clearTimeout(timer1)
+      clearTimeout(timer2)
+    }
   }, [])
 
   // Calculations for Planner
@@ -105,6 +111,39 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#F7FAFD] text-[#0F172A] font-sans selection:bg-slate-800 selection:text-white relative overflow-x-hidden">
       
+      {/* ── LOADER OVERLAY ── */}
+      <AnimatePresence>
+        {showLoader && (
+          <motion.div
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-[#09090f]"
+          >
+            <div className="w-full h-full flex items-center justify-center max-w-[90vw]">
+              <ParticleText
+                text="WATERADS"
+                particleSize={2.5}
+                density={4}
+                color="#2563eb" // Bright blue
+                highlightColor="#0f172a" // Dark slate
+                scatter={180}
+                gatherDuration={1600}
+                stagger={420}
+                pointerRepel={40}
+                repelRadius={120}
+                idleDrift={0.7}
+                trigger="mount"
+                fontSize="clamp(3rem, 15vw, 12rem)"
+                fontWeight={900}
+                fontFamily="inherit"
+                glow={true}
+              />
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ── HEADER ── */}
       <header
         className={`fixed top-0 inset-x-0 z-50 bg-white/70 backdrop-blur-2xl transition-all duration-700 ${
