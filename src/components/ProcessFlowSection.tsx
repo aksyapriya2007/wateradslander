@@ -140,6 +140,11 @@ export default function ProcessFlowSection() {
         scrub: 1,
         pin: true,
         anticipatePin: 1,
+        snap: {
+          snapTo: 1 / (steps.length - 1),
+          duration: 0.5,
+          ease: "power1.inOut"
+        }
       }
     });
 
@@ -205,17 +210,17 @@ export default function ProcessFlowSection() {
         <div className="relative w-full h-full">
           {/* Back Wave (slower, cyan) */}
           <div className="absolute bottom-0 left-0 w-[200%] h-full flex items-end animate-[wave-move_12s_linear_infinite]">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-full fill-cyan-400 opacity-40">
+            <svg viewBox="0 0 2400 120" preserveAspectRatio="none" className="w-full h-full fill-cyan-400 opacity-40">
               <path d="M0,40 C150,80 350,0 600,40 C850,80 1050,0 1200,40 L1200,120 L0,120 Z"></path>
-              <path d="M1200,40 C1350,80 1550,0 1800,40 C2050,80 2250,0 2400,40 L2400,120 L1200,120 Z" transform="translate(1200, 0)"></path>
+              <path d="M1200,40 C1350,80 1550,0 1800,40 C2050,80 2250,0 2400,40 L2400,120 L1200,120 Z"></path>
             </svg>
           </div>
 
           {/* Front Wave (faster, sky blue) */}
           <div className="absolute bottom-0 left-0 w-[200%] h-[80%] flex items-end animate-[wave-move_8s_linear_infinite_reverse]">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="w-full h-full fill-sky-500 opacity-60">
+            <svg viewBox="0 0 2400 120" preserveAspectRatio="none" className="w-full h-full fill-sky-500 opacity-60">
               <path d="M0,60 C200,120 400,0 600,60 C800,120 1000,0 1200,60 L1200,120 L0,120 Z"></path>
-              <path d="M1200,60 C1400,120 1600,0 1800,60 C2000,120 2200,0 2400,60 L2400,120 L1200,120 Z" transform="translate(1200, 0)"></path>
+              <path d="M1200,60 C1400,120 1600,0 1800,60 C2000,120 2200,0 2400,60 L2400,120 L1200,120 Z"></path>
             </svg>
           </div>
           
