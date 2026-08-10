@@ -93,7 +93,7 @@ export default function EcosystemSection() {
             <div 
               className="absolute left-0 w-[200%] h-[40px] md:h-[60px] opacity-70 mix-blend-multiply top-0" 
               style={{ 
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C52.16,108.9,106.33,116.1,160.85,115.3,215.38,114.5,269.83,106.7,321.39,56.44Z\' fill=\'%23bae6fd\'/%3E%3C/svg%3E")',
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M0,50 C200,100 400,0 600,50 C800,100 1000,0 1200,50 L1200,120 L0,120 Z\' fill=\'%23bae6fd\'/%3E%3C/svg%3E")',
                 backgroundSize: '50% 100%',
                 animation: 'wave-move 12s linear infinite'
               }}
@@ -102,7 +102,7 @@ export default function EcosystemSection() {
             <div 
               className="absolute left-0 w-[200%] h-[50px] md:h-[70px] opacity-50 mix-blend-multiply top-[5px]" 
               style={{ 
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z\' fill=\'%237dd3fc\'/%3E%3C/svg%3E")',
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M0,70 C250,10 350,130 600,70 C850,10 950,130 1200,70 L1200,120 L0,120 Z\' fill=\'%237dd3fc\'/%3E%3C/svg%3E")',
                 backgroundSize: '50% 100%',
                 animation: 'wave-move 8s linear infinite reverse'
               }}
