@@ -35,7 +35,8 @@ const BlurText = ({
       ([entry]) => {
         if (entry.isIntersecting) {
           setInView(true);
-          observer.unobserve(ref.current);
+        } else {
+          setInView(false);
         }
       },
       { threshold, rootMargin }
