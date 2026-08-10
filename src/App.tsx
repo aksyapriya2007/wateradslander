@@ -206,9 +206,9 @@ export default function App() {
             </div>
             
             <h2 className="text-5xl sm:text-6xl md:text-[72px] font-black tracking-tighter text-slate-900 leading-[0.9] uppercase mb-8">
-              <span className="text-cyan-500">EVERY CAN.</span><br />
-              <span className="text-blue-500">EVERY SCAN.</span><br />
-              <span className="text-sky-500">MEASURABLE.</span>
+              <span className="text-slate-900">EVERY CAN.</span><br />
+              <span className="text-slate-900">EVERY SCAN.</span><br />
+              <span className="text-blue-600">MEASURABLE.</span>
             </h2>
             
             <p className="text-sm md:text-base font-medium text-slate-600 max-w-md leading-relaxed mb-16">
@@ -446,9 +446,9 @@ export default function App() {
           {/* Header Row */}
           <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16 lg:mb-24">
             <h2 className="text-5xl sm:text-6xl md:text-[80px] font-black tracking-tighter text-[#111] leading-[0.9] uppercase max-w-4xl relative">
-              <span className="text-cyan-500">BUILT FOR</span> <span className="text-blue-500">EVERY</span><br />
-              <span className="relative z-10 text-sky-500">PARTICIPANT.</span>
-              <div className="absolute -inset-4 border-2 border-sky-300 rounded-[50%] -rotate-2 opacity-30 pointer-events-none" />
+              <span className="text-slate-900">BUILT FOR EVERY</span><br />
+              <span className="relative z-10 text-blue-600">PARTICIPANT.</span>
+              <div className="absolute -inset-4 border-2 border-blue-200 rounded-[50%] -rotate-2 opacity-50 pointer-events-none" />
             </h2>
             
             <div className="max-w-xs mt-4 lg:mt-0 shrink-0">
