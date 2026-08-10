@@ -20,7 +20,7 @@ import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
-import ScrollStack, { ScrollStackItem } from "./components/ui/ScrollStack"
+import ProcessFlowSection from "./components/ProcessFlowSection"
 
 // Simple CountUp Component
 function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
@@ -95,7 +95,7 @@ export default function App() {
   const estCostPerScan = (estBudget / estScans).toFixed(2)
 
   return (
-    <div className="min-h-screen bg-[#F7FAFD] text-[#0F172A] font-sans selection:bg-slate-800 selection:text-white relative overflow-x-hidden">
+    <div className="min-h-screen bg-[#FAFAFA] text-[#111] font-sans selection:bg-sky-500 selection:text-white relative overflow-x-hidden">
       
       {/* ── SPLASH SCREEN ── */}
       <AnimatePresence>
@@ -130,40 +130,38 @@ export default function App() {
       
       {/* ── HEADER ── */}
       <header
-        className={`fixed top-0 inset-x-0 z-50 bg-white/70 backdrop-blur-2xl transition-all duration-700 ${
-          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
+        className={`fixed top-4 inset-x-4 md:top-6 md:inset-x-8 z-50 transition-all duration-700 flex justify-center pointer-events-none ${
+          isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
         }`}
       >
-        <div className="w-full px-6 md:px-12 h-24 flex items-center justify-between">
+        <div className="w-full max-w-[1400px] h-16 md:h-20 px-6 md:px-8 flex items-center justify-between bg-white/80 backdrop-blur-xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.06)] rounded-full pointer-events-auto">
           
           {/* LEFT: Branding */}
-          <a href="#" className="flex items-center gap-4">
-            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" className="shrink-0">
-              <path fillRule="evenodd" clipRule="evenodd" d="M12 8C12 5.79086 13.7909 4 16 4H24C26.2091 4 28 5.79086 28 8V16H12V8ZM12 24H28V32C28 34.2091 26.2091 36 24 36H16C13.7909 36 12 34.2091 12 32V24ZM4 16C4 13.7909 5.79086 12 8 12H10V18C10 19.1046 10.8954 20 12 20H28C29.1046 20 30 19.1046 30 18V12H32C34.2091 12 36 13.7909 36 16V24C36 26.2091 34.2091 28 32 28H30V22C30 20.8954 29.1046 20 28 20H12C10.8954 20 10 20.8954 10 22V28H8C5.79086 28 4 26.2091 4 24V16Z" fill="black"/>
-            </svg>
-            <div className="flex flex-col">
-              <span className="text-[14px] font-black tracking-tighter leading-none">WaterAds</span>
-              <div className="flex items-center gap-2 mt-1">
-                <span className="text-[9px] font-bold text-slate-800 uppercase tracking-widest leading-none">OFFLINE AD NETWORK</span>
-                <span className="w-1 h-1 rounded-full bg-slate-300"></span>
-                <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none">Smart QR Hydration Advertising</span>
-              </div>
+          <a href="#" className="flex items-center gap-4 group">
+            {/* Tiny Geometric Logo */}
+            <div className="flex items-center gap-1.5 shrink-0 transition-transform group-hover:scale-105">
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-cyan-400" />
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-sky-500" style={{ clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)' }} />
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-blue-500" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }} />
+              <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-cyan-400" />
             </div>
+            <span className="text-xl md:text-2xl font-black tracking-tighter leading-none text-[#111] mt-1">
+              waterads
+            </span>
           </a>
 
-
           {/* RIGHT: Actions */}
-          <div className="hidden sm:flex items-center gap-6">
-            <a href="#login" className="text-[10px] font-bold text-black uppercase tracking-widest hover:text-blue-600 transition-colors">
+          <div className="hidden sm:flex items-center gap-8">
+            <a href="#login" className="text-[11px] font-bold text-slate-500 uppercase tracking-widest hover:text-[#111] transition-colors">
               Sign In
             </a>
-            <a href="#contact" className="bg-black hover:bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-widest px-6 py-3 rounded-full transition-all">
+            <a href="#contact" className="bg-[#111] hover:bg-sky-500 text-white font-bold text-[10px] uppercase tracking-widest px-8 py-3.5 rounded-full transition-all duration-300 shadow-md hover:shadow-sky-500/30">
               Get Started
             </a>
           </div>
 
           {/* Mobile Menu Toggle */}
-          <button className="xl:hidden text-black">
+          <button className="sm:hidden text-black hover:text-sky-500 transition-colors">
             <Menu className="w-6 h-6" />
           </button>
         </div>
@@ -182,119 +180,7 @@ export default function App() {
 
       {/* ── NEW: DELIVERY TRUCK TRANSITION ── */}
       <DeliveryVehicleTransition />      {/* ── 8.5 PROCESS FLOW SECTION ── */}
-      <section className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto bg-white">
-        
-        {/* Header Row */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 gap-8">
-          <motion.h2 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            className="text-7xl md:text-[140px] font-black tracking-tighter leading-none text-black uppercase"
-          >
-            FLOW
-          </motion.h2>
-          <motion.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            className="max-w-[200px] text-xs md:text-sm font-bold text-black leading-snug md:mb-6"
-          >
-            How we turn a campaign brief into a highly measurable offline network.
-          </motion.p>
-        </div>
-
-        {/* Meta Data Row */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true }}
-          className="flex justify-between items-center text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-widest border-t border-slate-200 pt-6 mb-12"
-        >
-          <span>PROCESS: 4 STEPS</span>
-          <span>DURATION: ~ 2-4 WEEKS</span>
-        </motion.div>
-
-        {/* 4 Column Diagonal Grid -> Scroll Stack */}
-        <ScrollStack useWindowScroll={true} itemDistance={80} stackPosition="20%" className="mt-12">
-          
-          {/* Step 1 */}
-          <ScrollStackItem itemClassName="bg-white border border-slate-200">
-            <div className="flex flex-col h-full justify-between">
-              <div>
-                <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight mb-4">CREATE</h3>
-                <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed max-w-lg">
-                  We define your target network, duration, and can quantity based on brand goals.
-                </p>
-              </div>
-              
-              {/* Progress Bar */}
-              <div className="mt-8">
-                <span className="text-[10px] font-extrabold text-black mb-2 block">25%</span>
-                <div className="h-1.5 bg-black w-[25%]" />
-              </div>
-            </div>
-          </ScrollStackItem>
-
-          {/* Step 2 */}
-          <ScrollStackItem itemClassName="bg-white border border-slate-200">
-            <div className="flex flex-col h-full justify-between">
-              <div>
-                <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight mb-4">PRINT</h3>
-                <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed max-w-lg">
-                  We serialize the advertising labels and produce them with extreme precision.
-                </p>
-              </div>
-              
-              {/* Progress Bar */}
-              <div className="mt-8">
-                <span className="text-[10px] font-extrabold text-black mb-2 block">50%</span>
-                <div className="h-1.5 bg-black w-[50%]" />
-              </div>
-            </div>
-          </ScrollStackItem>
-
-          {/* Step 3 */}
-          <ScrollStackItem itemClassName="bg-white border border-slate-200">
-            <div className="flex flex-col h-full justify-between">
-              <div>
-                <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight mb-4">DISTRIBUTE</h3>
-                <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed max-w-lg">
-                  Plants apply the labels and dispatch cans to strictly targeted geographic zones.
-                </p>
-              </div>
-              
-              {/* Progress Bar */}
-              <div className="mt-8">
-                <span className="text-[10px] font-extrabold text-black mb-2 block">75%</span>
-                <div className="h-1.5 bg-black w-[75%]" />
-              </div>
-            </div>
-          </ScrollStackItem>
-
-          {/* Step 4 */}
-          <ScrollStackItem itemClassName="bg-white border border-slate-200">
-            <div className="flex flex-col h-full justify-between">
-              <div>
-                <h3 className="text-4xl md:text-5xl font-black text-black uppercase tracking-tight mb-4">MEASURE</h3>
-                <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed max-w-lg">
-                  Unique QR scans capture real-time engagement and provide robust campaign tracking.
-                </p>
-              </div>
-              
-              {/* Progress Bar */}
-              <div className="mt-8">
-                <span className="text-[10px] font-extrabold text-black mb-2 block">100%</span>
-                <div className="h-1.5 bg-black w-[100%]" />
-              </div>
-            </div>
-          </ScrollStackItem>
-
-        </ScrollStack>
-      </section>
+      <ProcessFlowSection />
 
       {/* ── 9. QR TRACKING SECTION ── */}
       <section className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto border-t border-slate-100">
@@ -540,10 +426,16 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
             {/* Card 1: Brands (2 cols) */}
-            <div className="md:col-span-2 bg-white rounded-[32px] p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px]">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-2 bg-white rounded-[32px] p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px]"
+            >
               <div className="relative z-10 space-y-8 max-w-lg">
                 <div className="inline-flex">
-                  <span className="text-[11px] font-bold text-black uppercase tracking-widest border border-black/10 px-5 py-2.5 rounded-full">For Brands</span>
+                  <span className="text-[11px] font-bold text-sky-600 uppercase tracking-widest border border-sky-200 bg-sky-50 px-5 py-2.5 rounded-full group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500 transition-colors duration-300">For Brands</span>
                 </div>
                 <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-[#111] leading-[1.1]">
                   Launch & measure offline campaigns.
@@ -553,16 +445,22 @@ export default function App() {
                 </p>
               </div>
               {/* Decorative element */}
-              <div className="absolute right-0 bottom-0 opacity-[0.03] translate-x-1/4 translate-y-1/4 group-hover:scale-105 transition-transform duration-700">
+              <div className="absolute right-0 bottom-0 opacity-[0.03] group-hover:opacity-[0.08] group-hover:text-sky-500 translate-x-1/4 translate-y-1/4 group-hover:scale-105 transition-all duration-700">
                 <Building2 className="w-[400px] h-[400px]" />
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 2: Printing Presses (1 col, Dark) */}
-            <div className="md:col-span-1 bg-[#222] text-white rounded-[32px] p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px]">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-1 bg-[#222] text-white rounded-[32px] p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px]"
+            >
               <div className="relative z-10 space-y-8">
                 <div className="inline-flex">
-                  <span className="text-[11px] font-bold text-white uppercase tracking-widest border border-white/20 px-5 py-2.5 rounded-full">For Printers</span>
+                  <span className="text-[11px] font-bold text-cyan-400 uppercase tracking-widest border border-cyan-400/30 bg-cyan-400/10 px-5 py-2.5 rounded-full group-hover:bg-cyan-400 group-hover:text-[#111] transition-colors duration-300">For Printers</span>
                 </div>
                 <h3 className="text-4xl font-black tracking-tighter leading-[1.1]">
                   Receive nearby print orders.
@@ -571,13 +469,19 @@ export default function App() {
                   Get automated print jobs delivered directly to your press with digital artwork assets.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 3: Water Plants (1 col, Dark) */}
-            <div className="md:col-span-1 bg-[#222] text-white rounded-[32px] p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px]">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-1 bg-[#222] text-white rounded-[32px] p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px]"
+            >
               <div className="relative z-10 space-y-8">
                 <div className="inline-flex">
-                  <span className="text-[11px] font-bold text-white uppercase tracking-widest border border-white/20 px-5 py-2.5 rounded-full">For Plants</span>
+                  <span className="text-[11px] font-bold text-blue-400 uppercase tracking-widest border border-blue-400/30 bg-blue-400/10 px-5 py-2.5 rounded-full group-hover:bg-blue-500 group-hover:text-white transition-colors duration-300">For Plants</span>
                 </div>
                 <h3 className="text-4xl font-black tracking-tighter leading-[1.1]">
                   Monetize your network.
@@ -586,13 +490,19 @@ export default function App() {
                   Earn recurring revenue for every water can dispatched with advertising sleeves.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 4: Distributors (2 cols) */}
-            <div className="md:col-span-2 bg-white rounded-[32px] p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px]">
+            <motion.div 
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              className="md:col-span-2 bg-white rounded-[32px] p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px]"
+            >
               <div className="relative z-10 space-y-8 max-w-lg">
                 <div className="inline-flex">
-                  <span className="text-[11px] font-bold text-black uppercase tracking-widest border border-black/10 px-5 py-2.5 rounded-full">For Distributors</span>
+                  <span className="text-[11px] font-bold text-sky-600 uppercase tracking-widest border border-sky-200 bg-sky-50 px-5 py-2.5 rounded-full group-hover:bg-sky-500 group-hover:text-white group-hover:border-sky-500 transition-colors duration-300">For Distributors</span>
                 </div>
                 <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-[#111] leading-[1.1]">
                   Verify real-world distribution.
@@ -602,97 +512,132 @@ export default function App() {
                 </p>
               </div>
               {/* Decorative element */}
-              <div className="absolute right-0 bottom-0 opacity-[0.03] translate-x-1/4 translate-y-1/4 group-hover:scale-105 transition-transform duration-700">
+              <div className="absolute right-0 bottom-0 opacity-[0.03] group-hover:opacity-[0.08] group-hover:text-sky-500 translate-x-1/4 translate-y-1/4 group-hover:scale-105 transition-all duration-700">
                 <Truck className="w-[400px] h-[400px]" />
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
       </section>
 
-      {/* ── 12. METRICS SECTION (Minimalist) ── */}
-      <section className="relative z-10 py-32 px-6 max-w-[1200px] mx-auto border-t border-slate-200/50">
-        <div className="grid md:grid-cols-[150px_1fr] gap-8 md:gap-16">
-          
-          {/* Left Column: Label */}
-          <div>
-            <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pt-2">
-              The Network
-            </h3>
+      {/* ── 12. METRICS SECTION (Minimalist + Geometric Spice) ── */}
+      <section className="relative z-10 pt-16 pb-32 overflow-hidden bg-white">
+        
+        {/* Background Geometric Spices */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden z-0 flex items-center justify-center">
+           {/* Slowly Rotating Huge Wireframe Circle */}
+           <motion.div 
+             animate={{ rotate: 360 }}
+             transition={{ duration: 150, repeat: Infinity, ease: "linear" }}
+             className="absolute -right-[20%] -top-[20%] w-[1000px] h-[1000px] rounded-full border-[1px] border-cyan-500/10 opacity-70 border-dashed"
+           />
+           {/* Slowly Rotating Hexagon */}
+           <motion.div 
+             animate={{ rotate: -360 }}
+             transition={{ duration: 200, repeat: Infinity, ease: "linear" }}
+             className="absolute -left-[10%] bottom-[0%] w-[800px] h-[800px] border-[1px] border-sky-500/10 opacity-60"
+             style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }}
+           />
+           {/* Faint Glowing Central Blob */}
+           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-[400px] bg-cyan-200/15 blur-[120px] rounded-full mix-blend-multiply" />
+        </div>
+
+        <div className="max-w-[1200px] mx-auto border-t border-slate-200/50 pt-32 px-6 relative z-10">
+          <div className="grid md:grid-cols-[150px_1fr] gap-8 md:gap-16">
+            
+            {/* Left Column: Label */}
+            <div>
+              <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pt-2 flex items-center gap-2">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 block" />
+                The Network
+              </h3>
+            </div>
+
+            {/* Right Column: Statement & Numbers */}
+            <div className="space-y-24">
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="text-3xl sm:text-4xl md:text-[40px] font-medium text-black leading-[1.2] tracking-tight max-w-3xl"
+              >
+                We connect <span className="text-cyan-500 font-bold">leading brands</span> with local <span className="text-blue-500 font-bold">water plants</span> and distributors, creating trackable <span className="text-sky-500 font-bold">offline advertising</span> campaigns that reach millions of consumers daily.
+              </motion.p>
+
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: true, margin: "-100px" }}
+                className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-4"
+              >
+                <div className="flex flex-col border-l-2 border-cyan-100 pl-6 relative">
+                  <div className="absolute -left-[2px] top-0 w-[2px] h-10 bg-cyan-400" />
+                  <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">150K+</span>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4 flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-cyan-400 block" />
+                    Cans Distributed
+                  </span>
+                </div>
+                
+                <div className="flex flex-col border-l-2 border-sky-100 pl-6 relative">
+                  <div className="absolute -left-[2px] top-0 w-[2px] h-10 bg-sky-400" />
+                  <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">300+</span>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4 flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-sky-400 block" />
+                    Local Plants
+                  </span>
+                </div>
+
+                <div className="flex flex-col border-l-2 border-blue-100 pl-6 relative">
+                  <div className="absolute -left-[2px] top-0 w-[2px] h-10 bg-blue-500" />
+                  <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">20K+</span>
+                  <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4 flex items-center gap-2">
+                    <span className="w-1 h-1 rounded-full bg-blue-500 block" />
+                    Scans Recorded
+                  </span>
+                </div>
+              </motion.div>
+            </div>
+
           </div>
-
-          {/* Right Column: Statement & Numbers */}
-          <div className="space-y-24">
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-[40px] font-medium text-black leading-[1.2] tracking-tight max-w-3xl"
-            >
-              We connect leading brands with local water plants and distributors, creating trackable offline advertising campaigns that reach millions of consumers daily.
-            </motion.p>
-
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              viewport={{ once: true }}
-              className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-4"
-            >
-              <div className="flex flex-col border-l-2 border-slate-100 pl-6">
-                <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">150K+</span>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4">Cans Distributed</span>
-              </div>
-              
-              <div className="flex flex-col border-l-2 border-slate-100 pl-6">
-                <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">300+</span>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4">Local Plants</span>
-              </div>
-
-              <div className="flex flex-col border-l-2 border-slate-100 pl-6">
-                <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">20K+</span>
-                <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4">Scans Recorded</span>
-              </div>
-            </motion.div>
-          </div>
-
         </div>
       </section>
 
 
       {/* ── 12.5 TESTIMONIALS (TABELA STYLE) ── */}
       <section id="testimonials" className="relative z-10 py-32 px-4 md:px-8 max-w-[1600px] mx-auto">
-        <div className="bg-[#444444] rounded-[40px] p-8 md:p-16 lg:p-24 relative overflow-hidden">
+        <div className="bg-[#F4F4F5] rounded-[40px] p-8 md:p-16 lg:p-24 relative overflow-hidden">
           
           {/* Header Row */}
           <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-20 md:mb-32 gap-8">
             <div className="space-y-8">
               {/* "Testimonials" with hand-drawn circle */}
               <div className="relative inline-block ml-6">
-                <span className="relative z-10 text-white font-medium text-lg tracking-wide">
+                <span className="relative z-10 text-[#111] font-medium text-lg tracking-wide">
                   Testimonials
                 </span>
-                {/* Hand-drawn SVG circle approximation (Yellow/Green) */}
-                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[200%] text-[#d4e157] pointer-events-none -rotate-2" viewBox="0 0 100 40" preserveAspectRatio="none">
+                {/* Hand-drawn SVG circle approximation (Cyan) */}
+                <svg className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[200%] text-cyan-400 pointer-events-none -rotate-2" viewBox="0 0 100 40" preserveAspectRatio="none">
                   <path d="M10,20 C10,5 90,5 90,20 C90,35 10,35 10,20 Z" fill="none" stroke="currentColor" strokeWidth="1" />
                   <path d="M15,20 C15,8 85,8 85,20 C85,32 15,32 15,20 Z" fill="none" stroke="currentColor" strokeWidth="0.5" />
                   <path d="M5,20 C5,2 95,2 95,20 C95,38 5,38 5,20 Z" fill="none" stroke="currentColor" strokeWidth="0.5" className="opacity-70" />
                 </svg>
               </div>
-              <h2 className="text-4xl sm:text-5xl md:text-[64px] font-medium text-white leading-[1.15] tracking-tight">
+              <h2 className="text-4xl sm:text-5xl md:text-[64px] font-medium text-[#111] leading-[1.15] tracking-tight">
                 What Our Users<br />Say About WaterAds
               </h2>
             </div>
             
             {/* Arrows */}
             <div className="flex gap-3">
-              <button className="w-12 h-12 rounded-full bg-[#363636] hover:bg-[#2d2d2d] flex items-center justify-center text-white transition-colors">
-                <ArrowLeft className="w-5 h-5 opacity-70" />
+              <button className="w-12 h-12 rounded-full bg-white hover:bg-gray-50 flex items-center justify-center text-black shadow-sm transition-colors">
+                <ArrowLeft className="w-5 h-5 opacity-90" />
               </button>
-              <button className="w-12 h-12 rounded-full bg-[#363636] hover:bg-[#2d2d2d] flex items-center justify-center text-white transition-colors">
-                <ArrowRight className="w-5 h-5 opacity-70" />
+              <button className="w-12 h-12 rounded-full bg-white hover:bg-gray-50 flex items-center justify-center text-black shadow-sm transition-colors">
+                <ArrowRight className="w-5 h-5 opacity-90" />
               </button>
             </div>
           </div>
@@ -701,7 +646,13 @@ export default function App() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
             
             {/* Card 1 */}
-            <div className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] shadow-sm">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, ease: "easeOut" }}
+              className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] shadow-sm hover:shadow-md transition-shadow cursor-default"
+            >
               <div>
                 <svg width="32" height="32" viewBox="0 0 24 24" fill="#2F333E" className="mb-10">
                   <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/>
@@ -717,10 +668,16 @@ export default function App() {
                   <p className="text-xs text-gray-500 mt-1">Regional Distributor</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 2 (Shifted Down) */}
-            <div className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] md:mt-16 shadow-sm">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
+              className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] md:mt-16 shadow-sm hover:shadow-md transition-shadow cursor-default"
+            >
               <div>
                 <div className="w-8 h-8 rounded-full border-[7px] border-[#2F333E] mb-10"></div>
                 <p className="text-sm md:text-[15px] font-medium text-gray-700 leading-relaxed">
@@ -734,10 +691,16 @@ export default function App() {
                   <p className="text-xs text-gray-500 mt-1">Print Facility Manager</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* Card 3 */}
-            <div className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] shadow-sm">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
+              className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] shadow-sm hover:shadow-md transition-shadow cursor-default"
+            >
               <div>
                 <div className="grid grid-cols-2 gap-1 w-8 h-8 mb-10 rotate-45">
                    <div className="w-3.5 h-3.5 rounded-full bg-[#2F333E]"></div>
@@ -756,7 +719,7 @@ export default function App() {
                   <p className="text-xs text-gray-500 mt-1">Brand Director</p>
                 </div>
               </div>
-            </div>
+            </motion.div>
 
           </div>
         </div>
@@ -767,7 +730,13 @@ export default function App() {
         <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
           
           {/* Left Column */}
-          <div className="lg:w-1/3 flex flex-col items-start">
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="lg:w-1/3 flex flex-col items-start"
+          >
             <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
               FAQ
             </h3>
@@ -789,14 +758,21 @@ export default function App() {
                 CONTACT US <ArrowRight className="w-3 h-3" />
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column (Accordion) */}
           <div className="lg:w-2/3 border-t border-slate-200">
             {faqs.map((faq, index) => {
               const isOpen = openFaqIndex === index;
               return (
-                <div key={index} className="border-b border-slate-200">
+                <motion.div 
+                  key={index} 
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="border-b border-slate-200"
+                >
                   <button 
                     onClick={() => setOpenFaqIndex(isOpen ? null : index)}
                     className="w-full py-8 flex items-center justify-between text-left group"
@@ -824,7 +800,7 @@ export default function App() {
                       </p>
                     </div>
                   </motion.div>
-                </div>
+                </motion.div>
               );
             })}
           </div>

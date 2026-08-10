@@ -56,7 +56,7 @@ export function FeaturesSection() {
         {FEATURES.map((item, idx) => (
           <div
             key={idx}
-            className="group relative bg-white/80 backdrop-blur-md border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-900/5 transition-all duration-250 hover:-translate-y-1 hover:bg-white"
+            className="group relative bg-white/95 border border-slate-200/80 hover:border-cyan-300 rounded-3xl p-7 shadow-xs hover:shadow-xl hover:shadow-cyan-900/5 transition-all duration-250 hover:-translate-y-1 hover:bg-white"
           >
             {/* Animated Icon Container */}
             <div className={`relative w-12 h-12 rounded-2xl border flex items-center justify-center mb-5 ${item.accent} group-hover:scale-110 transition-transform duration-300 overflow-hidden`}>

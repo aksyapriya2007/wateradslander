@@ -58,7 +58,7 @@ export default function DeliveryVehicleTransition() {
       <div ref={truckRef} className="absolute left-0 top-1/4 flex flex-col items-center drop-shadow-[0_20px_40px_rgba(0,0,0,0.06)]">
         
         {/* Cute Rounded Truck Body */}
-        <div className="truck-body bg-white/80 backdrop-blur-xl rounded-[40px] rounded-br-[20px] shadow-[inset_-8px_0_20px_rgba(0,0,0,0.03),inset_8px_0_20px_rgba(255,255,255,1)] border border-white/80 p-8 flex items-center gap-8 relative z-20">
+        <div className="truck-body bg-white rounded-[40px] rounded-br-[20px] shadow-[inset_-8px_0_20px_rgba(0,0,0,0.03),inset_8px_0_20px_rgba(255,255,255,1)] border border-slate-100 p-8 flex items-center gap-8 relative z-20">
           
           <div className="flex flex-col">
             <span className="font-black text-4xl tracking-tighter uppercase text-slate-800 drop-shadow-sm">WaterAds</span>

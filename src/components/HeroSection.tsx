@@ -1,100 +1,145 @@
-import { useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-
-gsap.registerPlugin(ScrollTrigger);
+import { useRef, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 export default function HeroSection() {
   const containerRef = useRef<HTMLElement>(null);
-  const textRef = useRef<HTMLHeadingElement>(null);
-  const subRef = useRef<HTMLParagraphElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
-  const waterSourceRef = useRef<HTMLDivElement>(null);
+  const cursorRef = useRef<HTMLDivElement>(null);
 
-  useGSAP(() => {
-    if (!textRef.current || !waterSourceRef.current) return;
-
-    // As user scrolls down the hero section, the massive text "dissolves" or flows downward
-    // mimicking a liquid collapsing into the central spine.
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: "top top",
-        end: "bottom top",
-        scrub: 1.5, // High viscosity feeling
+  // Smooth cursor follow for the interactive water blob
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (cursorRef.current && containerRef.current) {
+        const rect = containerRef.current.getBoundingClientRect();
+        // Calculate position relative to the section
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        // Use animate for smoother performance than style.transform
+        cursorRef.current.animate(
+          { transform: `translate(${x}px, ${y}px)` },
+          { duration: 2500, fill: 'forwards', easing: 'ease-out' }
+        );
       }
-    });
-
-    tl.to(textRef.current, {
-      y: 150,
-      opacity: 0,
-      scale: 0.9,
-      filter: "blur(20px)", // Liquid dissolve effect
-    }, 0);
-
-    tl.to([subRef.current, ctaRef.current], {
-      y: -50,
-      opacity: 0,
-    }, 0);
-
-    // The water source expands as we scroll down
-    tl.to(waterSourceRef.current, {
-      scaleY: 2,
-      opacity: 1,
-      y: 100,
-    }, 0);
-
-  }, { scope: containerRef });
+    };
+    
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
 
   return (
     <section 
       ref={containerRef}
-      className="relative z-10 pt-32 pb-48 px-6 w-full mx-auto text-center flex flex-col items-center min-h-[90vh] justify-center"
+      className="relative z-10 pt-32 pb-48 w-full bg-[#f8fafc] flex flex-col items-center justify-center min-h-[95vh] overflow-hidden"
     >
-      
-      {/* Massive Text with Gradient Clipping */}
-      <h1
-        ref={textRef}
-        className="font-black text-[11vw] sm:text-[12vw] md:text-[13vw] leading-[0.85] tracking-tighter uppercase relative z-20 whitespace-nowrap pr-2 md:pr-4"
-        style={{
-          backgroundImage: "linear-gradient(110deg, #1e3a8a 0%, #000000 25%, #2563eb 45%, #000000 65%, #60a5fa 90%)",
-          backgroundSize: "200% auto",
-          color: "transparent",
-          WebkitBackgroundClip: "text",
-          backgroundClip: "text",
-          animation: "gradientFlow 8s ease infinite"
-        }}
-      >
-        WATERADS
-      </h1>
+      <style>{`
+        /* Animated Liquid Text */
+        .liquid-text {
+          background-image: url("data:image/svg+xml,%3Csvg width='800' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 200 C 100 100, 300 300, 400 200 C 500 100, 700 300, 800 200 L 800 400 L 0 400 Z' fill='%230ea5e9' opacity='0.8'/%3E%3Cpath d='M0 220 C 150 320, 250 120, 400 220 C 550 320, 650 120, 800 220 L 800 400 L 0 400 Z' fill='%230284c7' opacity='0.6'/%3E%3C/svg%3E");
+          background-size: 200% 120%;
+          background-position: 0% 100%;
+          background-repeat: repeat-x;
+          -webkit-background-clip: text;
+          color: transparent;
+          animation: wave-text 8s linear infinite, fill-text 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes wave-text {
+          0% { background-position: 0% 100%; }
+          100% { background-position: -200% 100%; }
+        }
+        
+        @keyframes fill-text {
+          0% { background-size: 200% 80%; }
+          100% { background-size: 200% 120%; }
+        }
 
-      {/* Supporting Paragraph */}
-      <p
-        ref={subRef}
-        className="text-base sm:text-lg md:text-xl text-black font-semibold leading-relaxed max-w-2xl mt-12 relative z-20"
-      >
-        A seamless offline advertising network. We connect brands with printing presses, water plants, and distributors to build smart, trackable campaigns that scale.
-      </p>
+        /* Floating Blobs */
+        @keyframes floatBlob {
+          0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+          33% { transform: translate(30px, -40px) scale(1.05) rotate(5deg); }
+          66% { transform: translate(-30px, 30px) scale(0.95) rotate(-5deg); }
+          100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        }
+        .animate-blob {
+          animation: floatBlob 15s ease-in-out infinite;
+        }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+      `}</style>
 
-      {/* Primary CTA */}
-      <div
-        ref={ctaRef}
-        className="mt-10 relative z-20"
-      >
-        <a
-          href="#planner"
-          className="bg-black hover:bg-neutral-800 text-white font-bold text-xs sm:text-sm uppercase tracking-widest px-10 py-4 rounded-full shadow-lg transition-all duration-200 cursor-pointer inline-block hover:scale-105"
-        >
-          Start a Campaign
-        </a>
+      {/* Subtle Glowing Background Blobs */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+         {/* Mouse Follower Blob - Toned down significantly */}
+         <div 
+           ref={cursorRef} 
+           className="absolute top-0 left-0 w-[300px] h-[300px] bg-sky-300/40 rounded-full -ml-[150px] -mt-[150px] mix-blend-multiply blur-[60px]"
+         />
+         
+         {/* Stationary / Floating Background Blobs - Smaller, softer, more spread out */}
+         <div className="absolute top-[15%] left-[10%] w-[400px] h-[400px] bg-cyan-200/50 rounded-full animate-blob mix-blend-multiply blur-[80px]" />
+         <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] bg-blue-300/40 rounded-full animate-blob animation-delay-2000 mix-blend-multiply blur-[80px]" />
+         <div className="absolute top-[30%] left-[60%] w-[350px] h-[350px] bg-sky-200/50 rounded-full animate-blob animation-delay-4000 mix-blend-multiply blur-[80px]" />
       </div>
 
-      {/* Visual representation of the "Water Source" starting point for the spine */}
-      <div 
-        ref={waterSourceRef}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-32 bg-gradient-to-b from-blue-500/0 to-blue-500/80 rounded-full blur-[2px] opacity-0 pointer-events-none origin-top"
-      />
+      {/* Main Content */}
+      <div className="relative z-20 flex flex-col items-center px-6 text-center">
+        
+        {/* Dynamic Liquid Typography */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: "easeOut" }}
+          className="relative inline-block"
+        >
+          {/* Base Text (Solid color fallback) */}
+          <h1 className="text-[15vw] md:text-[12vw] font-black tracking-tighter m-0 p-0 leading-none text-slate-800 drop-shadow-xl">
+            WATERADS
+          </h1>
+          {/* Animated Overlay Text */}
+          <h1 className="absolute top-0 left-0 text-[15vw] md:text-[12vw] font-black tracking-tighter m-0 p-0 leading-none liquid-text w-full h-full">
+            WATERADS
+          </h1>
+        </motion.div>
+
+        {/* Minimalist Subtitle */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
+          className="text-lg md:text-2xl text-slate-700 mt-8 font-medium max-w-2xl bg-white/60 backdrop-blur-md px-8 py-4 rounded-3xl shadow-sm border border-slate-100"
+        >
+          The fluid offline network. We connect brands with distributors to build smart, trackable campaigns that scale.
+        </motion.p>
+
+        {/* Playful Floating Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
+          className="flex flex-wrap justify-center items-center gap-6 mt-12"
+        >
+          <a
+            href="#network"
+            className="group relative overflow-hidden bg-slate-900 text-white px-8 py-4 rounded-full text-lg font-bold transition-transform hover:scale-105 active:scale-95 shadow-xl shadow-slate-900/10"
+          >
+            {/* Button liquid hover effect */}
+            <div className="absolute inset-0 bg-sky-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
+            <span className="relative z-10 flex items-center gap-2">
+              Explore Network
+              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </span>
+          </a>
+          
+          <a
+            href="#planner"
+            className="px-8 py-4 rounded-full text-lg font-bold text-slate-800 bg-white/80 backdrop-blur-lg border border-slate-200 hover:bg-white transition-all shadow-lg shadow-sky-500/5 hover:scale-105 active:scale-95"
+          >
+            Plan a Campaign
+          </a>
+        </motion.div>
+      </div>
 
     </section>
   );

@@ -26,7 +26,7 @@ export function FloatingAnalyticsCard() {
     <div ref={cardRef} className="relative w-full max-w-md mx-auto lg:max-w-none">
       
       {/* ── MAIN DASHBOARD CARD ── */}
-      <div className="relative z-10 bg-white/90 backdrop-blur-xl border border-cyan-100 rounded-3xl p-6 md:p-7 shadow-2xl shadow-cyan-900/10 animate-float-card">
+      <div className="relative z-10 bg-white border border-cyan-100 rounded-3xl p-6 md:p-7 shadow-2xl shadow-cyan-900/10 animate-float-card">
         
         {/* Card Header */}
         <div className="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
@@ -130,7 +130,7 @@ export function FloatingAnalyticsCard() {
       </div>
 
       {/* ── FLOATING BADGE CARD 1: Top Right (+12.8K QR Scans) ── */}
-      <div className="absolute -top-5 -right-4 md:-right-6 z-20 bg-white/95 backdrop-blur-md border border-cyan-200/90 rounded-2xl px-4 py-2.5 shadow-xl shadow-cyan-900/10 flex items-center gap-2.5 animate-float-pill-1">
+      <div className="absolute -top-5 -right-4 md:-right-6 z-20 bg-white border border-cyan-200/90 rounded-2xl px-4 py-2.5 shadow-xl shadow-cyan-900/10 flex items-center gap-2.5 animate-float-pill-1">
         <div className="w-8 h-8 rounded-full bg-cyan-100 text-cyan-600 flex items-center justify-center font-bold">
           <QrCode className="w-4 h-4" />
         </div>
@@ -141,7 +141,7 @@ export function FloatingAnalyticsCard() {
       </div>
 
       {/* ── FLOATING BADGE CARD 2: Bottom Left (98.4% Delivered) ── */}
-      <div className="absolute -bottom-5 -left-4 md:-left-6 z-20 bg-white/95 backdrop-blur-md border border-sky-200/90 rounded-2xl px-4 py-2.5 shadow-xl shadow-sky-900/10 flex items-center gap-2.5 animate-float-pill-2">
+      <div className="absolute -bottom-5 -left-4 md:-left-6 z-20 bg-white border border-sky-200/90 rounded-2xl px-4 py-2.5 shadow-xl shadow-sky-900/10 flex items-center gap-2.5 animate-float-pill-2">
         <div className="w-8 h-8 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center font-bold">
           <CheckCircle2 className="w-4 h-4" />
         </div>

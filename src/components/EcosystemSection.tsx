@@ -15,11 +15,11 @@ export default function EcosystemSection() {
   useGSAP(() => {
     if (!containerRef.current || !liquidFillRef.current) return;
 
-    // As user scrolls through this section, the card fills up with "water"
+    // As user scrolls through this section, the card fills up with "water" using height for a rising tide effect
     gsap.fromTo(liquidFillRef.current,
-      { scaleY: 0 },
+      { height: "0%" },
       {
-        scaleY: 1,
+        height: "100%",
         ease: "none",
         scrollTrigger: {
           trigger: cardRef.current,
@@ -32,7 +32,7 @@ export default function EcosystemSection() {
   }, { scope: containerRef });
 
   return (
-    <section id="ecosystem" ref={containerRef} className="relative z-10 bg-[#f4f4f5] py-32 md:py-48 overflow-hidden flex flex-col items-center justify-center min-h-screen">
+    <section id="ecosystem" ref={containerRef} className="relative z-10 bg-[#FAFAFA] py-32 md:py-48 overflow-hidden flex flex-col items-center justify-center min-h-screen">
       
       {/* Background Marquee Text */}
       <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[200vw] flex z-0 pointer-events-none opacity-[0.03]">
@@ -79,13 +79,35 @@ export default function EcosystemSection() {
           ref={cardRef}
           animate={{ y: [-10, 10] }}
           transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-          className="w-full bg-white/60 backdrop-blur-3xl rounded-[2rem] md:rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-white/80 ring-1 ring-black/[0.03] p-10 md:p-20 relative overflow-hidden z-20"
+          className="w-full bg-white/95 rounded-[2rem] md:rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-white/80 ring-1 ring-black/[0.03] p-10 md:p-20 relative overflow-hidden z-20"
         >
           {/* LIQUID FILL LAYER (GSAP controlled) */}
           <div 
             ref={liquidFillRef}
-            className="absolute inset-0 bg-blue-50/50 mix-blend-multiply pointer-events-none origin-bottom z-0"
-          />
+            className="absolute inset-x-0 bottom-0 z-0 pointer-events-none flex flex-col justify-start overflow-hidden rounded-[2rem] md:rounded-[3rem]"
+          >
+            {/* The liquid body */}
+            <div className="absolute inset-x-0 bottom-0 top-[20px] bg-gradient-to-t from-sky-200/60 to-sky-100/20 mix-blend-multiply" />
+            
+            {/* Animated Wave 1 */}
+            <div 
+              className="absolute left-0 w-[200%] h-[40px] md:h-[60px] opacity-70 mix-blend-multiply top-0" 
+              style={{ 
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C52.16,108.9,106.33,116.1,160.85,115.3,215.38,114.5,269.83,106.7,321.39,56.44Z\' fill=\'%23bae6fd\'/%3E%3C/svg%3E")',
+                backgroundSize: '50% 100%',
+                animation: 'wave-move 12s linear infinite'
+              }}
+            />
+            {/* Animated Wave 2 */}
+            <div 
+              className="absolute left-0 w-[200%] h-[50px] md:h-[70px] opacity-50 mix-blend-multiply top-[5px]" 
+              style={{ 
+                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z\' fill=\'%237dd3fc\'/%3E%3C/svg%3E")',
+                backgroundSize: '50% 100%',
+                animation: 'wave-move 8s linear infinite reverse'
+              }}
+            />
+          </div>
 
           {/* Subtle Noise Texture overlay */}
           <div className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-overlay z-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
@@ -115,15 +137,34 @@ export default function EcosystemSection() {
               whileInView={{ width: "80%" }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="absolute top-[40px] left-[10%] h-[1px] bg-slate-300 hidden md:block origin-left z-0" 
-            />
+              className="absolute top-[40px] left-[10%] h-[1px] bg-slate-200 hidden md:block origin-left z-0 relative" 
+            >
+              {/* Traveling Data Packet */}
+              <motion.div
+                animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_12px_3px_rgba(34,211,238,0.6)]"
+              />
+              <motion.div
+                animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "linear", delay: 1.25 }}
+                className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_12px_3px_rgba(96,165,250,0.6)]"
+              />
+            </motion.div>
+            
             <motion.div 
               initial={{ height: "0%" }}
               whileInView={{ height: "80%" }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[1px] bg-slate-300 md:hidden origin-top z-0" 
-            />
+              className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[1px] bg-slate-200 md:hidden origin-top z-0 relative" 
+            >
+              <motion.div
+                animate={{ top: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
+                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
+                className="absolute left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_12px_3px_rgba(34,211,238,0.6)]"
+              />
+            </motion.div>
             
             <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-0 relative z-10 w-full py-8 md:py-0">
               {[
@@ -138,15 +179,22 @@ export default function EcosystemSection() {
                   whileInView={{ opacity: 1, y: 0, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.15 }}
-                  className="flex flex-col items-center text-center relative"
+                  className="flex flex-col items-center text-center relative group cursor-pointer"
                 >
                   <div className="w-20 h-20 relative z-10 mb-6">
-                    <div className="absolute inset-0 rounded-full bg-white/90 backdrop-blur-md shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,1)] border border-white/60 flex items-center justify-center text-slate-500 transition-all duration-500 hover:scale-[1.05] hover:shadow-[0_8px_30px_-4px_rgba(0,0,0,0.1)] hover:text-blue-500">
-                      <node.icon className="w-6 h-6" strokeWidth={1.25} />
+                    {/* Pulsing Ring Behind */}
+                    <motion.div 
+                      animate={{ scale: [1, 1.4, 1], opacity: [0.1, 0.4, 0.1] }}
+                      transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
+                      className="absolute inset-0 rounded-full bg-sky-300/30 -z-10 group-hover:bg-cyan-400/40 group-hover:scale-[1.6] transition-all duration-500"
+                    />
+                    {/* Main Icon Circle */}
+                    <div className="absolute inset-0 rounded-full bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,1)] border border-slate-100 flex items-center justify-center text-slate-400 transition-all duration-500 group-hover:scale-[1.15] group-hover:shadow-[0_8px_30px_-4px_rgba(34,211,238,0.3)] group-hover:text-cyan-500 group-hover:border-cyan-200">
+                      <node.icon className="w-6 h-6" strokeWidth={1.5} />
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-[17px] font-bold text-[#111827] mb-2">{node.title}</h4>
+                    <h4 className="text-[17px] font-bold text-[#111827] mb-2 group-hover:text-cyan-600 transition-colors">{node.title}</h4>
                     <p className="text-[13px] font-medium text-[#64748b] px-4 max-w-[200px] mx-auto leading-relaxed">{node.desc}</p>
                   </div>
                 </motion.div>

@@ -74,7 +74,7 @@ export function WorkflowSection() {
             return (
               <div
                 key={index}
-                className="bg-white/90 backdrop-blur-md border border-slate-200/80 hover:border-cyan-400/80 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:shadow-cyan-900/5 transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between min-h-[220px]"
+                className="bg-white border border-slate-200/80 hover:border-cyan-400/80 rounded-2xl p-5 shadow-sm hover:shadow-xl hover:shadow-cyan-900/5 transition-all duration-300 hover:-translate-y-1 group flex flex-col justify-between min-h-[220px]"
               >
                 <div className="flex items-center justify-between">
                   <span className="text-xs font-extrabold text-slate-400 tracking-wider">
@@ -113,7 +113,7 @@ export function WorkflowSection() {
           return (
             <div
               key={index}
-              className="relative bg-white/90 backdrop-blur-md border border-slate-200/80 rounded-2xl p-5 shadow-sm flex items-start gap-4"
+              className="relative bg-white border border-slate-200/80 rounded-2xl p-5 shadow-sm flex items-start gap-4"
             >
               <div className={`w-10 h-10 shrink-0 rounded-xl border flex items-center justify-center ${item.color}`}>
                 <Icon className="w-5 h-5" />
