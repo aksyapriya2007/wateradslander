@@ -18,6 +18,7 @@ import HeroSection from "./components/HeroSection"
 import EcosystemSection from "./components/EcosystemSection"
 import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
 import FoldText from "./components/ui/FoldText"
+import BlurText from "./components/ui/BlurText"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
@@ -588,20 +589,12 @@ export default function App() {
         <div className="max-w-[1200px] mx-auto border-t border-slate-200/50 pt-32 px-6 relative z-10">
             {/* Right Column: Statement & Numbers */}
             <div className="space-y-24">
-              <div className="text-3xl sm:text-4xl md:text-[40px] font-medium leading-[1.2] tracking-tight max-w-3xl">
-                <FoldText
+              <div className="text-4xl sm:text-5xl md:text-[52px] font-medium leading-[1.1] tracking-tight max-w-5xl text-[#111]">
+                <BlurText
                   text="We connect leading brands with local water plants and distributors, creating trackable offline advertising campaigns that reach millions of consumers daily."
-                  splitBy="word"
-                  hinge="top"
-                  trigger="scroll"
-                  duration={0.65}
-                  stagger={0.045}
-                  ease="power3.out"
-                  perspective={700}
-                  creaseShading={0.55}
-                  fontSize="inherit"
-                  fontWeight="inherit"
-                  color="#111"
+                  delay={35}
+                  animateBy="words"
+                  direction="top"
                 />
               </div>
 
