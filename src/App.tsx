@@ -187,7 +187,13 @@ export default function App() {
         <div className="grid lg:grid-cols-2 gap-24 items-center">
           
           {/* Left Column: Title & Stark Metrics */}
-          <div className="flex flex-col">
+          <motion.div 
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="flex flex-col"
+          >
             <div className="flex items-center gap-2 mb-8">
               <QrCode className="w-4 h-4 text-black" />
               <span className="text-[10px] font-bold text-black uppercase tracking-widest">
@@ -205,38 +211,68 @@ export default function App() {
 
             {/* Stark Counter Blocks */}
             <div className="grid grid-cols-2 gap-x-12 gap-y-16">
-              <div className="flex flex-col border-l-2 border-slate-200 pl-6">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="flex flex-col border-l-2 border-slate-200 pl-6"
+              >
                 <div className="text-4xl sm:text-5xl font-black tracking-tighter text-[#111] leading-none">
                   <CountUp end={148500} suffix="+" />
                 </div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3">Cans Distributed</div>
-              </div>
+              </motion.div>
 
-              <div className="flex flex-col border-l-2 border-slate-200 pl-6">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                viewport={{ once: true }}
+                className="flex flex-col border-l-2 border-slate-200 pl-6"
+              >
                 <div className="text-4xl sm:text-5xl font-black tracking-tighter text-[#111] leading-none">
                   <CountUp end={18920} suffix="" />
                 </div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3">QR Scans Recorded</div>
-              </div>
+              </motion.div>
 
-              <div className="flex flex-col border-l-2 border-slate-200 pl-6">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                viewport={{ once: true }}
+                className="flex flex-col border-l-2 border-slate-200 pl-6"
+              >
                 <div className="text-4xl sm:text-5xl font-black tracking-tighter text-[#111] leading-none">
                   <CountUp end={42} suffix="" />
                 </div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3">Locations Reached</div>
-              </div>
+              </motion.div>
 
-              <div className="flex flex-col border-l-2 border-slate-200 pl-6">
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                viewport={{ once: true }}
+                className="flex flex-col border-l-2 border-slate-200 pl-6"
+              >
                 <div className="text-4xl sm:text-5xl font-black tracking-tighter text-[#111] leading-none">
                   <CountUp end={98.4} suffix="%" decimals={1} />
                 </div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3">Campaign Progress</div>
-              </div>
+              </motion.div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Right Column: Stark Visual Product Preview */}
-          <div className="relative w-full aspect-square md:aspect-auto md:h-[600px] bg-[#111] flex items-center justify-center p-8 overflow-hidden">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            className="relative w-full aspect-square md:aspect-auto md:h-[600px] bg-[#111] flex items-center justify-center p-8 overflow-hidden"
+          >
             <div className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-sm p-8 shadow-2xl flex flex-col space-y-8">
               
               <div className="flex items-center justify-between border-b border-white/10 pb-6">
@@ -256,8 +292,8 @@ export default function App() {
 
               {/* QR Scan Beam Visual */}
               <div className="relative bg-[#111] border border-white/5 p-12 flex flex-col items-center justify-center space-y-8 overflow-hidden">
-                <div className="w-32 h-32 bg-white p-3 flex items-center justify-center relative">
-                  <svg viewBox="0 0 100 100" className="w-full h-full">
+                <div className="w-32 h-32 bg-white p-3 flex items-center justify-center relative overflow-hidden">
+                  <svg viewBox="0 0 100 100" className="w-full h-full relative z-10">
                     <path d="M10 10 h30 v30 h-30 z M15 15 h20 v20 h-20 z" fill="#000" />
                     <path d="M60 10 h30 v30 h-30 z M65 15 h20 v20 h-20 z" fill="#000" />
                     <path d="M10 60 h30 v30 h-30 z M15 65 h20 v20 h-20 z" fill="#000" />
@@ -267,7 +303,11 @@ export default function App() {
                   </svg>
                   
                   {/* High Contrast Laser Beam Animation */}
-                  <div className="absolute inset-x-0 h-[2px] bg-blue-500 shadow-[0_0_15px_#3b82f6] animate-pulse top-1/2" />
+                  <motion.div 
+                    animate={{ top: ["0%", "100%", "0%"] }}
+                    transition={{ duration: 3, ease: "linear", repeat: Infinity }}
+                    className="absolute inset-x-0 h-[2px] bg-blue-500 shadow-[0_0_15px_#3b82f6] z-20" 
+                  />
                 </div>
                 <div className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">
                   SCAN TO VIEW ATTRIBUTION
@@ -275,7 +315,7 @@ export default function App() {
               </div>
 
             </div>
-          </div>
+          </motion.div>
 
         </div>
       </section>
