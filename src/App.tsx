@@ -182,9 +182,9 @@ export default function App() {
       <DeliveryVehicleTransition />      {/* ── 8.5 PROCESS FLOW SECTION ── */}
       <ProcessFlowSection />
 
-      {/* ── 9. QR TRACKING SECTION ── */}
-      <section className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto border-t border-slate-100">
-        <div className="grid lg:grid-cols-2 gap-24 items-center">
+      <section className="relative z-10 w-full bg-[#FAFAFA] border-t border-slate-100">
+        <div className="py-32 px-6 max-w-[1400px] mx-auto">
+          <div className="grid lg:grid-cols-2 gap-24 items-center">
           
           {/* Left Column: Title & Stark Metrics */}
           <motion.div 
@@ -317,6 +317,7 @@ export default function App() {
             </div>
           </motion.div>
 
+          </div>
         </div>
       </section>
 
