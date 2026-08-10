@@ -219,33 +219,56 @@ const StrokeText = ({
           x="0"
           y="0"
           fill="none"
-          stroke={strokeColor}
-          strokeWidth={strokeWidth}
           strokeLinejoin="round"
           strokeLinecap="round"
           style={fontStyle}
         >
-          {characters.map((char, index) => (
-            <tspan data-stroke-char key={`s-${index}`}>
-              {char}
-            </tspan>
-          ))}
+          {characters.map((char, index) => {
+            let charStrokeColor = strokeColor;
+            const lowerText = text.toLowerCase();
+            const brandIdx = lowerText.indexOf('brand');
+            const plantIdx = lowerText.indexOf('plant');
+            
+            if (brandIdx !== -1 && index >= brandIdx && index < brandIdx + 5) {
+              charStrokeColor = '#06b6d4';
+            } else if (plantIdx !== -1 && index >= plantIdx && index < plantIdx + 5) {
+              charStrokeColor = '#3b82f6';
+            }
+
+            return (
+              <tspan data-stroke-char key={`s-${index}`} stroke={charStrokeColor} strokeWidth={strokeWidth}>
+                {char}
+              </tspan>
+            );
+          })}
         </text>
 
         <text
           className="stroke-text__fill"
           x="0"
           y="0"
-          fill={fillColor}
           stroke="none"
           style={fontStyle}
           clipPath={fillMode === 'wipe' && box ? `url(#${wipeId})` : undefined}
         >
-          {characters.map((char, index) => (
-            <tspan data-fill-char key={`f-${index}`}>
-              {char}
-            </tspan>
-          ))}
+          {characters.map((char, index) => {
+            let charFillColor = fillColor;
+            const lowerText = text.toLowerCase();
+            const brandIdx = lowerText.indexOf('brand');
+            const plantIdx = lowerText.indexOf('plant');
+            
+            if (brandIdx !== -1 && index >= brandIdx && index < brandIdx + 5) {
+              charFillColor = '#06b6d4';
+            } else if (plantIdx !== -1 && index >= plantIdx && index < plantIdx + 5) {
+              charFillColor = '#3b82f6';
+            }
+
+            return (
+              <tspan data-fill-char key={`f-${index}`} fill={charFillColor}>
+                {char}
+              </tspan>
+            );
+          })}
         </text>
       </svg>
     </span>

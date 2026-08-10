@@ -869,7 +869,7 @@ export default function App() {
             Ready to Start?
           </span>
           
-          <div className="w-full flex flex-col items-center justify-center mb-8 space-y-[-5%] sm:space-y-[-10%] md:space-y-[-15%]">
+          <div className="w-full flex flex-col items-center justify-center mb-8">
             <StrokeText
               text="CONNECT YOUR"
               strokeColor="#cbd5e1"
