@@ -24,7 +24,7 @@ import StrokeText from "./components/ui/StrokeText"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
-import ProcessFlowSection from "./components/ProcessFlowSection"
+
 
 // Simple CountUp Component
 function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
@@ -134,45 +134,41 @@ export default function App() {
       
       {/* ── HEADER ── */}
       <header
-        className={`fixed top-4 inset-x-4 md:top-6 md:inset-x-8 z-50 transition-all duration-700 flex justify-center pointer-events-none ${
+        className={`fixed top-0 inset-x-0 z-50 transition-all duration-700 pointer-events-auto bg-transparent ${
           isLoaded ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"
         }`}
       >
-        <div className="w-full max-w-[1400px] h-16 md:h-20 px-6 md:px-8 flex items-center justify-between bg-white/80 backdrop-blur-xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.06)] rounded-full pointer-events-auto">
+        <div className="w-full max-w-[1600px] mx-auto h-24 px-6 md:px-12 grid grid-cols-3 items-center">
           
-          {/* LEFT: Branding */}
-          <a href="#" className="flex items-center gap-4 group">
-            {/* Tiny Geometric Logo */}
-            <div className="flex items-center gap-1.5 shrink-0 transition-transform group-hover:scale-105">
-              <div className="w-2.5 h-2.5 md:w-3 md:h-3 rounded-full bg-cyan-400" />
-              <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-sky-500" style={{ clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)' }} />
-              <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-blue-500" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }} />
-              <div className="w-2.5 h-2.5 md:w-3 md:h-3 bg-cyan-400" />
-            </div>
-            <span className="text-xl md:text-2xl font-black tracking-tighter leading-none text-[#111] mt-1">
-              waterads
-            </span>
-          </a>
+          {/* LEFT: Links */}
+          <div className="flex items-center gap-6 md:gap-8 justify-start">
+            <a href="#about" className="text-[10px] md:text-xs font-medium text-slate-800 uppercase tracking-widest hover:text-sky-500 transition-colors">ABOUT</a>
+            <a href="#services" className="text-[10px] md:text-xs font-medium text-slate-800 uppercase tracking-widest hover:text-sky-500 transition-colors hidden sm:block">SERVICES</a>
+          </div>
 
-          {/* RIGHT: Actions */}
-          <div className="hidden sm:flex items-center gap-8">
-            <a href="#login" className="text-[11px] font-bold text-slate-500 uppercase tracking-widest hover:text-[#111] transition-colors">
-              Sign In
-            </a>
-            <a href="#contact" className="bg-[#111] hover:bg-sky-500 text-white font-bold text-[10px] uppercase tracking-widest px-8 py-3.5 rounded-full transition-all duration-300 shadow-md hover:shadow-sky-500/30">
-              Get Started
+          {/* CENTER: Logo */}
+          <div className="flex justify-center">
+            <a href="#" className="flex items-center gap-2 group">
+              <div className="flex items-center gap-0.5 md:gap-1 shrink-0 transition-transform group-hover:scale-105 hidden sm:flex">
+                <div className="w-2 h-2 rounded-full bg-cyan-400" />
+                <div className="w-2 h-2 bg-sky-500" style={{ clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)' }} />
+                <div className="w-2 h-2 bg-blue-500" style={{ clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)' }} />
+                <div className="w-2 h-2 bg-cyan-400" />
+              </div>
+              <span className="text-xl md:text-2xl font-black tracking-tighter leading-none text-[#111] uppercase mt-1">
+                WATERADS
+              </span>
             </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button className="sm:hidden text-black hover:text-sky-500 transition-colors">
-            <Menu className="w-6 h-6" />
-          </button>
+          {/* RIGHT: Actions */}
+          <div className="flex justify-end items-center">
+            <button className="w-10 h-10 md:w-12 md:h-12 bg-white rounded-full flex items-center justify-center shadow-sm border border-slate-100 text-slate-800 hover:text-sky-500 transition-colors hover:shadow-md">
+              <Menu className="w-4 h-4 md:w-5 md:h-5" />
+            </button>
+          </div>
         </div>
       </header>
-
-      {/* Spacer for fixed header */}
-      <div className="h-32 md:h-40" />
 
       {/* ── NEW GSAP HERO SECTION ── */}
       <HeroSection />
@@ -183,8 +179,7 @@ export default function App() {
       <EcosystemSection />
 
       {/* ── NEW: DELIVERY TRUCK TRANSITION ── */}
-      <DeliveryVehicleTransition />      {/* ── 8.5 PROCESS FLOW SECTION ── */}
-      <ProcessFlowSection />
+      <DeliveryVehicleTransition />
 
       <section className="relative z-10 w-full bg-[#FAFAFA] py-24 md:py-32">
         <div className="w-full max-w-[1400px] mx-auto px-6 md:px-8">
