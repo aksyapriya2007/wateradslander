@@ -19,6 +19,7 @@ import EcosystemSection from "./components/EcosystemSection"
 import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
 import FoldText from "./components/ui/FoldText"
 import BlurText from "./components/ui/BlurText"
+import AnimatedNumber from "./components/ui/AnimatedNumber"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
@@ -193,7 +194,7 @@ export default function App() {
             initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             className="flex flex-col flex-1"
           >
             <div className="flex items-center gap-2 mb-8">
@@ -217,7 +218,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="flex flex-col border-l-2 border-sky-100 pl-6"
               >
                 <div className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-none">
@@ -230,7 +231,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="flex flex-col border-l-2 border-sky-100 pl-6"
               >
                 <div className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-none">
@@ -243,7 +244,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="flex flex-col border-l-2 border-sky-100 pl-6"
               >
                 <div className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-none">
@@ -256,7 +257,7 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
                 className="flex flex-col border-l-2 border-sky-100 pl-6"
               >
                 <div className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-none">
@@ -272,7 +273,7 @@ export default function App() {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
             className="relative w-full flex-1 aspect-square md:aspect-auto md:h-[600px] bg-slate-900 rounded-3xl flex items-center justify-center p-8 overflow-hidden shadow-2xl shadow-slate-900/20"
           >
             <div className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-sm p-8 rounded-2xl shadow-2xl flex flex-col space-y-8">
@@ -602,12 +603,12 @@ export default function App() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true, margin: "-100px" }}
+                viewport={{ once: false, margin: "-100px" }}
                 className="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-4"
               >
                 <div className="flex flex-col border-l-2 border-cyan-100 pl-6 relative">
                   <div className="absolute -left-[2px] top-0 w-[2px] h-10 bg-cyan-400" />
-                  <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">150K+</span>
+                  <AnimatedNumber value={150} suffix="K+" duration={2} className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none" />
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4 flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full bg-cyan-400 block" />
                     Cans Distributed
@@ -616,7 +617,7 @@ export default function App() {
                 
                 <div className="flex flex-col border-l-2 border-sky-100 pl-6 relative">
                   <div className="absolute -left-[2px] top-0 w-[2px] h-10 bg-sky-400" />
-                  <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">300+</span>
+                  <AnimatedNumber value={300} suffix="+" duration={2} className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none" />
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4 flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full bg-sky-400 block" />
                     Local Plants
@@ -625,7 +626,7 @@ export default function App() {
 
                 <div className="flex flex-col border-l-2 border-blue-100 pl-6 relative">
                   <div className="absolute -left-[2px] top-0 w-[2px] h-10 bg-blue-500" />
-                  <span className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none">20K+</span>
+                  <AnimatedNumber value={20} suffix="K+" duration={2} className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-black leading-none" />
                   <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-4 flex items-center gap-2">
                     <span className="w-1 h-1 rounded-full bg-blue-500 block" />
                     Scans Recorded
@@ -679,7 +680,7 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: false, margin: "-100px" }}
               transition={{ duration: 0.6, ease: "easeOut" }}
               className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] shadow-sm hover:shadow-md transition-shadow cursor-default"
             >
@@ -704,7 +705,7 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: false, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.15, ease: "easeOut" }}
               className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] md:mt-16 shadow-sm hover:shadow-md transition-shadow cursor-default"
             >
@@ -727,7 +728,7 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
+              viewport={{ once: false, margin: "-100px" }}
               transition={{ duration: 0.6, delay: 0.3, ease: "easeOut" }}
               className="bg-[#f0f0f0] rounded-[32px] p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] shadow-sm hover:shadow-md transition-shadow cursor-default"
             >
@@ -763,7 +764,7 @@ export default function App() {
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: false, margin: "-100px" }}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="lg:w-1/3 flex flex-col items-start"
           >
@@ -799,7 +800,7 @@ export default function App() {
                   key={index} 
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
+                  viewport={{ once: false, margin: "-50px" }}
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="border-b border-slate-200"
                 >
@@ -860,7 +861,7 @@ export default function App() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true }}
+          viewport={{ once: false }}
           className="flex flex-col items-center justify-center max-w-4xl mx-auto"
         >
           <span className="text-[10px] md:text-xs font-bold text-slate-500 uppercase tracking-[0.2em] mb-6">
