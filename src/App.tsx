@@ -760,102 +760,90 @@ export default function App() {
       </section>
 
       {/* ── 12.8 FAQ ── */}
-      <section className="relative z-10 py-32 px-6 max-w-[1400px] mx-auto bg-white border-t border-slate-100">
-        <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
-          
-          {/* Left Column */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: false, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-            className="lg:w-1/3 flex flex-col items-start"
-          >
-            <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
-              FAQ
-            </h3>
-            <h2 className="text-4xl md:text-5xl font-black tracking-tight text-black uppercase mb-16">
-              HAVE SOME QUESTIONS?
-            </h2>
-            
-            <div className="hidden lg:block">
-              <h4 className="text-xl font-black tracking-tight text-black uppercase mb-3">
-                NOT FINDING ANSWERS?
-              </h4>
-              <p className="text-sm font-semibold text-slate-800 mb-8 max-w-[250px]">
-                Reach out anytime, we are happy to help.
-              </p>
-              <a
-                href="#contact"
-                className="bg-black hover:bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-widest px-8 py-3.5 rounded-full shadow-md transition-all duration-200 cursor-pointer inline-flex items-center gap-2 hover:shadow-lg shrink-0"
+      <section className="relative z-10 py-32 px-6 max-w-[900px] mx-auto bg-white">
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center mb-12"
+        >
+          <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
+            FAQ
+          </h3>
+          <h2 className="text-5xl md:text-7xl font-black tracking-tighter text-slate-900 uppercase">
+            HAVE SOME<br />QUESTIONS?
+          </h2>
+        </motion.div>
+
+        {/* Accordion Block */}
+        <div className="w-full bg-[#faf9f6] rounded-[2rem] p-6 md:p-12 mb-16 border border-slate-100 shadow-sm">
+          {faqs.map((faq, index) => {
+            const isOpen = openFaqIndex === index;
+            return (
+              <motion.div 
+                key={index} 
+                initial={{ opacity: 0, y: 10 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="border-b border-black/5 last:border-0"
               >
-                CONTACT US <ArrowRight className="w-3 h-3" />
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Right Column (Accordion) */}
-          <div className="lg:w-2/3 border-t border-slate-200">
-            {faqs.map((faq, index) => {
-              const isOpen = openFaqIndex === index;
-              return (
-                <motion.div 
-                  key={index} 
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: false, margin: "-50px" }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
-                  className="border-b border-slate-200"
+                <button 
+                  onClick={() => setOpenFaqIndex(isOpen ? null : index)}
+                  className="w-full py-6 md:py-8 flex items-center justify-between text-left group"
                 >
-                  <button 
-                    onClick={() => setOpenFaqIndex(isOpen ? null : index)}
-                    className="w-full py-8 flex items-center justify-between text-left group"
-                  >
-                    <h4 className={`text-xl md:text-3xl font-black tracking-tight transition-colors ${isOpen ? 'text-black' : 'text-slate-900 group-hover:text-slate-500'}`}>
-                      {faq.question}
-                    </h4>
-                    <div className="ml-4 shrink-0 transition-transform duration-300">
-                      {isOpen ? (
-                        <Minus className="w-6 h-6 text-black" />
-                      ) : (
-                        <Plus className="w-6 h-6 text-black group-hover:text-slate-500" />
-                      )}
-                    </div>
-                  </button>
-                  <motion.div 
-                    initial={false}
-                    animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
-                    transition={{ duration: 0.3, ease: "easeInOut" }}
-                    className="overflow-hidden"
-                  >
-                    <div className="pb-8">
-                      <p className="text-sm md:text-base font-semibold text-slate-700 max-w-2xl leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </motion.div>
+                  <h4 className={`text-lg md:text-xl font-bold tracking-tight transition-colors ${isOpen ? 'text-slate-900' : 'text-slate-800 group-hover:text-slate-500'}`}>
+                    {faq.question}
+                  </h4>
+                  <div className="ml-4 shrink-0 transition-transform duration-300">
+                    {isOpen ? (
+                      <Minus className="w-6 h-6 text-slate-900" />
+                    ) : (
+                      <Plus className="w-6 h-6 text-slate-400 group-hover:text-slate-900" />
+                    )}
+                  </div>
+                </button>
+                <motion.div 
+                  initial={false}
+                  animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
+                  transition={{ duration: 0.3, ease: "easeInOut" }}
+                  className="overflow-hidden"
+                >
+                  <div className="pb-8">
+                    <p className="text-sm md:text-base font-semibold text-blue-600 max-w-3xl leading-relaxed pr-8">
+                      {faq.answer}
+                    </p>
+                  </div>
                 </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Mobile version of bottom left column */}
-          <div className="lg:hidden mt-8">
-            <h4 className="text-xl font-black tracking-tight text-black uppercase mb-3">
-              NOT FINDING ANSWERS?
-            </h4>
-            <p className="text-sm font-semibold text-slate-800 mb-8 max-w-[250px]">
-              Reach out anytime, we are happy to help.
-            </p>
-            <a
-              href="#contact"
-              className="bg-black hover:bg-neutral-800 text-white font-bold text-[10px] uppercase tracking-widest px-8 py-3.5 rounded-full shadow-md transition-all duration-200 cursor-pointer inline-flex items-center gap-2 hover:shadow-lg w-max"
-            >
-              CONTACT US <ArrowRight className="w-3 h-3" />
-            </a>
-          </div>
-
+              </motion.div>
+            );
+          })}
         </div>
+
+        {/* Bottom CTA */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-100px" }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="flex flex-col items-center justify-center text-center mt-12"
+        >
+          <h4 className="text-2xl font-black tracking-tight text-slate-900 uppercase mb-3">
+            NOT FINDING ANSWERS?
+          </h4>
+          <p className="text-sm font-medium text-slate-500 mb-8 max-w-sm mx-auto">
+            Reach out anytime, we are happy to help.
+          </p>
+          <a
+            href="#contact"
+            className="bg-slate-900 hover:bg-black text-white font-bold text-[10px] uppercase tracking-widest px-8 py-4 rounded-full shadow-md transition-all duration-200 cursor-pointer inline-flex items-center gap-2 hover:shadow-lg hover:-translate-y-0.5 shrink-0"
+          >
+            CONTACT US <ArrowRight className="w-4 h-4" />
+          </a>
+        </motion.div>
+
       </section>
 
       {/* ── 13. FINAL CLOSING CTA (MINIMALIST) ── */}
