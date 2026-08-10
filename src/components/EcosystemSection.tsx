@@ -32,7 +32,7 @@ export default function EcosystemSection() {
   }, { scope: containerRef });
 
   return (
-    <section id="ecosystem" ref={containerRef} className="relative z-10 bg-[#FAFAFA] py-32 md:py-48 overflow-hidden flex flex-col items-center justify-center min-h-screen">
+    <section id="ecosystem" ref={containerRef} className="relative z-10 bg-[#FAFAFA] pt-32 md:pt-48 pb-12 overflow-hidden flex flex-col items-center justify-center">
       
       {/* Background Marquee Text */}
       <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[200vw] flex z-0 pointer-events-none opacity-[0.03]">
