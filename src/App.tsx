@@ -182,9 +182,9 @@ export default function App() {
       <DeliveryVehicleTransition />      {/* ── 8.5 PROCESS FLOW SECTION ── */}
       <ProcessFlowSection />
 
-      <section className="relative z-10 w-full bg-[#FAFAFA] border-t border-slate-100">
-        <div className="py-32 px-6 max-w-[1400px] mx-auto">
-          <div className="grid lg:grid-cols-2 gap-24 items-center">
+      <section className="relative z-10 w-full bg-[#FAFAFA] py-24 md:py-32">
+        <div className="w-full max-w-[1400px] mx-auto px-6 md:px-8">
+          <div className="w-full bg-white rounded-[40px] p-10 md:p-16 lg:p-24 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] border border-gray-100 flex flex-col lg:flex-row gap-16 lg:gap-24 items-center justify-between relative overflow-hidden">
           
           {/* Left Column: Title & Stark Metrics */}
           <motion.div 
@@ -192,20 +192,20 @@ export default function App() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="flex flex-col"
+            className="flex flex-col flex-1"
           >
             <div className="flex items-center gap-2 mb-8">
-              <QrCode className="w-4 h-4 text-black" />
-              <span className="text-[10px] font-bold text-black uppercase tracking-widest">
+              <QrCode className="w-4 h-4 text-sky-500" />
+              <span className="text-[10px] font-bold text-sky-500 uppercase tracking-widest">
                 QR Traceability
               </span>
             </div>
             
-            <h2 className="text-5xl sm:text-6xl md:text-[80px] font-black tracking-tighter text-[#111] leading-[0.9] uppercase mb-8">
+            <h2 className="text-5xl sm:text-6xl md:text-[72px] font-black tracking-tighter text-slate-900 leading-[0.9] uppercase mb-8">
               EVERY CAN.<br />EVERY SCAN.<br />MEASURABLE.
             </h2>
             
-            <p className="text-sm md:text-base font-semibold text-slate-800 max-w-md leading-relaxed mb-16">
+            <p className="text-sm md:text-base font-medium text-slate-600 max-w-md leading-relaxed mb-16">
               WaterAds turns standard hydration cans into verifiable customer touchpoints with geographic precision.
             </p>
 
@@ -216,9 +216,9 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 viewport={{ once: true }}
-                className="flex flex-col border-l-2 border-slate-200 pl-6"
+                className="flex flex-col border-l-2 border-sky-100 pl-6"
               >
-                <div className="text-4xl sm:text-5xl font-black tracking-tighter text-[#111] leading-none">
+                <div className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-none">
                   <CountUp end={148500} suffix="+" />
                 </div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3">Cans Distributed</div>
@@ -229,9 +229,9 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}
                 viewport={{ once: true }}
-                className="flex flex-col border-l-2 border-slate-200 pl-6"
+                className="flex flex-col border-l-2 border-sky-100 pl-6"
               >
-                <div className="text-4xl sm:text-5xl font-black tracking-tighter text-[#111] leading-none">
+                <div className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-none">
                   <CountUp end={18920} suffix="" />
                 </div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3">QR Scans Recorded</div>
@@ -242,9 +242,9 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
                 viewport={{ once: true }}
-                className="flex flex-col border-l-2 border-slate-200 pl-6"
+                className="flex flex-col border-l-2 border-sky-100 pl-6"
               >
-                <div className="text-4xl sm:text-5xl font-black tracking-tighter text-[#111] leading-none">
+                <div className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-none">
                   <CountUp end={42} suffix="" />
                 </div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3">Locations Reached</div>
@@ -255,9 +255,9 @@ export default function App() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.5 }}
                 viewport={{ once: true }}
-                className="flex flex-col border-l-2 border-slate-200 pl-6"
+                className="flex flex-col border-l-2 border-sky-100 pl-6"
               >
-                <div className="text-4xl sm:text-5xl font-black tracking-tighter text-[#111] leading-none">
+                <div className="text-4xl sm:text-5xl font-black tracking-tighter text-slate-900 leading-none">
                   <CountUp end={98.4} suffix="%" decimals={1} />
                 </div>
                 <div className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-3">Campaign Progress</div>
@@ -271,9 +271,9 @@ export default function App() {
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            className="relative w-full aspect-square md:aspect-auto md:h-[600px] bg-[#111] flex items-center justify-center p-8 overflow-hidden"
+            className="relative w-full flex-1 aspect-square md:aspect-auto md:h-[600px] bg-slate-900 rounded-3xl flex items-center justify-center p-8 overflow-hidden shadow-2xl shadow-slate-900/20"
           >
-            <div className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-sm p-8 shadow-2xl flex flex-col space-y-8">
+            <div className="relative bg-[#0a0a0a] border border-white/10 w-full max-w-sm p-8 rounded-2xl shadow-2xl flex flex-col space-y-8">
               
               <div className="flex items-center justify-between border-b border-white/10 pb-6">
                 <div className="flex items-center gap-4">
@@ -291,8 +291,8 @@ export default function App() {
               </div>
 
               {/* QR Scan Beam Visual */}
-              <div className="relative bg-[#111] border border-white/5 p-12 flex flex-col items-center justify-center space-y-8 overflow-hidden">
-                <div className="w-32 h-32 bg-white p-3 flex items-center justify-center relative overflow-hidden">
+              <div className="relative bg-[#111] border border-white/5 p-12 rounded-xl flex flex-col items-center justify-center space-y-8 overflow-hidden">
+                <div className="w-32 h-32 bg-white p-3 rounded-lg flex items-center justify-center relative overflow-hidden">
                   <svg viewBox="0 0 100 100" className="w-full h-full relative z-10">
                     <path d="M10 10 h30 v30 h-30 z M15 15 h20 v20 h-20 z" fill="#000" />
                     <path d="M60 10 h30 v30 h-30 z M65 15 h20 v20 h-20 z" fill="#000" />
