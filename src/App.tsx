@@ -17,6 +17,7 @@ import SplashScreen from "./components/SplashScreen"
 import HeroSection from "./components/HeroSection"
 import EcosystemSection from "./components/EcosystemSection"
 import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
+import FoldText from "./components/ui/FoldText"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
@@ -597,15 +598,22 @@ export default function App() {
 
             {/* Right Column: Statement & Numbers */}
             <div className="space-y-24">
-              <motion.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true, margin: "-100px" }}
-                className="text-3xl sm:text-4xl md:text-[40px] font-medium text-black leading-[1.2] tracking-tight max-w-3xl"
-              >
-                We connect <span className="text-cyan-500 font-bold">leading brands</span> with local <span className="text-blue-500 font-bold">water plants</span> and distributors, creating trackable <span className="text-sky-500 font-bold">offline advertising</span> campaigns that reach millions of consumers daily.
-              </motion.p>
+              <div className="text-3xl sm:text-4xl md:text-[40px] font-medium leading-[1.2] tracking-tight max-w-3xl">
+                <FoldText
+                  text="We connect leading brands with local water plants and distributors, creating trackable offline advertising campaigns that reach millions of consumers daily."
+                  splitBy="word"
+                  hinge="top"
+                  trigger="scroll"
+                  duration={0.65}
+                  stagger={0.045}
+                  ease="power3.out"
+                  perspective={700}
+                  creaseShading={0.55}
+                  fontSize="inherit"
+                  fontWeight="inherit"
+                  color="#111"
+                />
+              </div>
 
               <motion.div 
                 initial={{ opacity: 0, y: 20 }}
