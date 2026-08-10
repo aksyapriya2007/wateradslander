@@ -20,6 +20,7 @@ import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
 import FoldText from "./components/ui/FoldText"
 import BlurText from "./components/ui/BlurText"
 import AnimatedNumber from "./components/ui/AnimatedNumber"
+import StrokeText from "./components/ui/StrokeText"
 import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
@@ -868,9 +869,38 @@ export default function App() {
             Ready to Start?
           </span>
           
-          <h2 className="text-6xl md:text-[96px] font-black tracking-tighter leading-[0.85] text-[#111] uppercase mb-8">
-            CONNECT YOUR<br />BRAND OR PLANT
-          </h2>
+          <div className="w-full flex flex-col items-center justify-center mb-8 space-y-[-5%] sm:space-y-[-10%] md:space-y-[-15%]">
+            <StrokeText
+              text="CONNECT YOUR"
+              strokeColor="#cbd5e1"
+              fillColor="#111111"
+              strokeWidth={1.5}
+              drawDuration={1.2}
+              fillDelay={0.1}
+              stagger={0.03}
+              ease="power2.out"
+              trigger="scroll"
+              fillMode="wipe"
+              fontSize={128}
+              fontWeight={900}
+              letterSpacing={-4}
+            />
+            <StrokeText
+              text="BRAND OR PLANT"
+              strokeColor="#cbd5e1"
+              fillColor="#111111"
+              strokeWidth={1.5}
+              drawDuration={1.2}
+              fillDelay={0.1}
+              stagger={0.03}
+              ease="power2.out"
+              trigger="scroll"
+              fillMode="wipe"
+              fontSize={128}
+              fontWeight={900}
+              letterSpacing={-4}
+            />
+          </div>
           
           <p className="text-base md:text-xl font-bold text-slate-600 max-w-2xl mx-auto leading-relaxed mb-12">
             Join hundreds of active advertisers and bottling plants<br className="hidden sm:block" /> generating real-time offline scan engagements today.
