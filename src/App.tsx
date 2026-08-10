@@ -778,7 +778,7 @@ export default function App() {
               HAVE SOME QUESTIONS?
             </h2>
             
-            <div className="mt-auto hidden lg:block">
+            <div className="hidden lg:block">
               <h4 className="text-xl font-black tracking-tight text-black uppercase mb-3">
                 NOT FINDING ANSWERS?
               </h4>
