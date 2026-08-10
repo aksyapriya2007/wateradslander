@@ -1,97 +1,203 @@
-import React from 'react';
-import { Target, Printer, Activity, Truck, BarChart3, Lock, CheckCircle2, Shield, FileText } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { CheckCircle2, Navigation, Target, Activity } from 'lucide-react';
+
+const steps = [
+  {
+    title: "CREATE",
+    desc: "We define your target network, duration, and can quantity based on brand goals.",
+    icon: Target
+  },
+  {
+    title: "PRINT",
+    desc: "We serialize the advertising labels and produce them with extreme precision.",
+    icon: CheckCircle2
+  },
+  {
+    title: "DISTRIBUTE",
+    desc: "Plants apply the labels and dispatch cans to strictly targeted geographic zones.",
+    icon: Navigation
+  },
+  {
+    title: "MEASURE",
+    desc: "Unique QR scans capture real-time engagement and provide robust campaign tracking.",
+    icon: Activity
+  }
+];
 
 export default function ProcessFlowSection() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  
   return (
-    <section className="relative w-full min-h-screen bg-[#050505] flex flex-col items-center py-24 px-6 md:px-16 font-sans text-white z-10">
+    <section ref={containerRef} className="relative w-full min-h-screen bg-[#F3F4F6] py-32 px-6 overflow-hidden">
       
-      {/* Header */}
-      <div className="w-full max-w-7xl mb-12">
-        <span className="text-cyan-400 text-sm font-bold tracking-widest uppercase mb-4 block">Process</span>
-        <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-white mb-6">
-          The Flow
-        </h2>
+      {/* Background Liquid Waves (Foreground) */}
+      <div className="absolute bottom-0 left-0 w-full h-[50vh] z-0 pointer-events-none overflow-hidden flex items-end opacity-40">
+        <div className="relative w-full h-full">
+          {/* Back Wave (slower, cyan) */}
+          <div className="absolute bottom-0 left-0 w-[200%] h-full flex items-end animate-[wave-move_12s_linear_infinite]">
+            <svg viewBox="0 0 2400 120" preserveAspectRatio="none" className="w-full h-full fill-cyan-400 opacity-40">
+              <path d="M0,40 C150,80 350,0 600,40 C850,80 1050,0 1200,40 L1200,120 L0,120 Z"></path>
+              <path d="M1200,40 C1350,80 1550,0 1800,40 C2050,80 2250,0 2400,40 L2400,120 L1200,120 Z"></path>
+            </svg>
+          </div>
+
+          {/* Front Wave (faster, sky blue) */}
+          <div className="absolute bottom-0 left-0 w-[200%] h-[80%] flex items-end animate-[wave-move_8s_linear_infinite_reverse]">
+            <svg viewBox="0 0 2400 120" preserveAspectRatio="none" className="w-full h-full fill-sky-500 opacity-60">
+              <path d="M0,60 C200,120 400,0 600,60 C800,120 1000,0 1200,60 L1200,120 L0,120 Z"></path>
+              <path d="M1200,60 C1400,120 1600,0 1800,60 C2000,120 2200,0 2400,60 L2400,120 L1200,120 Z"></path>
+            </svg>
+          </div>
+          <div className="absolute bottom-0 left-0 w-full h-4 bg-sky-500" />
+        </div>
       </div>
 
-      {/* Bento Grid Container */}
-      <div className="w-full max-w-7xl border border-white/10 rounded-[2rem] md:rounded-[3rem] overflow-hidden grid grid-cols-1 md:grid-cols-12 bg-[#0a0a0a]">
+      <div className="max-w-7xl mx-auto relative z-10">
         
-        {/* LEFT COLUMN (4 Cols) */}
-        <div className="col-span-1 md:col-span-4 flex flex-col border-r border-white/10">
-          
-          {/* Top Left: CREATE */}
-          <div className="flex-1 border-b border-white/10 p-10 md:p-12 flex flex-col justify-start">
-            <Target className="w-6 h-6 text-neutral-500 mb-24" strokeWidth={1.5} />
-            <div>
-              <h3 className="text-xl font-semibold mb-3 text-white tracking-tight">Create</h3>
-              <p className="text-neutral-400 text-sm leading-relaxed">
-                We define your target network, duration, and can quantity based on brand goals.
-              </p>
-            </div>
-          </div>
-
-          {/* Bottom Left: PRINT */}
-          <div className="flex-1 p-10 md:p-12 flex flex-col justify-start">
-            <Printer className="w-6 h-6 text-neutral-500 mb-24" strokeWidth={1.5} />
-            <div>
-              <h3 className="text-xl font-semibold mb-3 text-white tracking-tight">Print</h3>
-              <p className="text-neutral-400 text-sm leading-relaxed">
-                We serialize the advertising labels and produce them with extreme precision and speed.
-              </p>
-            </div>
-          </div>
-
+        {/* Section Header */}
+        <div className="mb-16">
+          <span className="text-xs font-bold text-sky-500 uppercase tracking-widest mb-2 block">
+            PROCESS: 4 STEPS
+          </span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tighter text-[#111] uppercase leading-none">
+            THE FLOW
+          </h2>
         </div>
 
-        {/* RIGHT COLUMN (8 Cols) */}
-        <div className="col-span-1 md:col-span-8 flex flex-col">
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-6 md:gap-8">
           
-          {/* Top Right: MASSIVE VALUE PROP */}
-          <div className="flex-[2] border-b border-white/10 p-10 md:p-16 flex flex-col justify-start relative overflow-hidden">
-            <Activity className="w-6 h-6 text-neutral-500 mb-24" strokeWidth={1.5} />
+          {/* Card 1: CREATE (Wide, Col-span-3) */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="md:col-span-3 bg-white rounded-[40px] p-10 md:p-14 shadow-sm border border-gray-100 flex flex-col justify-between relative overflow-hidden group min-h-[400px]"
+          >
+            {/* Animated Abstract Graphic */}
+            <div className="absolute right-0 top-0 w-1/2 h-full opacity-10 pointer-events-none transition-transform duration-700 group-hover:scale-110">
+              <motion.div 
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="w-[150%] h-[150%] absolute -top-[25%] -right-[25%] bg-gradient-to-bl from-sky-400 to-transparent rounded-full blur-3xl"
+              />
+            </div>
             
-            <div className="relative z-10 mt-auto">
-              <h2 className="text-7xl md:text-[120px] font-medium tracking-tighter text-white leading-none mb-4">
-                100%
-              </h2>
-              <h3 className="text-2xl font-semibold mb-6 text-white tracking-tight">Offline-to-Online</h3>
-              <p className="text-neutral-400 text-base max-w-lg leading-relaxed">
-                WaterAds transforms physical hydration into measurable digital interactions, bridging the gap between real-world consumption and digital engagement with absolute reliability.
+            <div className="z-10">
+              <div className="w-16 h-16 rounded-full bg-sky-50 flex items-center justify-center mb-12">
+                <Target className="w-8 h-8 text-sky-500" />
+              </div>
+              <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-[#111] uppercase mb-4">
+                {steps[0].title}
+              </h3>
+              <p className="text-lg md:text-xl font-medium text-slate-500 leading-relaxed max-w-sm">
+                {steps[0].desc}
               </p>
             </div>
+            <div className="absolute top-10 right-10 text-[80px] md:text-[120px] font-black text-slate-50 leading-none pointer-events-none group-hover:text-sky-50 transition-colors duration-500">
+              01
+            </div>
+          </motion.div>
 
-            {/* Subtle background glow to mimic the screenshot's premium feel */}
-            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-transparent to-cyan-900/10 pointer-events-none" />
-          </div>
+          {/* Card 2: PRINT (Tall, Col-span-2) */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="md:col-span-2 bg-[#F8FAFC] rounded-[40px] md:rounded-[100px] p-10 md:p-14 shadow-sm border border-gray-200 flex flex-col items-center justify-center text-center relative overflow-hidden group min-h-[400px]"
+          >
+             <motion.div 
+                whileHover={{ scale: 1.1 }}
+                className="w-24 h-24 rounded-full bg-white shadow-md flex items-center justify-center mb-10 z-10"
+              >
+                <CheckCircle2 className="w-10 h-10 text-[#0F172A]" />
+              </motion.div>
+              <h3 className="text-3xl md:text-4xl font-black tracking-tighter text-[#111] uppercase mb-4 z-10">
+                {steps[1].title}
+              </h3>
+              <p className="text-base md:text-lg font-medium text-slate-500 leading-relaxed z-10 max-w-[250px]">
+                {steps[1].desc}
+              </p>
+              
+              <div className="absolute bottom-10 left-1/2 -translate-x-1/2 text-[120px] font-black text-slate-100 leading-none pointer-events-none opacity-50 group-hover:-translate-y-4 transition-transform duration-500">
+                02
+              </div>
+          </motion.div>
 
-          {/* Bottom Right: SPLIT (DISTRIBUTE & MEASURE) */}
-          <div className="flex-1 grid grid-cols-1 sm:grid-cols-2">
-            
-            {/* Split Left: DISTRIBUTE */}
-            <div className="p-10 md:p-12 flex flex-col justify-start border-b sm:border-b-0 sm:border-r border-white/10">
-              <Truck className="w-6 h-6 text-neutral-500 mb-20" strokeWidth={1.5} />
+          {/* Card 3: DISTRIBUTE (Tall, Col-span-2) */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="md:col-span-2 bg-[#1A3636] rounded-[40px] md:rounded-[100px] p-10 md:p-14 shadow-lg flex flex-col items-center justify-center text-center relative overflow-hidden group min-h-[400px]"
+          >
+             <motion.div 
+                whileHover={{ rotate: 15 }}
+                className="w-16 h-16 rounded-full bg-white/10 flex items-center justify-center mb-10 z-10 border border-white/20"
+              >
+                <Navigation className="w-8 h-8 text-white" />
+              </motion.div>
+              <h3 className="text-3xl md:text-4xl font-black tracking-tighter text-white uppercase mb-4 z-10">
+                {steps[2].title}
+              </h3>
+              <p className="text-base md:text-lg font-medium text-white/70 leading-relaxed z-10 max-w-[250px]">
+                {steps[2].desc}
+              </p>
+              
+              <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl pointer-events-none group-hover:bg-emerald-500/30 transition-colors duration-500" />
+              <div className="absolute top-10 left-1/2 -translate-x-1/2 text-[120px] font-black text-white/5 leading-none pointer-events-none">
+                03
+              </div>
+          </motion.div>
+
+          {/* Card 4: MEASURE (Wide, Col-span-3) */}
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, margin: "-100px" }}
+            transition={{ duration: 0.6, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            className="md:col-span-3 bg-white rounded-[40px] p-10 md:p-14 shadow-sm border border-gray-100 flex flex-col justify-between relative overflow-hidden group min-h-[400px]"
+          >
+            {/* Animated abstract bar chart */}
+            <div className="absolute right-10 bottom-10 flex items-end gap-3 opacity-20 pointer-events-none h-48">
+              {[40, 70, 45, 90, 60, 100].map((height, i) => (
+                <motion.div
+                  key={i}
+                  initial={{ height: "10%" }}
+                  whileInView={{ height: `${height}%` }}
+                  transition={{ duration: 1, delay: 0.4 + (i * 0.1), ease: "easeOut" }}
+                  className="w-8 bg-[#111] rounded-t-lg"
+                />
+              ))}
+            </div>
+
+            <div className="z-10 h-full flex flex-col justify-between">
+              <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center mb-12">
+                <Activity className="w-8 h-8 text-[#111]" />
+              </div>
               <div>
-                <h3 className="text-xl font-semibold mb-3 text-white tracking-tight">Distribute</h3>
-                <p className="text-neutral-400 text-sm leading-relaxed">
-                  Plants apply the labels and dispatch cans to strictly targeted geographic zones.
+                <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-[#111] uppercase mb-4">
+                  {steps[3].title}
+                </h3>
+                <p className="text-lg md:text-xl font-medium text-slate-500 leading-relaxed max-w-sm">
+                  {steps[3].desc}
                 </p>
               </div>
             </div>
-
-            {/* Split Right: MEASURE */}
-            <div className="p-10 md:p-12 flex flex-col justify-start">
-              <BarChart3 className="w-6 h-6 text-neutral-500 mb-20" strokeWidth={1.5} />
-              <div>
-                <h3 className="text-xl font-semibold mb-3 text-white tracking-tight">Measure</h3>
-                <p className="text-neutral-400 text-sm leading-relaxed">
-                  Unique QR scans capture real-time engagement and robust campaign tracking.
-                </p>
-              </div>
+            <div className="absolute top-10 right-10 text-[80px] md:text-[120px] font-black text-slate-50 leading-none pointer-events-none group-hover:text-slate-100 transition-colors duration-500">
+              04
             </div>
+          </motion.div>
 
-          </div>
         </div>
-
       </div>
     </section>
   );
