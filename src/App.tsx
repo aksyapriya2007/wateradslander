@@ -470,8 +470,8 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
               className="md:col-span-2 bg-white rounded-[32px] p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px]"
             >
               <div className="relative z-10 space-y-8 max-w-lg">
@@ -495,8 +495,8 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 1.0, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
               className="md:col-span-1 bg-[#222] text-white rounded-[32px] p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px]"
             >
               <div className="relative z-10 space-y-8">
@@ -516,8 +516,8 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, x: -50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 1.0, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
               className="md:col-span-1 bg-[#222] text-white rounded-[32px] p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px]"
             >
               <div className="relative z-10 space-y-8">
@@ -537,8 +537,8 @@ export default function App() {
             <motion.div 
               initial={{ opacity: 0, x: 50 }}
               whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.7, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: false, amount: 0.2 }}
+              transition={{ duration: 1.0, delay: 0.45, ease: [0.16, 1, 0.3, 1] }}
               className="md:col-span-2 bg-white rounded-[32px] p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px]"
             >
               <div className="relative z-10 space-y-8 max-w-lg">
