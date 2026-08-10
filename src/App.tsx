@@ -586,16 +586,6 @@ export default function App() {
         </div>
 
         <div className="max-w-[1200px] mx-auto border-t border-slate-200/50 pt-32 px-6 relative z-10">
-          <div className="grid md:grid-cols-[150px_1fr] gap-8 md:gap-16">
-            
-            {/* Left Column: Label */}
-            <div>
-              <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest pt-2 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 block" />
-                The Network
-              </h3>
-            </div>
-
             {/* Right Column: Statement & Numbers */}
             <div className="space-y-24">
               <div className="text-3xl sm:text-4xl md:text-[40px] font-medium leading-[1.2] tracking-tight max-w-3xl">
@@ -650,8 +640,6 @@ export default function App() {
                 </div>
               </motion.div>
             </div>
-
-          </div>
         </div>
       </section>
 
