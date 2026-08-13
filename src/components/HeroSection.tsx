@@ -101,30 +101,41 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
           <div className="flex items-center gap-6">
             <motion.button 
               whileTap={{ scale: 0.94 }}
-              onClick={(e: React.MouseEvent) => {
-                const x = e.clientX;
-                const y = e.clientY;
+              onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
                 const endRadius = Math.hypot(
                   Math.max(x, window.innerWidth - x),
                   Math.max(y, window.innerHeight - y)
                 );
+                
+                const isDarkNew = !isDark;
+
                 // @ts-ignore
                 if (!document.startViewTransition) {
-                  setIsDark(!isDark);
+                  setIsDark(isDarkNew);
                   return;
                 }
+                
                 // @ts-ignore
                 const transition = document.startViewTransition(() => {
-                  setIsDark(!isDark);
+                  setIsDark(isDarkNew);
                 });
+                
                 transition.ready.then(() => {
                   const clipPath = [
                     `circle(0px at ${x}px ${y}px)`,
                     `circle(${endRadius}px at ${x}px ${y}px)`
                   ];
+                  
                   document.documentElement.animate(
                     { clipPath: clipPath },
-                    { duration: 500, easing: 'ease-out', pseudoElement: '::view-transition-new(root)' }
+                    { 
+                      duration: 700, 
+                      easing: 'cubic-bezier(0.65, 0, 0.05, 1)', 
+                      pseudoElement: '::view-transition-new(root)' 
+                    }
                   );
                 });
               }}
