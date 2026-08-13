@@ -14,7 +14,7 @@ export default function FooterSection() {
       </div>
 
       {/* Main Footer Box */}
-      <div className="w-full max-w-[1400px] bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 lg:p-16 flex flex-col relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.03)] border border-wa-text/5">
+      <div className="w-full max-w-[1400px] bg-white dark:bg-wa-card rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 lg:p-16 flex flex-col relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.03)] border border-wa-text/5">
         
         {/* Header Row */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full mb-16 md:mb-24 gap-6">
@@ -36,7 +36,7 @@ export default function FooterSection() {
           <div className="flex-1 flex justify-start md:justify-end gap-3">
             <a 
               href="#" 
-              className="px-6 py-2.5 rounded-full bg-slate-200 text-wa-text font-bold text-sm md:text-base hover:bg-slate-300 transition-colors press-scale"
+              className="px-6 py-2.5 rounded-full bg-slate-200 dark:bg-slate-800 text-wa-text font-bold text-sm md:text-base hover:bg-slate-300 dark:hover:bg-slate-700 transition-colors press-scale"
             >
               Login
             </a>
