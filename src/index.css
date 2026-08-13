@@ -196,6 +196,181 @@ html, body {
   .press-scale:active {
     transform: scale(0.97);
   }
+
+  /* ── DepthFold 3D Cards ── */
+  .ux-parent {
+    width: 100%;
+    max-width: 100%;
+    height: 340px;
+    margin-inline: auto;
+    perspective: 1000px;
+    perspective-origin: 50% 50%;
+    filter: drop-shadow(0 28px 50px rgba(0, 40, 30, 0.15));
+  }
+  .ux-parent--wide {
+    max-width: none;
+    width: 100%;
+    height: 268px;
+  }
+  .ux-card {
+    position: relative;
+    height: 100%;
+    border-radius: 50px;
+    background: var(--ux-grad);
+    transform-style: preserve-3d;
+    transition:
+        transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+        box-shadow 0.55s ease;
+    box-shadow:
+        rgba(51, 51, 255, 0) 40px 50px 25px -40px,
+        rgba(51, 51, 255, 0.08) 0 25px 25px -5px;
+  }
+  .ux-parent:hover .ux-card {
+    transform: rotate3d(1, 1, 0, 28deg);
+    box-shadow:
+        rgba(51, 51, 255, 0.15) 28px 48px 28px -38px,
+        rgba(51, 51, 255, 0.08) 0 0 60px -10px,
+        rgba(51, 51, 255, 0.1) 0 25px 35px 0;
+  }
+
+  /* Themes - Adapted to WaterAds Core Brand Colors */
+  .ux-parent--ocean {
+    --ux-grad: linear-gradient(135deg, #00C6FF 0%, #3333FF 100%);
+    --ux-title: #042E63;
+    --ux-body: rgba(4, 46, 99, 0.85);
+    --ux-cta: #3333FF;
+    --ux-orbit: rgba(0, 198, 255, 0.22);
+    --ux-fill: #3333FF;
+  }
+  .dark .ux-parent--ocean {
+    --ux-title: #E0F2FE;
+    --ux-body: rgba(224, 242, 254, 0.85);
+  }
+
+  .ux-parent--frost {
+    --ux-grad: linear-gradient(145deg, #F4F1EC 0%, #E2E8F0 100%);
+    --ux-title: #1A2355;
+    --ux-body: rgba(26, 35, 85, 0.85);
+    --ux-cta: #3333FF;
+    --ux-orbit: rgba(51, 51, 255, 0.15);
+    --ux-fill: #3333FF;
+  }
+  .dark .ux-parent--frost {
+    --ux-grad: linear-gradient(145deg, #0A1128 0%, #1A2355 100%);
+    --ux-title: #F0F5FF;
+    --ux-body: rgba(240, 245, 255, 0.85);
+    --ux-orbit: rgba(51, 51, 255, 0.35);
+  }
+
+  .ux-parent--neon {
+    --ux-grad: linear-gradient(135deg, #3333FF 0%, #172554 100%);
+    --ux-title: #EFF6FF;
+    --ux-body: rgba(239, 246, 255, 0.88);
+    --ux-cta: #60A5FA;
+    --ux-orbit: rgba(255, 255, 255, 0.15);
+    --ux-fill: #3333FF;
+  }
+  .dark .ux-parent--neon {
+    --ux-title: #FFFFFF;
+    --ux-body: rgba(255, 255, 255, 0.85);
+  }
+
+  .ux-parent--void {
+    --ux-grad: linear-gradient(160deg, #02040A 0%, #12122A 50%, #1A2355 100%);
+    --ux-title: #93C5FD;
+    --ux-body: rgba(191, 219, 254, 0.82);
+    --ux-cta: #60A5FA;
+    --ux-orbit: rgba(51, 51, 255, 0.25);
+    --ux-fill: #3333FF;
+  }
+  .dark .ux-parent--void {
+    --ux-title: #DBEAFE;
+  }
+
+  .ux-parent--cut .ux-card {
+    border-radius: 36px;
+    clip-path: polygon(16px 0, calc(100% - 16px) 0, 100% 16px, 100% calc(100% - 16px), calc(100% - 16px) 100%, 16px 100%, 0 calc(100% - 16px), 0 16px);
+  }
+  .ux-parent--cut .ux-glass {
+    border-radius: 32px !important;
+    clip-path: polygon(14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px), 0 14px);
+  }
+  .ux-glass {
+    transform-style: preserve-3d;
+    position: absolute;
+    inset: 8px;
+    border-radius: 55px;
+    border-top-right-radius: 100%;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0.82) 100%);
+    transform: translate3d(0, 0, 25px);
+    border-inline-start: 1px solid rgba(255,255,255,0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.75);
+    transition: all 0.5s ease-in-out;
+    pointer-events: none;
+  }
+  .dark .ux-glass {
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.15) 100%);
+    border-inline-start-color: rgba(255,255,255,0.2);
+    border-bottom-color: rgba(255,255,255,0.1);
+  }
+  .ux-parent--void .ux-glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(15, 23, 42, 0.55) 100%);
+    border-color: rgba(148, 163, 184, 0.25);
+  }
+  .ux-logo {
+    position: absolute;
+    inset-inline-end: 0;
+    top: 0;
+    transform-style: preserve-3d;
+    pointer-events: none;
+    z-index: 2;
+  }
+  .ux-circle {
+    display: block;
+    position: absolute;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    top: 0;
+    inset-inline-end: 0;
+    background: var(--ux-orbit);
+    box-shadow: rgba(100, 100, 111, 0.25) -10px 10px 24px 0;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    transition: all 0.5s ease-in-out;
+  }
+  .ux-circle:nth-child(1) { width: 170px; transform: translate3d(0, 0, 20px); top: 8px; inset-inline-end: 8px; }
+  .ux-circle:nth-child(2) { width: 140px; transform: translate3d(0, 0, 40px); top: 10px; inset-inline-end: 10px; backdrop-filter: blur(4px); transition-delay: 0.05s; }
+  .ux-circle:nth-child(3) { width: 110px; transform: translate3d(0, 0, 60px); top: 17px; inset-inline-end: 17px; transition-delay: 0.1s; }
+  .ux-circle:nth-child(4) { width: 80px; transform: translate3d(0, 0, 80px); top: 23px; inset-inline-end: 23px; transition-delay: 0.15s; }
+  .ux-circle:nth-child(5) { width: 50px; transform: translate3d(0, 0, 100px); top: 30px; inset-inline-end: 30px; display: grid; place-content: center; transition-delay: 0.2s; }
+  .ux-parent:hover .ux-circle:nth-child(2) { transform: translate3d(0, 0, 60px); }
+  .ux-parent:hover .ux-circle:nth-child(3) { transform: translate3d(0, 0, 80px); }
+  .ux-parent:hover .ux-circle:nth-child(4) { transform: translate3d(0, 0, 100px); }
+  .ux-parent:hover .ux-circle:nth-child(5) { transform: translate3d(0, 0, 120px); }
+
+  .ux-content {
+    padding: 100px 3.75rem 0 1.85rem;
+    transform: translate3d(0, 0, 26px);
+    position: relative;
+    z-index: 3;
+    text-align: left;
+  }
+  .ux-title {
+    display: block;
+    color: var(--ux-title);
+    font-weight: 900;
+    font-size: 1.25rem;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+  .ux-text {
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--ux-body);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    font-weight: 600;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

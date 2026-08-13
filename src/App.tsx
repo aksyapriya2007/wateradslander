@@ -483,7 +483,7 @@ export default function App() {
  transition={{ duration: 0.5, delay: 0.2 }}
  className="inline-flex"
  >
- <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest border border-[#BBBBFF] bg-[#EDEDFF] px-5 py-2.5 rounded-full group-hover:bg-[#3333FF] group-hover:text-wa-text group-hover:border-[#3333FF] transition-colors duration-300">For Brands</span>
+ <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest border border-[#BBBBFF] bg-[#EDEDFF] px-5 py-2.5 rounded-full group-hover:bg-[#3333FF] group-hover:text-white group-hover:border-[#3333FF] transition-colors duration-300">For Brands</span>
  </motion.div>
  <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-wa-text leading-[1.1]">
  Launch & measure offline campaigns.
@@ -520,7 +520,7 @@ export default function App() {
  transition={{ duration: 0.5, delay: 0.3 }}
  className="inline-flex"
  >
- <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest border border-[#3333FF]/30 bg-[#3333FF]/10 px-5 py-2.5 rounded-full group-hover:bg-[#3333FF] group-hover:text-wa-text transition-colors duration-300">For Printers</span>
+ <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest border border-[#3333FF]/30 bg-[#3333FF]/10 px-5 py-2.5 rounded-full group-hover:bg-[#3333FF] group-hover:text-white transition-colors duration-300">For Printers</span>
  </motion.div>
  <h3 className="text-4xl font-black tracking-tighter leading-[1.1]">
  Receive nearby print orders.
@@ -557,7 +557,7 @@ export default function App() {
  transition={{ duration: 0.5, delay: 0.45 }}
  className="inline-flex"
  >
- <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest border border-blue-400/30 bg-[#3333FF]/10 px-5 py-2.5 rounded-full group-hover:bg-[#3333FF] group-hover:text-wa-text transition-colors duration-300">For Plants</span>
+ <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest border border-blue-400/30 bg-[#3333FF]/10 px-5 py-2.5 rounded-full group-hover:bg-[#3333FF] group-hover:text-white transition-colors duration-300">For Plants</span>
  </motion.div>
  <h3 className="text-4xl font-black tracking-tighter leading-[1.1]">
  Monetize your network.
@@ -593,7 +593,7 @@ export default function App() {
  transition={{ duration: 0.5, delay: 0.6 }}
  className="inline-flex"
  >
- <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest border border-[#BBBBFF] bg-[#EDEDFF] px-5 py-2.5 rounded-full group-hover:bg-[#3333FF] group-hover:text-wa-text group-hover:border-[#3333FF] transition-colors duration-300">For Distributors</span>
+ <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest border border-[#BBBBFF] bg-[#EDEDFF] px-5 py-2.5 rounded-full group-hover:bg-[#3333FF] group-hover:text-white group-hover:border-[#3333FF] transition-colors duration-300">For Distributors</span>
  </motion.div>
  <h3 className="text-4xl md:text-5xl font-black tracking-tighter text-wa-text leading-[1.1]">
  Verify real-world distribution.
