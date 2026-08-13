@@ -28,18 +28,15 @@
 html, body {
   background: var(--wa-bg);
   color: var(--wa-text);
-  /* Hide scrollbar globally */
   -ms-overflow-style: none;
   scrollbar-width: none;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 ::-webkit-scrollbar {
   display: none;
-}
-
-*, *::before, *::after {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-  transition-duration: 300ms;
 }
 
 ::selection {
@@ -92,11 +89,28 @@ html, body {
 
   .btn-magnetic {
     transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
-                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+               box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .btn-magnetic:hover {
     transform: translateY(-3px);
     box-shadow: 0 20px 40px -12px rgba(51, 51, 255, 0.35);
+  }
+
+  .btn-shimmer {
+    background: var(--wa-accent);
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-shimmer::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.2) 50%, transparent 60%);
+    transform: translateX(-100%);
+    transition: transform 600ms ease;
+  }
+  .btn-shimmer:hover::after {
+    transform: translateX(100%);
   }
 
   /* Premium scrollbar */
@@ -107,12 +121,28 @@ html, body {
 
   /* ── Apple Design Utilities ── */
   .apple-glass {
+    background-color: rgba(255, 255, 255, 0.3);
     backdrop-filter: blur(20px) saturate(180%);
     -webkit-backdrop-filter: blur(20px) saturate(180%);
   }
+  .dark .apple-glass {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
   .apple-glass-heavy {
+    background-color: rgba(255, 255, 255, 0.4);
     backdrop-filter: blur(40px) saturate(200%);
     -webkit-backdrop-filter: blur(40px) saturate(200%);
+  }
+  .dark .apple-glass-heavy {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .apple-glass-light {
+    background-color: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(12px) saturate(150%);
+    -webkit-backdrop-filter: blur(12px) saturate(150%);
+  }
+  .dark .apple-glass-light {
+    background-color: rgba(255, 255, 255, 0.03);
   }
   .tracking-apple-display {
     letter-spacing: -0.02em;
@@ -121,11 +151,69 @@ html, body {
   .tracking-apple-body {
     letter-spacing: 0.01em;
   }
+
+  /* ── Apple Typography Scale ── */
+  .text-display-large {
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    font-optical-sizing: auto;
+  }
+  .text-display-medium {
+    font-size: clamp(2rem, 4.5vw, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    font-weight: 700;
+    font-optical-sizing: auto;
+  }
+  .text-display-small {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    line-height: 1.15;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+    font-optical-sizing: auto;
+  }
+  .text-body-large {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    letter-spacing: 0;
+    font-weight: 400;
+  }
+  .text-caption {
+    font-size: 0.75rem;
+    line-height: 1.4;
+    letter-spacing: 0.02em;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  /* ── Apple Press Feedback ── */
+  .press-scale {
+    transition: transform 100ms ease-out;
+    cursor: pointer;
+  }
+  .press-scale:active {
+    transform: scale(0.97);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
-    transition: opacity 200ms ease !important;
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 200ms !important;
+    transition-property: opacity !important;
+  }
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .apple-glass,
+  .apple-glass-heavy,
+  .apple-glass-light {
+    background-color: var(--wa-bg-card) !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
   }
 }
 

@@ -50,7 +50,7 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
       rotateX: 0,
       filter: "blur(0px)",
       transition: {
-        type: "spring",
+        type: "spring" as const,
         bounce: 0,
         duration: 0.8,
         delay: 0.1 + i * 0.1,
@@ -77,8 +77,8 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
         <motion.nav
           initial={{ opacity: 0, y: -20, scale: 0.95 }}
           animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ type: "spring", bounce: 0, duration: 0.5, delay: 0.2 }}
-          className={`pointer-events-auto w-full flex items-center justify-between rounded-full px-8 transition-all duration-500 ${isScrolled ? 'max-w-[1200px] py-3 apple-glass-heavy shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.05)] border border-wa-border/50' : 'max-w-[1400px] py-4 bg-transparent border border-transparent shadow-none'}`}
+          transition={{ type: "spring" as const, bounce: 0, duration: 0.5, delay: 0.2 }}
+          className={`pointer-events-auto w-full flex items-center justify-between rounded-full px-8 transition-all duration-500 max-w-[1200px] py-3 apple-glass-heavy shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.05)] border border-white/30 dark:border-white/10`}
         >
           {/* Logo */}
           <a href="#" className="flex items-center gap-3 group shrink-0">
@@ -135,11 +135,27 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
               {isDark ? <Sun className="w-5 h-5 relative z-10" /> : <Moon className="w-5 h-5 relative z-10" />}
             </motion.button>
             
-            <a href="#contact" className="text-[12px] font-bold text-wa-text uppercase tracking-wider hover:text-wa-accent transition-colors hidden sm:block">
+            <a href="#contact" className="text-[12px] font-bold text-white bg-[#3333FF] uppercase tracking-wider px-5 py-2 rounded-full press-scale hover:bg-[#2222EE] transition-colors hidden sm:block">
               Get Started →
             </a>
           </div>
         </motion.nav>
+      </div>
+
+      {/* ── HUGE BACKGROUND WORDMARK ── */}
+      <div className="absolute top-0 left-0 right-0 flex justify-center items-center pointer-events-none z-0 select-none overflow-hidden h-screen">
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, x: ['-5%', '5%', '-5%'] }}
+          transition={{ 
+            opacity: { duration: 2 }, 
+            x: { duration: 25, repeat: Infinity, ease: "easeInOut" } 
+          }}
+          className="text-[clamp(10rem,25vw,35rem)] font-black tracking-tighter text-transparent whitespace-nowrap leading-none mt-[-15vh]"
+          style={{ WebkitTextStroke: isDark ? '3px rgba(255, 255, 255, 0.1)' : '3px rgba(0, 0, 0, 0.08)' }}
+        >
+          WATERADS
+        </motion.div>
       </div>
 
       {/* ── HERO CONTENT AREA ── */}
@@ -181,7 +197,7 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
         <motion.p
           initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ type: "spring", bounce: 0, duration: 0.8, delay: 0.6 }}
+          transition={{ type: "spring" as const, bounce: 0, duration: 0.8, delay: 0.6 }}
           className="text-base md:text-xl font-medium text-wa-text-muted max-w-xl mt-8 leading-relaxed"
         >
           We connect brands with local water distributors and
@@ -192,7 +208,7 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
         <motion.div 
           initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
           animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-          transition={{ type: "spring", bounce: 0, duration: 0.8, delay: 0.8 }}
+          transition={{ type: "spring" as const, bounce: 0, duration: 0.8, delay: 0.8 }}
           className="mt-10 flex items-center gap-4"
         >
           <MagneticWrapper>
@@ -200,7 +216,7 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
               href="#contact"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-[#3333FF] hover:bg-[#1111DD] text-white rounded-full font-bold uppercase tracking-wider text-sm transition-colors shadow-lg shadow-[#3333FF]/20 flex"
+              className="px-8 py-4 btn-shimmer text-white rounded-full font-bold uppercase tracking-wider text-sm shadow-lg flex press-scale"
             >
               Start Campaign
             </motion.a>
@@ -210,9 +226,10 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
               href="#process"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 bg-wa-card border border-wa-border hover:border-wa-border-hover text-wa-text rounded-full font-bold uppercase tracking-wider text-sm transition-all flex"
+              className="px-8 py-4 apple-glass border border-white/20 dark:border-white/10 hover:border-white/40 text-wa-text rounded-full font-bold uppercase tracking-wider text-sm flex hover:shadow-[0_4px_20px_rgba(0,0,0,0.08)] relative overflow-hidden group press-scale"
             >
-              How It Works
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 ease-in-out" />
+              <span className="relative z-10">How It Works</span>
             </motion.a>
           </MagneticWrapper>
         </motion.div>
@@ -224,13 +241,12 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
         {/* Deep background glow */}
         <div className="absolute top-0 right-0 w-[80vw] h-[80vw] max-w-[1000px] max-h-[1000px] bg-[#3333FF]/10 blur-[120px] rounded-full translate-x-1/4 -translate-y-1/4" />
 
-        {/* Primary organic blob */}
+        {/* Primary organic blob — slow breathe, no rotation */}
         <motion.div
           animate={{ 
-            scale: [1, 1.05, 0.95, 1],
-            rotate: [0, 90, 180, 360],
+            scale: [1, 1.08, 1],
           }}
-          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+          transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute"
           style={{
             top: '5%',
@@ -240,8 +256,8 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
             maxWidth: '1000px',
             maxHeight: '1000px',
             background: 'radial-gradient(circle at 40% 40%, #3333FF 0%, #1111DD 50%, transparent 100%)',
-            filter: 'blur(70px)',
-            opacity: 0.7,
+            filter: 'blur(80px)',
+            opacity: 0.5,
             borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
             willChange: "transform"
           }}
@@ -251,7 +267,7 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
 
 
       {/* ── SUBTLE MARQUEE BANNER ── */}
-      <div className="absolute bottom-0 left-0 w-full overflow-hidden flex whitespace-nowrap bg-wa-card/30 backdrop-blur-sm border-t border-white/5 py-4 z-10 pointer-events-none">
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden flex whitespace-nowrap bg-wa-bg/60 border-t border-wa-border/30 py-4 z-10 pointer-events-none">
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 40, repeat: Infinity, ease: "linear" }}

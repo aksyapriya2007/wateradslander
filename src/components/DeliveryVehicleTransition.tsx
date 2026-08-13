@@ -31,10 +31,10 @@ export default function DeliveryVehicleTransition() {
 
  // Soft suspension bounce for the body
  gsap.to(truckRef.current.querySelector('.truck-body'), {
- y: 6,
+ y: 2,
  repeat: -1,
  yoyo: true,
- duration: 0.4,
+ duration: 0.5,
  ease: "sine.inOut"
  });
 
@@ -58,7 +58,7 @@ export default function DeliveryVehicleTransition() {
  <div ref={truckRef} className="absolute left-0 bottom-[1px] flex flex-col items-center drop-shadow-[0_20px_40px_rgba(0,0,0,0.06)]">
  
  {/* Cute Rounded Truck Body */}
- <div className="truck-body bg-wa-bg rounded-[40px] rounded-br-[20px] shadow-[inset_-8px_0_20px_rgba(0,0,0,0.03),inset_8px_0_20px_rgba(255,255,255,1)] -hover p-8 flex items-center gap-8 relative z-20">
+ <div className="truck-body apple-glass rounded-[40px] rounded-br-[20px] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_20px_50px_-15px_rgba(0,0,0,0.08)] border border-white/20 dark:border-white/10 p-8 flex items-center gap-8 relative z-20">
  
  <div className="flex flex-col">
  <span className="font-black text-4xl tracking-tighter uppercase text-wa-text drop-shadow-sm">WaterAds</span>

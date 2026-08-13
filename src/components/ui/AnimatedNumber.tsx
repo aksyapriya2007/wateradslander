@@ -1,7 +1,7 @@
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 
-export default function AnimatedNumber({ value, suffix = "", duration = 2, className = "" }) {
+export default function AnimatedNumber({ value, suffix = "", duration = 2, className = "" }: { value: number; suffix?: string; duration?: number; className?: string }) {
  const ref = useRef(null);
  const inView = useInView(ref, { once: false, margin: "-50px" });
  const motionValue = useMotionValue(0);

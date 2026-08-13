@@ -9,7 +9,6 @@ import {
  ArrowRight,
  ArrowLeft,
  Plus,
- Minus,
  Droplets
 } from "lucide-react"
 
@@ -17,11 +16,13 @@ import SplashScreen from "./components/SplashScreen"
 import HeroSection from "./components/HeroSection"
 import EcosystemSection from "./components/EcosystemSection"
 import DeliveryVehicleTransition from "./components/DeliveryVehicleTransition"
-import FoldText from "./components/ui/FoldText"
+// @ts-ignore
 import BlurText from "./components/ui/BlurText"
 import AnimatedNumber from "./components/ui/AnimatedNumber"
+// @ts-ignore
 import StrokeText from "./components/ui/StrokeText"
 import WaterParticles from "./components/WaterParticles"
+// @ts-ignore
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
 import ProcessFlowSection from "./components/ProcessFlowSection"
@@ -161,7 +162,7 @@ export default function App() {
  <DeliveryVehicleTransition /> {/* ── 8.5 PROCESS FLOW SECTION ── */}
  <ProcessFlowSection />
 
- <section className="relative z-10 w-full bg-wa-bg py-32 md:py-40 ">
+ <section className="relative z-10 w-full bg-wa-bg py-32 md:py-40">
  <div className="w-full max-w-[1400px] mx-auto px-6 md:px-12">
  <div className="w-full flex flex-col lg:flex-row gap-16 lg:gap-24 items-center justify-between relative overflow-hidden">
  
@@ -169,7 +170,7 @@ export default function App() {
  <motion.div 
  initial={{ opacity: 0, x: -40, filter: "blur(8px)" }}
  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
- transition={{ type: "spring", bounce: 0, duration: 0.8 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 0.8 }}
  viewport={{ once: true }}
  className="flex flex-col flex-1"
  >
@@ -188,14 +189,14 @@ export default function App() {
  </span>
  </motion.div>
  
- <h2 className="text-5xl sm:text-6xl md:text-[72px] font-black tracking-apple-display text-wa-text leading-[1.05] uppercase mb-8">
- {['EVERY CAN.', 'EVERY SCAN.'].map((line, i) => (
+ <h2 className="text-display-large text-wa-text mb-8">
+ {['Every Can.', 'Every Scan.'].map((line, i) => (
  <motion.span
  key={i}
  initial={{ opacity: 0, x: -30, filter: "blur(8px)" }}
  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
  viewport={{ once: true }}
- transition={{ type: "spring", bounce: 0, duration: 0.8, delay: i * 0.15 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 0.8, delay: i * 0.15 }}
  className="block"
  >{line}</motion.span>
  ))}
@@ -203,16 +204,16 @@ export default function App() {
  initial={{ opacity: 0, x: -30, filter: "blur(8px)" }}
  whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
  viewport={{ once: true }}
- transition={{ type: "spring", bounce: 0, duration: 0.8, delay: 0.3 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 0.8, delay: 0.3 }}
  className="block text-[#3333FF]"
- >MEASURABLE.</motion.span>
+ >Measurable.</motion.span>
  </h2>
  
  <motion.p
  initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
  viewport={{ once: true }}
- transition={{ type: "spring", bounce: 0, duration: 0.8, delay: 0.4 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 0.8, delay: 0.4 }}
  className="text-base md:text-lg font-medium text-wa-text-muted max-w-md leading-relaxed mb-16"
  >
  WaterAds turns standard hydration cans into verifiable customer touchpoints with geographic precision.
@@ -230,7 +231,7 @@ export default function App() {
  key={i}
  initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
- transition={{ type: "spring", bounce: 0, duration: 0.8, delay: stat.delay }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 0.8, delay: stat.delay }}
  viewport={{ once: true }}
  className="flex flex-col border-l-2 border-wa-border pl-6 relative"
  >
@@ -238,7 +239,7 @@ export default function App() {
  initial={{ height: 0 }}
  whileInView={{ height: 40 }}
  viewport={{ once: true }}
- transition={{ type: "spring", bounce: 0, duration: 0.8, delay: stat.delay + 0.1 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 0.8, delay: stat.delay + 0.1 }}
  className={`absolute -left-[2px] top-0 w-[2px] ${stat.color}`}
  />
  <div className="text-4xl sm:text-5xl font-black tracking-tighter text-wa-text leading-none">
@@ -264,14 +265,12 @@ export default function App() {
  <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#3333FF]/10 blur-3xl" />
 
  <motion.div 
-   animate={{ y: [-8, 8, -8] }}
-   transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
-   className="relative bg-wa-card w-full max-w-sm p-8 rounded-[32px] flex flex-col space-y-8 border border-white/50 dark:border-white/5 shadow-[0_20px_50px_-15px_rgba(51,51,255,0.1)]"
+    className="relative w-full max-w-sm p-8 rounded-[32px] flex flex-col space-y-8 apple-glass border border-white/20 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_20px_50px_-15px_rgba(51,51,255,0.1)]"
  >
  
  <div className="flex items-center justify-between pb-6 border-b border-wa-border/50">
  <div className="flex items-center gap-4">
- <div className="w-10 h-10 bg-wa-card backdrop-blur-md bg-wa-card/80 text-wa-text flex items-center justify-center rounded-lg">
+ <div className="w-10 h-10 apple-glass-light text-wa-text flex items-center justify-center rounded-lg">
  <QrCode className="w-5 h-5" />
  </div>
  <div>
@@ -289,7 +288,7 @@ export default function App() {
  </div>
 
  {/* QR Scan Beam Visual */}
- <div className="relative bg-wa-card backdrop-blur-md bg-wa-card/80 p-12 rounded-xl flex flex-col items-center justify-center space-y-8 overflow-hidden">
+ <div className="relative apple-glass-light p-12 rounded-xl flex flex-col items-center justify-center space-y-8 overflow-hidden">
  <motion.div 
    animate={{ rotateY: [-8, 8, -8], rotateX: [8, -8, 8], scale: [1, 1.05, 1] }}
    transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
@@ -435,14 +434,14 @@ export default function App() {
  )}
 
  {/* ── 11. PARTNER SECTION (BENTO BOX) ── */}
- <section id="partners" className="relative z-10 py-32 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto bg-wa-bg">
+ <section id="partners" className="relative z-10 py-32 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto">
  <div>
  
  {/* Header Row */}
  <div className="flex flex-col lg:flex-row justify-between items-start gap-12 mb-16 lg:mb-24">
- <h2 className="text-5xl sm:text-6xl md:text-[80px] font-black tracking-apple-display text-wa-text leading-[1.05] uppercase max-w-4xl relative">
- <span className="text-wa-text">BUILT FOR EVERY</span><br />
- <span className="relative z-10 text-[#3333FF]">PARTICIPANT.</span>
+ <h2 className="text-display-large text-wa-text max-w-4xl relative">
+ <span className="text-wa-text">Built for Every</span><br />
+ <span className="relative z-10 text-[#3333FF]">Participant.</span>
  </h2>
  
  <div className="max-w-xs mt-4 lg:mt-0 shrink-0">
@@ -471,10 +470,10 @@ export default function App() {
  initial={{ opacity: 0, y: 40, filter: "blur(8px)", rotateX: 5 }}
  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotateX: 0 }}
  viewport={{ once: true, amount: 0.2 }}
- transition={{ type: "spring", bounce: 0, duration: 1 }}
- whileHover={{ y: -4, scale: 1.01, rotateX: 1, rotateY: -1 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 1 }}
+ whileHover={{ y: -4 }}
  whileTap={{ scale: 0.98 }}
- className="md:col-span-2 bg-wa-card rounded-3xl p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px] transition-all duration-300 hover:shadow-2xl hover:shadow-[#3333FF]/15 border border-transparent hover:border-[#3333FF]/10"
+ className="md:col-span-2 apple-glass rounded-3xl p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px] border border-white/20 dark:border-white/10 hover:border-white/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.06)]"
  >
  <div className="relative z-10 space-y-8 max-w-lg">
  <motion.div
@@ -507,10 +506,10 @@ export default function App() {
  initial={{ opacity: 0, y: 40, filter: "blur(8px)", rotateX: 5 }}
  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotateX: 0 }}
  viewport={{ once: true, amount: 0.2 }}
- transition={{ type: "spring", bounce: 0, duration: 1, delay: 0.1 }}
- whileHover={{ y: -4, scale: 1.01, rotateX: 1, rotateY: -1 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 1, delay: 0.1 }}
+ whileHover={{ y: -4 }}
  whileTap={{ scale: 0.98 }}
- className="md:col-span-1 bg-wa-card backdrop-blur-md bg-wa-card/80 text-wa-text rounded-3xl p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px] transition-all duration-300 hover:shadow-2xl hover:shadow-cyan-400/15 border border-transparent hover:border-cyan-400/10"
+ className="md:col-span-1 apple-glass text-wa-text rounded-3xl p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px] border border-white/20 dark:border-white/10 hover:border-white/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.06)]"
  >
  <div className="absolute top-0 right-0 w-48 h-48 rounded-full bg-[#3333FF]/5 blur-2xl group-hover:bg-[#3333FF]/10 transition-all duration-700" />
  <div className="relative z-10 space-y-8">
@@ -532,8 +531,8 @@ export default function App() {
  </div>
  <motion.div
  className="absolute right-6 bottom-6"
- animate={{ rotate: 360, scale: [1, 1.1, 1] }}
- transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+ animate={{ y: [0, -8, 0], scale: [1, 1.05, 1] }}
+ transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
  >
  <Printer className="w-24 h-24 text-wa-text/5" />
  </motion.div>
@@ -544,10 +543,10 @@ export default function App() {
  initial={{ opacity: 0, y: 40, filter: "blur(8px)", rotateX: 5 }}
  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotateX: 0 }}
  viewport={{ once: true, amount: 0.2 }}
- transition={{ type: "spring", bounce: 0, duration: 1, delay: 0.2 }}
- whileHover={{ y: -4, scale: 1.01, rotateX: 1, rotateY: 1 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 1, delay: 0.2 }}
+ whileHover={{ y: -4 }}
  whileTap={{ scale: 0.98 }}
- className="md:col-span-1 bg-wa-card backdrop-blur-md bg-wa-card/80 text-wa-text rounded-3xl p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px] transition-all duration-300 hover:shadow-2xl hover:shadow-blue-400/15 border border-transparent hover:border-blue-400/10"
+ className="md:col-span-1 apple-glass text-wa-text rounded-3xl p-10 md:p-12 flex flex-col justify-between group overflow-hidden relative min-h-[400px] border border-white/20 dark:border-white/10 hover:border-white/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.06)]"
  >
  <div className="absolute bottom-0 left-0 w-48 h-48 rounded-full bg-[#3333FF]/5 blur-2xl group-hover:bg-[#3333FF]/10 transition-all duration-700" />
  <div className="relative z-10 space-y-8">
@@ -581,10 +580,10 @@ export default function App() {
  initial={{ opacity: 0, y: 40, filter: "blur(8px)", rotateX: 5 }}
  whileInView={{ opacity: 1, y: 0, filter: "blur(0px)", rotateX: 0 }}
  viewport={{ once: true, amount: 0.2 }}
- transition={{ type: "spring", bounce: 0, duration: 1, delay: 0.3 }}
- whileHover={{ y: -4, scale: 1.01, rotateX: 1, rotateY: 1 }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 1, delay: 0.3 }}
+ whileHover={{ y: -4 }}
  whileTap={{ scale: 0.98 }}
- className="md:col-span-2 bg-wa-card rounded-3xl p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px] transition-all duration-300 hover:shadow-2xl hover:shadow-[#3333FF]/15 border border-transparent hover:border-[#3333FF]/10"
+ className="md:col-span-2 apple-glass rounded-3xl p-10 md:p-16 flex flex-col justify-between group overflow-hidden relative min-h-[400px] border border-white/20 dark:border-white/10 hover:border-white/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.06)]"
  >
  <div className="relative z-10 space-y-8 max-w-lg">
  <motion.div
@@ -686,7 +685,7 @@ export default function App() {
  <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest">
  Testimonials
  </span>
- <h2 className="text-4xl sm:text-5xl md:text-[64px] font-black text-wa-text leading-[1.05] tracking-[-0.04em]">
+ <h2 className="text-display-large text-wa-text">
  What Our Users<br />Say About WaterAds
  </h2>
  </div>
@@ -731,7 +730,7 @@ export default function App() {
  viewport={{ once: true, margin: '-80px' }}
  transition={{ duration: 0.7, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
  whileHover={{ y: -6, transition: { duration: 0.3 } }}
- className={`bg-wa-card backdrop-blur-md bg-wa-card/80 rounded-3xl p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] ${card.offset ? 'md:mt-16' : ''} hover:border-[#BBBBFF] hover:shadow-xl hover:shadow-[#3333FF]/10 transition-all duration-300 cursor-default`}
+ className={`apple-glass rounded-3xl p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] border border-white/20 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.06)] ${card.offset ? 'md:mt-16' : ''} hover:border-white/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] cursor-default`}
  >
  <div>
  {card.icon}
@@ -758,7 +757,7 @@ export default function App() {
  </section>
 
  {/* ── 12.8 FAQ ── */}
- <section className="relative z-10 py-32 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto bg-wa-bg ">
+ <section className="relative z-10 py-32 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto">
  <div className="flex flex-col lg:flex-row gap-16 lg:gap-24">
  
  {/* Left Column */}
@@ -772,8 +771,8 @@ export default function App() {
  <h3 className="text-[10px] font-bold text-wa-text-muted opacity-80 uppercase tracking-widest mb-4">
  FAQ
  </h3>
- <h2 className="text-5xl md:text-[72px] font-black tracking-tighter leading-[0.9] text-wa-text uppercase mb-16">
- HAVE SOME QUESTIONS?
+ <h2 className="text-display-large text-wa-text mb-16">
+ Have Some Questions?
  </h2>
  
  <div className="mt-auto hidden lg:block">
@@ -785,7 +784,7 @@ export default function App() {
  </p>
  <a
  href="#contact"
- className="bg-wa-text text-wa-bg hover:bg-wa-text/90 text-wa-text font-bold text-[10px] uppercase tracking-widest px-8 py-3.5 rounded-full shadow-md transition-all duration-200 cursor-pointer inline-flex items-center gap-2 hover:shadow-lg shrink-0"
+ className="bg-[#3333FF] text-white hover:bg-[#2222EE] font-bold text-[10px] uppercase tracking-widest px-8 py-3.5 rounded-full shadow-md cursor-pointer inline-flex items-center gap-2 hover:shadow-lg shrink-0 press-scale"
  >
  CONTACT US <ArrowRight className="w-3 h-3" />
  </a>
@@ -809,7 +808,7 @@ export default function App() {
  onClick={() => setOpenFaqIndex(isOpen ? null : index)}
  className="w-full py-8 flex items-center justify-between text-left group"
  >
- <h4 className={`text-2xl md:text-4xl lg:text-[40px] font-black tracking-tighter leading-[1.1] uppercase transition-colors duration-300 ${isOpen ? 'text-[#3333FF]' : 'text-wa-text group-hover:text-wa-text-muted'}`}>
+ <h4 className={`text-display-small transition-colors duration-300 ${isOpen ? 'text-[#3333FF]' : 'text-wa-text group-hover:text-wa-text-muted'}`}>
  {faq.question}
  </h4>
  <motion.div
@@ -823,7 +822,7 @@ export default function App() {
  <motion.div 
  initial={false}
  animate={{ height: isOpen ? 'auto' : 0, opacity: isOpen ? 1 : 0 }}
- transition={{ duration: 0.3, ease: "easeInOut" }}
+ transition={{ type: "spring" as const, bounce: 0, duration: 0.3 }}
  className="overflow-hidden"
  >
  <div className="pb-8">
@@ -847,7 +846,7 @@ export default function App() {
  </p>
  <a
  href="#contact"
- className="bg-wa-text text-wa-bg hover:bg-wa-text/90 text-wa-text font-bold text-[10px] uppercase tracking-widest px-8 py-3.5 rounded-full shadow-md transition-all duration-200 cursor-pointer inline-flex items-center gap-2 hover:shadow-lg w-max"
+ className="bg-[#3333FF] text-white hover:bg-[#2222EE] font-bold text-[10px] uppercase tracking-widest px-8 py-3.5 rounded-full shadow-md cursor-pointer inline-flex items-center gap-2 hover:shadow-lg w-max press-scale"
  >
  CONTACT US <ArrowRight className="w-3 h-3" />
  </a>
@@ -931,7 +930,7 @@ export default function App() {
  whileHover={{ y: -3, scale: 1.02 }}
  whileTap={{ scale: 0.97 }}
  transition={{ duration: 0.2 }}
- className="w-full sm:w-auto bg-[#3333FF] text-wa-text font-bold text-[11px] uppercase tracking-widest px-8 py-5 rounded-full shadow-lg cursor-pointer flex items-center justify-center gap-2 min-w-[240px] hover:shadow-[0_20px_40px_-12px_rgba(51,51,255,0.5)] hover:bg-[#2222EE] transition-all duration-300"
+ className="w-full sm:w-auto bg-[#3333FF] text-white font-bold text-[11px] uppercase tracking-widest px-8 py-5 rounded-full shadow-lg cursor-pointer flex items-center justify-center gap-2 min-w-[240px] hover:shadow-[0_20px_40px_-12px_rgba(51,51,255,0.5)] hover:bg-[#2222EE] press-scale"
  >
  GET STARTED FREE <ArrowRight className="w-4 h-4" />
  </motion.a>
@@ -941,7 +940,7 @@ export default function App() {
  whileHover={{ y: -3 }}
  whileTap={{ scale: 0.97 }}
  transition={{ duration: 0.2 }}
- className="w-full sm:w-auto bg-wa-bg -hover text-wa-text font-bold text-[11px] uppercase tracking-widest px-8 py-5 rounded-full cursor-pointer flex items-center justify-center min-w-[240px] hover:border-[#3333FF] hover:shadow-lg transition-all duration-300"
+ className="w-full sm:w-auto apple-glass border border-white/20 dark:border-white/10 text-wa-text font-bold text-[11px] uppercase tracking-widest px-8 py-5 rounded-full cursor-pointer flex items-center justify-center min-w-[240px] hover:border-white/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] press-scale"
  >
  SIGN IN TO ACCOUNT
  </motion.a>
