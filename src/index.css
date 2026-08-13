@@ -403,3 +403,11 @@ html, body {
   animation: none;
   mix-blend-mode: normal;
 }
+
+/* When returning to light mode, ensure the shrinking dark state (old) stays on top of the new light state */
+.toggling-to-light::view-transition-old(root) {
+  z-index: 100;
+}
+.toggling-to-light::view-transition-new(root) {
+  z-index: 1;
+}

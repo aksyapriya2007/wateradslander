@@ -129,14 +129,34 @@ export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
                     `circle(${endRadius}px at ${x}px ${y}px)`
                   ];
                   
-                  document.documentElement.animate(
-                    { clipPath: clipPath },
-                    { 
-                      duration: 700, 
-                      easing: 'cubic-bezier(0.65, 0, 0.05, 1)', 
-                      pseudoElement: '::view-transition-new(root)' 
-                    }
-                  );
+                  // For a liquid-smooth feel, use a fluid spring-like cubic bezier
+                  const liquidEasing = 'cubic-bezier(0.8, 0, 0.2, 1)';
+                  
+                  if (isDarkNew) {
+                    // Expanding dark mode
+                    document.documentElement.animate(
+                      { clipPath: clipPath },
+                      { 
+                        duration: 800, 
+                        easing: liquidEasing, 
+                        pseudoElement: '::view-transition-new(root)' 
+                      }
+                    );
+                  } else {
+                    // Shrinking dark mode back into the button (reverse)
+                    document.documentElement.classList.add('toggling-to-light');
+                    const animation = document.documentElement.animate(
+                      { clipPath: [...clipPath].reverse() },
+                      { 
+                        duration: 800, 
+                        easing: liquidEasing, 
+                        pseudoElement: '::view-transition-old(root)' 
+                      }
+                    );
+                    animation.onfinish = () => {
+                      document.documentElement.classList.remove('toggling-to-light');
+                    };
+                  }
                 });
               }}
               className="p-2.5 rounded-full hover:bg-wa-text/5 transition-colors text-wa-text relative z-50 overflow-hidden group cursor-pointer"
