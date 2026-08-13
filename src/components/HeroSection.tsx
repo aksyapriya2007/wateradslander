@@ -1,143 +1,274 @@
-import { useRef, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion';
+import { useEffect, useRef, useState } from 'react';
+import { Moon, Sun } from 'lucide-react';
+import MagneticWrapper from './MagneticWrapper';
 
-export default function HeroSection() {
+interface HeroSectionProps {
+  isDark: boolean;
+  setIsDark: (dark: boolean) => void;
+}
+
+export default function HeroSection({ isDark, setIsDark }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null);
-  const cursorRef = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
 
-  // Smooth cursor follow for the interactive water blob
+  const { scrollY } = useScroll();
+  const [isScrolled, setIsScrolled] = useState(false);
+  
   useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (cursorRef.current && containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        // Calculate position relative to the section
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        
-        // Use animate for smoother performance than style.transform
-        cursorRef.current.animate(
-          { transform: `translate(${x}px, ${y}px)` },
-          { duration: 2500, fill: 'forwards', easing: 'ease-out' }
-        );
-      }
-    };
-    
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
+    return scrollY.on("change", (latest) => {
+      setIsScrolled(latest > 50);
+    });
+  }, [scrollY]);
+
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
+  
+  const blobX = useTransform(springX, [-50, 50], [-30, 30]);
+  const blobY = useTransform(springY, [-50, 50], [-30, 30]);
+
+
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const x = (clientX / innerWidth - 0.5) * 100;
+    const y = (clientY / innerHeight - 0.5) * 100;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const titleLine1 = ["Advertising"];
+  const titleLine2 = ["of", "the", "Future!"];
+
+  const titleVariants = {
+    hidden: { opacity: 0, y: 40, rotateX: 20, filter: "blur(12px)" },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      filter: "blur(0px)",
+      transition: {
+        type: "spring",
+        bounce: 0,
+        duration: 0.8,
+        delay: 0.1 + i * 0.1,
+      },
+    }),
+  };
 
   return (
     <section 
       ref={containerRef}
-      className="relative z-10 pt-32 pb-48 w-full bg-[#f8fafc] flex flex-col items-center justify-center min-h-[95vh] overflow-hidden"
+      onMouseMove={handleMouseMove}
+      className="relative w-full min-h-screen bg-wa-bg flex flex-col overflow-hidden"
     >
-      <style>{`
-        /* Animated Liquid Text */
-        .liquid-text {
-          background-image: url("data:image/svg+xml,%3Csvg width='800' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 200 C 100 100, 300 300, 400 200 C 500 100, 700 300, 800 200 L 800 400 L 0 400 Z' fill='%230ea5e9' opacity='0.8'/%3E%3Cpath d='M0 220 C 150 320, 250 120, 400 220 C 550 320, 650 120, 800 220 L 800 400 L 0 400 Z' fill='%230284c7' opacity='0.6'/%3E%3C/svg%3E");
-          background-size: 200% 120%;
-          background-position: 0% 100%;
-          background-repeat: repeat-x;
-          -webkit-background-clip: text;
-          color: transparent;
-          animation: wave-text 8s linear infinite, fill-text 4s ease-in-out infinite alternate;
-        }
-        
-        @keyframes wave-text {
-          0% { background-position: 0% 100%; }
-          100% { background-position: -200% 100%; }
-        }
-        
-        @keyframes fill-text {
-          0% { background-size: 200% 80%; }
-          100% { background-size: 200% 120%; }
-        }
+      {/* ── SUBTLE GEOMETRIC LINES ── */}
+      <motion.div style={{ x: blobX, y: blobY }} className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-30 dark:opacity-20 mix-blend-overlay">
+        <div className="absolute left-[15%] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-wa-border to-transparent" />
+        <div className="absolute left-[85%] top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-wa-border to-transparent" />
+        <div className="absolute top-[25%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-wa-border to-transparent" />
+        <div className="absolute top-[75%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-wa-border to-transparent" />
+      </motion.div>
 
-        /* Floating Blobs */
-        @keyframes floatBlob {
-          0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-          33% { transform: translate(30px, -40px) scale(1.05) rotate(5deg); }
-          66% { transform: translate(-30px, 30px) scale(0.95) rotate(-5deg); }
-          100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
-        }
-        .animate-blob {
-          animation: floatBlob 15s ease-in-out infinite;
-        }
-        .animation-delay-2000 { animation-delay: 2s; }
-        .animation-delay-4000 { animation-delay: 4s; }
-      `}</style>
+      {/* ── PILL NAV BAR ── */}
+      <div className="fixed top-0 left-0 w-full px-6 md:px-12 flex justify-center z-50 pointer-events-none transition-all duration-500" style={{ paddingTop: isScrolled ? '1rem' : '1.5rem' }}>
+        <motion.nav
+          initial={{ opacity: 0, y: -20, scale: 0.95 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ type: "spring", bounce: 0, duration: 0.5, delay: 0.2 }}
+          className={`pointer-events-auto w-full flex items-center justify-between rounded-full px-8 transition-all duration-500 ${isScrolled ? 'max-w-[1200px] py-3 apple-glass-heavy shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.05)] border border-wa-border/50' : 'max-w-[1400px] py-4 bg-transparent border border-transparent shadow-none'}`}
+        >
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-3 group shrink-0">
+            <svg className="w-8 h-8 text-[#3333FF] group-hover:text-[#0284c7] transition-colors" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22a7 7 0 0 0 7-7c0-2-1-3.9-3-5.5s-3.5-4-4-6.5c-.5 2.5-2 4.9-4 6.5C6 11.1 5 13 5 15a7 7 0 0 0 7 7z" />
+              <circle cx="12" cy="15" r="3" fill="currentColor" opacity="0.3" />
+              <circle cx="12" cy="15" r="1" fill="currentColor" />
+            </svg>
+            <div className="flex flex-col">
+              <span className="text-xl font-black tracking-tight leading-none text-wa-text">
+                WaterAds
+              </span>
+              <span className="text-[8px] font-bold text-wa-text-muted opacity-80 uppercase tracking-[0.2em] leading-none mt-0.5">
+                Offline Ad Network
+              </span>
+            </div>
+          </a>
 
-      {/* Subtle Glowing Background Blobs */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-         {/* Mouse Follower Blob - Toned down significantly */}
-         <div 
-           ref={cursorRef} 
-           className="absolute top-0 left-0 w-[300px] h-[300px] bg-sky-300/40 rounded-full -ml-[150px] -mt-[150px] mix-blend-multiply blur-[60px]"
-         />
-         
-         {/* Stationary / Floating Background Blobs - Smaller, softer, more spread out */}
-         <div className="absolute top-[15%] left-[10%] w-[400px] h-[400px] bg-cyan-200/50 rounded-full animate-blob mix-blend-multiply blur-[80px]" />
-         <div className="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] bg-blue-300/40 rounded-full animate-blob animation-delay-2000 mix-blend-multiply blur-[80px]" />
-         <div className="absolute top-[30%] left-[60%] w-[350px] h-[350px] bg-sky-200/50 rounded-full animate-blob animation-delay-4000 mix-blend-multiply blur-[80px]" />
+          {/* Right side */}
+          <div className="flex items-center gap-6">
+            <motion.button 
+              whileTap={{ scale: 0.94 }}
+              onClick={(e: React.MouseEvent) => {
+                const x = e.clientX;
+                const y = e.clientY;
+                const endRadius = Math.hypot(
+                  Math.max(x, window.innerWidth - x),
+                  Math.max(y, window.innerHeight - y)
+                );
+                // @ts-ignore
+                if (!document.startViewTransition) {
+                  setIsDark(!isDark);
+                  return;
+                }
+                // @ts-ignore
+                const transition = document.startViewTransition(() => {
+                  setIsDark(!isDark);
+                });
+                transition.ready.then(() => {
+                  const clipPath = [
+                    `circle(0px at ${x}px ${y}px)`,
+                    `circle(${endRadius}px at ${x}px ${y}px)`
+                  ];
+                  document.documentElement.animate(
+                    { clipPath: clipPath },
+                    { duration: 500, easing: 'ease-out', pseudoElement: '::view-transition-new(root)' }
+                  );
+                });
+              }}
+              className="p-2.5 rounded-full hover:bg-wa-text/5 transition-colors text-wa-text relative z-50 overflow-hidden group cursor-pointer"
+              aria-label="Toggle Dark Mode"
+            >
+              <div className="absolute inset-0 rounded-full bg-wa-text opacity-0 group-hover:opacity-10 transition-opacity scale-0 group-hover:scale-100 duration-300" />
+              {isDark ? <Sun className="w-5 h-5 relative z-10" /> : <Moon className="w-5 h-5 relative z-10" />}
+            </motion.button>
+            
+            <a href="#contact" className="text-[12px] font-bold text-wa-text uppercase tracking-wider hover:text-wa-accent transition-colors hidden sm:block">
+              Get Started →
+            </a>
+          </div>
+        </motion.nav>
       </div>
 
-      {/* Main Content */}
-      <div className="relative z-20 flex flex-col items-center px-6 text-center">
+      {/* ── HERO CONTENT AREA ── */}
+      <div className="relative z-10 flex-1 flex flex-col justify-end px-8 md:px-12 lg:px-16 pb-24 md:pb-32 lg:pb-40">
         
-        {/* Dynamic Liquid Typography */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.2, ease: "easeOut" }}
-          className="relative inline-block"
-        >
-          {/* Base Text (Solid color fallback) */}
-          <h1 className="text-[15vw] md:text-[12vw] font-black tracking-tighter m-0 p-0 leading-none text-slate-800 drop-shadow-xl">
-            WATERADS
-          </h1>
-          {/* Animated Overlay Text */}
-          <h1 className="absolute top-0 left-0 text-[15vw] md:text-[12vw] font-black tracking-tighter m-0 p-0 leading-none liquid-text w-full h-full">
-            WATERADS
-          </h1>
-        </motion.div>
+        {/* Big Bold Heading — bottom-left */}
+        <h1 className="text-[clamp(3.5rem,8vw,8rem)] font-black tracking-apple-display leading-[1.05] text-wa-text max-w-4xl flex flex-col">
+          <div className="flex flex-wrap gap-x-4">
+            {titleLine1.map((word, idx) => (
+              <motion.span
+                key={`line1-${idx}`}
+                custom={idx}
+                variants={titleVariants}
+                initial="hidden"
+                animate="visible"
+                className="inline-block"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </div>
+          <div className="flex flex-wrap gap-x-3 md:gap-x-4 mt-1 md:mt-2">
+            {titleLine2.map((word, idx) => (
+              <motion.span
+                key={`line2-${idx}`}
+                custom={titleLine1.length + idx}
+                variants={titleVariants}
+                initial="hidden"
+                animate="visible"
+                className="inline-block"
+              >
+                {word}
+              </motion.span>
+            ))}
+          </div>
+        </h1>
 
-        {/* Minimalist Subtitle */}
+        {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.4 }}
-          className="text-lg md:text-2xl text-slate-700 mt-8 font-medium max-w-2xl bg-white/60 backdrop-blur-md px-8 py-4 rounded-3xl shadow-sm border border-slate-100"
+          initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ type: "spring", bounce: 0, duration: 0.8, delay: 0.6 }}
+          className="text-base md:text-xl font-medium text-wa-text-muted max-w-xl mt-8 leading-relaxed"
         >
-          The fluid offline network. We connect brands with distributors to build smart, trackable campaigns that scale.
+          We connect brands with local water distributors and
+          offer trackable, measurable offline campaigns for your business
         </motion.p>
 
-        {/* Playful Floating Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut", delay: 0.6 }}
-          className="flex flex-wrap justify-center items-center gap-6 mt-12"
+        {/* Interactive Magnetic CTAs */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20, filter: "blur(10px)" }}
+          animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          transition={{ type: "spring", bounce: 0, duration: 0.8, delay: 0.8 }}
+          className="mt-10 flex items-center gap-4"
         >
-          <a
-            href="#network"
-            className="group relative overflow-hidden bg-slate-900 text-white px-8 py-4 rounded-full text-lg font-bold transition-transform hover:scale-105 active:scale-95 shadow-xl shadow-slate-900/10"
-          >
-            {/* Button liquid hover effect */}
-            <div className="absolute inset-0 bg-sky-500 translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out" />
-            <span className="relative z-10 flex items-center gap-2">
-              Explore Network
-              <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </span>
-          </a>
-          
-          <a
-            href="#planner"
-            className="px-8 py-4 rounded-full text-lg font-bold text-slate-800 bg-white/80 backdrop-blur-lg border border-slate-200 hover:bg-white transition-all shadow-lg shadow-sky-500/5 hover:scale-105 active:scale-95"
-          >
-            Plan a Campaign
-          </a>
+          <MagneticWrapper>
+            <motion.a
+              href="#contact"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-[#3333FF] hover:bg-[#1111DD] text-white rounded-full font-bold uppercase tracking-wider text-sm transition-colors shadow-lg shadow-[#3333FF]/20 flex"
+            >
+              Start Campaign
+            </motion.a>
+          </MagneticWrapper>
+          <MagneticWrapper>
+            <motion.a
+              href="#process"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-4 bg-wa-card border border-wa-border hover:border-wa-border-hover text-wa-text rounded-full font-bold uppercase tracking-wider text-sm transition-all flex"
+            >
+              How It Works
+            </motion.a>
+          </MagneticWrapper>
+        </motion.div>
+      </div>
+
+      {/* ── THE ORGANIC FLUID ORB WITH PARALLAX ── */}
+      <motion.div style={{ x: blobX, y: blobY }} className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        
+        {/* Deep background glow */}
+        <div className="absolute top-0 right-0 w-[80vw] h-[80vw] max-w-[1000px] max-h-[1000px] bg-[#3333FF]/10 blur-[120px] rounded-full translate-x-1/4 -translate-y-1/4" />
+
+        {/* Primary organic blob */}
+        <motion.div
+          animate={{ 
+            scale: [1, 1.05, 0.95, 1],
+            rotate: [0, 90, 180, 360],
+          }}
+          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
+          className="absolute"
+          style={{
+            top: '5%',
+            right: '-10%',
+            width: '75vw',
+            height: '75vw',
+            maxWidth: '1000px',
+            maxHeight: '1000px',
+            background: 'radial-gradient(circle at 40% 40%, #3333FF 0%, #1111DD 50%, transparent 100%)',
+            filter: 'blur(70px)',
+            opacity: 0.7,
+            borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
+            willChange: "transform"
+          }}
+        />
+      </motion.div>
+
+
+
+      {/* ── SUBTLE MARQUEE BANNER ── */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden flex whitespace-nowrap bg-wa-card/30 backdrop-blur-sm border-t border-white/5 py-4 z-10 pointer-events-none">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+          className="flex gap-16 pr-16 items-center"
+        >
+          {[...Array(4)].map((_, i) => (
+            <div key={i} className="flex gap-16 items-center text-xs font-bold uppercase tracking-[0.3em] text-wa-text-muted/60">
+              <span>WaterAds Network</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3333FF]/50" />
+              <span>Measurable Offline Campaigns</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3333FF]/50" />
+              <span>Precision Serialization</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3333FF]/50" />
+              <span>Real-time Analytics</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-[#3333FF]/50" />
+            </div>
+          ))}
         </motion.div>
       </div>
 

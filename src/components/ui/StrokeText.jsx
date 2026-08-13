@@ -232,7 +232,7 @@ const StrokeText = ({
             if (brandIdx !== -1 && index >= brandIdx && index < brandIdx + 5) {
               charStrokeColor = '#06b6d4';
             } else if (plantIdx !== -1 && index >= plantIdx && index < plantIdx + 5) {
-              charStrokeColor = '#3b82f6';
+              charStrokeColor = '#3333FF';
             }
 
             return (
@@ -260,7 +260,7 @@ const StrokeText = ({
             if (brandIdx !== -1 && index >= brandIdx && index < brandIdx + 5) {
               charFillColor = '#06b6d4';
             } else if (plantIdx !== -1 && index >= plantIdx && index < plantIdx + 5) {
-              charFillColor = '#3b82f6';
+              charFillColor = '#3333FF';
             }
 
             return (

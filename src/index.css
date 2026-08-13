@@ -1,11 +1,57 @@
 @import "tailwindcss";
 
+/* ── WaterAds Design Tokens ── */
+:root {
+  --wa-bg: #EDEAE4;
+  --wa-bg-card: #F4F1EC;
+  --wa-bg-dark: #12122A;
+  --wa-accent: #3333FF;
+  --wa-accent-light: #EDEDFF;
+  --wa-text: #0D0D0D;
+  --wa-text-muted: #5A5550;
+  --wa-border: rgba(216, 212, 204, 0.4);
+  --wa-border-hover: rgba(200, 196, 188, 0.6);
+}
+
+.dark {
+  --wa-bg: #040814;
+  --wa-bg-card: #0A1128;
+  --wa-bg-dark: #02040A;
+  --wa-accent: #3333FF;
+  --wa-accent-light: #1A2355;
+  --wa-text: #F0F5FF;
+  --wa-text-muted: #8A9BB4;
+  --wa-border: rgba(255, 255, 255, 0.03);
+  --wa-border-hover: rgba(255, 255, 255, 0.08);
+}
+
+html, body {
+  background: var(--wa-bg);
+  color: var(--wa-text);
+  /* Hide scrollbar globally */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+::-webkit-scrollbar {
+  display: none;
+}
+
+*, *::before, *::after {
+  transition-property: background-color, border-color, color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+::selection {
+  background: var(--wa-accent);
+  color: #fff;
+}
+
 @layer utilities {
   .font-serif-title {
     font-family: 'Instrument Serif', Georgia, Cambria, "Times New Roman", Times, serif;
   }
 
-  /* Navigation Link Underline Effect */
   .nav-link-underline {
     position: relative;
   }
@@ -16,7 +62,7 @@
     height: 2px;
     bottom: -2px;
     left: 50%;
-    background-color: #0F172A;
+    background-color: #0D0D0D;
     transition: all 0.3s ease-in-out;
     transform: translateX(-50%);
     border-radius: 9999px;
@@ -26,19 +72,71 @@
   }
 
   @keyframes gradientFlow {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  @keyframes scrollDot {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(28px); opacity: 0; }
+  }
+  .scroll-indicator-dot {
+    animation: scrollDot 1.6s ease-in-out infinite;
+  }
+
+  .dot-grid-bg {
+    background-image: radial-gradient(circle, #C8C4BC 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  .btn-magnetic {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .btn-magnetic:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 20px 40px -12px rgba(51, 51, 255, 0.35);
+  }
+
+  /* Premium scrollbar */
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #C8C4BC; border-radius: 999px; }
+  ::-webkit-scrollbar-thumb:hover { background: #A8A49C; }
+
+  /* ── Apple Design Utilities ── */
+  .apple-glass {
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+  }
+  .apple-glass-heavy {
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+  }
+  .tracking-apple-display {
+    letter-spacing: -0.02em;
+    font-optical-sizing: auto;
+  }
+  .tracking-apple-body {
+    letter-spacing: 0.01em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: opacity 200ms ease !important;
   }
 }
 
 @keyframes wave-move {
   0% { transform: translateX(0); }
   100% { transform: translateX(-50%); }
+}
+
+/* View Transitions for Dark Mode Splash */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
 }

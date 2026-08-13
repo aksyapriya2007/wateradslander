@@ -42,6 +42,17 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        wa: {
+          bg: "var(--wa-bg)",
+          card: "var(--wa-bg-card)",
+          dark: "var(--wa-bg-dark)",
+          accent: "var(--wa-accent)",
+          "accent-light": "var(--wa-accent-light)",
+          text: "var(--wa-text)",
+          "text-muted": "var(--wa-text-muted)",
+          border: "var(--wa-border)",
+          "border-hover": "var(--wa-border-hover)",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

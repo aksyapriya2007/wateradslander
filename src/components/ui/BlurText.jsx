@@ -87,11 +87,11 @@ const BlurText = ({
         if (animateBy === 'words' && typeof segment === 'string') {
           const lower = segment.toLowerCase().replace(/[.,]/g, '');
           if (lower === 'leading' || lower === 'brands') {
-            specialClass = "text-cyan-500 font-bold";
+            specialClass = "text-[#3333FF] font-bold";
           } else if (lower === 'water' || lower === 'plants') {
-            specialClass = "text-blue-500 font-bold";
+            specialClass = "text-[#3333FF] font-bold";
           } else if (lower === 'offline' || lower === 'advertising') {
-            specialClass = "text-sky-500 font-bold";
+            specialClass = "text-[#3333FF] font-bold";
           }
         }
 

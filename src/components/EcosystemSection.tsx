@@ -1,244 +1,339 @@
-import { useRef } from 'react';
-import { motion } from 'framer-motion';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { useGSAP } from '@gsap/react';
-import { Building2, Printer, Factory, Truck } from 'lucide-react';
+import { useRef, useState, useEffect } from 'react';
+import { motion, useMotionValue, useMotionValueEvent } from 'framer-motion';
+import { Building2, Printer, Factory, Truck, Droplet } from 'lucide-react';
 
-gsap.registerPlugin(ScrollTrigger);
+const nodes = [
+ { icon: Building2, title: "Brands", desc: "Initiate targeted local campaigns.", left: 20, top: 25 },
+ { icon: Printer, title: "Printing Press", desc: "Produces serialized label rolls.", left: 80, top: 25 },
+ { icon: Factory, title: "Water Plant", desc: "Bottles and applies labels.", left: 20, top: 75 },
+ { icon: Truck, title: "Distributors", desc: "Deliver to target consumer zones.", left: 80, top: 75 },
+];
+
+function DraggableHub({ onOffsetChange }: { onOffsetChange: (pos: {x: number, y: number}) => void }) {
+ const x = useMotionValue(0);
+ const y = useMotionValue(0);
+ 
+ useMotionValueEvent(x, "change", (latest) => onOffsetChange({ x: latest, y: y.get() }));
+ useMotionValueEvent(y, "change", (latest) => onOffsetChange({ x: x.get(), y: latest }));
+
+ return (
+ <motion.div
+ drag
+ dragElastic={0.1}
+ dragMomentum={false}
+ style={{ x, y }}
+ initial={{ scale: 0.5, opacity: 0 }}
+ whileInView={{ scale: 1, opacity: 1 }}
+ viewport={{ once: true }}
+ transition={{ type: "spring", stiffness: 100, damping: 20 }}
+ className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[180px] h-[180px] flex items-center justify-center z-30 cursor-grab active:cursor-grabbing group"
+ >
+ {/* Outer Orbit */}
+ <motion.div 
+ animate={{ rotate: 360 }}
+ transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+ className="absolute inset-0 rounded-[45px] border border-[#3333FF]/20 pointer-events-none" 
+ />
+ <motion.div 
+ animate={{ rotate: -360 }}
+ transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+ className="absolute inset-2 rounded-[40px] border-2 border-dashed border-[#3333FF]/30 pointer-events-none" 
+ />
+
+ {/* Main Glass Body */}
+ <div className="absolute inset-4 rounded-[32px] backdrop-blur-2xl bg-wa-card/90 shadow-[0_0_60px_rgba(51,51,255,0.25)] group-hover:border-[#3333FF] group-hover:shadow-[0_0_80px_rgba(51,51,255,0.4)] transition-all duration-500 overflow-hidden pointer-events-none">
+ {/* Shimmer Effect */}
+ <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
+ </div>
+
+ {/* Pulsing Core */}
+ <motion.div
+ animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+ transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+ className="absolute inset-8 rounded-2xl bg-[#3333FF]/20 blur-xl pointer-events-none"
+ />
+
+ {/* Center Icon Platform */}
+ <div className="relative z-10 w-20 h-20 bg-wa-bg rounded-[20px] shadow-inner flex items-center justify-center group-hover:scale-105 transition-transform duration-300 pointer-events-none">
+ <Droplet className="w-9 h-9 text-[#3333FF] drop-shadow-md" strokeWidth={2} />
+ </div>
+ </motion.div>
+ );
+}
+
+function DraggableSpoke({ node, delay, onOffsetChange }: { node: any, delay: number, onOffsetChange: (pos: {x: number, y: number}) => void }) {
+ const x = useMotionValue(0);
+ const y = useMotionValue(0);
+ 
+ useMotionValueEvent(x, "change", (latest) => onOffsetChange({ x: latest, y: y.get() }));
+ useMotionValueEvent(y, "change", (latest) => onOffsetChange({ x: x.get(), y: latest }));
+
+ return (
+ <div className="absolute z-20" style={{ top: `${node.top}%`, left: `${node.left}%`, transform: 'translate(-50%, -50%)' }}>
+ <motion.div
+ drag
+ dragElastic={0.2}
+ dragMomentum={false}
+ style={{ x, y }}
+ initial={{ opacity: 0, scale: 0.8, filter: "blur(8px)" }}
+ whileInView={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+ viewport={{ once: true }}
+ transition={{ type: "spring", bounce: 0, duration: 0.8, delay }}
+ className="flex flex-col items-center text-center relative group cursor-grab active:cursor-grabbing w-[220px] backdrop-blur-md bg-wa-card/90 rounded-[32px] p-6 shadow-lg transition-colors duration-300 hover:border-[#3333FF] hover:shadow-[0_10px_30px_rgba(51,51,255,0.15)]"
+ whileTap={{ scale: 0.97 }}
+ whileDrag={{ scale: 1.05, zIndex: 50 }}
+ >
+ <div className="w-16 h-16 relative z-10 mb-4 pointer-events-none">
+ <div className="absolute inset-0 rounded-full bg-wa-bg shadow-inner flex items-center justify-center text-wa-text-muted transition-colors duration-500 group-hover:text-[#3333FF] group-hover:scale-110">
+ <node.icon className="w-7 h-7" strokeWidth={1.5} />
+ </div>
+ </div>
+ <h4 className="text-lg font-black text-wa-text mb-2 tracking-tight pointer-events-none">{node.title}</h4>
+ <p className="text-xs font-medium text-wa-text-muted leading-relaxed pointer-events-none">{node.desc}</p>
+ </motion.div>
+ </div>
+ );
+}
 
 export default function EcosystemSection() {
-  const containerRef = useRef<HTMLElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const liquidFillRef = useRef<HTMLDivElement>(null);
+ const containerRef = useRef<HTMLElement>(null);
+ const layoutRef = useRef<HTMLDivElement>(null);
+ 
+ const [dim, setDim] = useState({ w: 1000, h: 600 });
+ const [offsets, setOffsets] = useState(nodes.map(() => ({ x: 0, y: 0 })));
+ const [centerOffset, setCenterOffset] = useState({ x: 0, y: 0 });
 
-  useGSAP(() => {
-    if (!containerRef.current || !liquidFillRef.current) return;
+ useEffect(() => {
+ if (!layoutRef.current) return;
+ const observer = new ResizeObserver(entries => {
+ setDim({
+ w: entries[0].contentRect.width,
+ h: entries[0].contentRect.height
+ });
+ });
+ observer.observe(layoutRef.current);
+ 
+ // Trigger an initial measure
+ if (layoutRef.current.getBoundingClientRect().width > 0) {
+ setDim({
+ w: layoutRef.current.getBoundingClientRect().width,
+ h: layoutRef.current.getBoundingClientRect().height
+ });
+ }
 
-    // As user scrolls through this section, the card fills up with "water" using height for a rising tide effect
-    gsap.fromTo(liquidFillRef.current,
-      { height: "0%" },
-      {
-        height: "100%",
-        ease: "none",
-        scrollTrigger: {
-          trigger: cardRef.current,
-          start: "top center",
-          end: "bottom center",
-          scrub: 1,
-        }
-      }
-    );
-  }, { scope: containerRef });
+ return () => observer.disconnect();
+ }, []);
 
-  return (
-    <section id="ecosystem" ref={containerRef} className="relative z-10 bg-[#FAFAFA] pt-32 md:pt-48 pb-12 overflow-hidden flex flex-col items-center justify-center">
-      
-      {/* Background Marquee Text */}
-      <div className="absolute top-1/2 -translate-y-1/2 left-0 w-[200vw] flex z-0 pointer-events-none opacity-[0.03]">
-        <motion.div 
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
-          className="flex whitespace-nowrap"
-        >
-          <h2 className="text-[15vw] font-serif tracking-tighter leading-none text-black">
-            &nbsp;E C O S Y S T E M &nbsp;&middot;&nbsp; N E T W O R K &nbsp;&middot;&nbsp; E C O S Y S T E M &nbsp;&middot;&nbsp; N E T W O R K
-          </h2>
-        </motion.div>
-      </div>
+ const centerX = dim.w / 2 + centerOffset.x;
+ const centerY = dim.h / 2 + centerOffset.y;
 
-      {/* Background Mesh Gradient Orbs for Glassmorphism */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-[500px] z-10 pointer-events-none opacity-50">
-        <motion.div 
-          animate={{ x: [0, 50, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-          className="absolute top-[10%] left-[15%] w-72 h-72 bg-blue-300 rounded-full mix-blend-multiply filter blur-[80px]" 
-        />
-        <motion.div 
-          animate={{ x: [0, -40, 0], y: [0, 40, 0], scale: [1, 1.2, 1] }}
-          transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-          className="absolute top-[20%] right-[15%] w-80 h-80 bg-purple-200 rounded-full mix-blend-multiply filter blur-[100px]" 
-        />
-        <motion.div 
-          animate={{ x: [0, 30, 0], y: [0, 20, 0], scale: [1, 0.9, 1] }}
-          transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-          className="absolute -bottom-10 left-[40%] w-64 h-64 bg-sky-200 rounded-full mix-blend-multiply filter blur-[80px]" 
-        />
-      </div>
+ return (
+ <section id="ecosystem" ref={containerRef} className="relative bg-wa-bg py-32 md:py-40 overflow-hidden select-none">
+  {/* ── THEME LIQUID ORB (CENTERED AURA) ── */}
+  <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden flex items-center justify-center">
+    {/* Deep background ambient glow */}
+    <div className="absolute w-[120vw] h-[120vw] max-w-[1500px] max-h-[1500px] bg-[#3333FF]/15 blur-[150px] rounded-full mix-blend-overlay" />
+    
+    {/* Primary organic pulsing blob behind center node */}
+    <motion.div
+      animate={{ 
+        scale: [1, 1.15, 0.85, 1],
+        rotate: [0, 90, 180, 360],
+      }}
+      transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+      className="absolute"
+      style={{
+        width: '60vw',
+        height: '60vw',
+        maxWidth: '800px',
+        maxHeight: '800px',
+        background: 'radial-gradient(circle at 50% 50%, rgba(51,51,255,0.7) 0%, rgba(17,17,221,0.2) 60%, transparent 100%)',
+        filter: 'blur(100px)',
+        opacity: 0.6,
+        borderRadius: "50% 50% 20% 80% / 25% 80% 20% 75%",
+        willChange: "transform"
+      }}
+    />
+  </div>
 
-      {/* Floating Ecosystem Card */}
-      <motion.div 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="relative z-20 w-full max-w-5xl px-6 md:px-12 flex flex-col"
-      >
-        {/* The Card Itself */}
-        <motion.div 
-          ref={cardRef}
-          animate={{ y: [-10, 10] }}
-          transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-          className="w-full bg-white/95 rounded-[2rem] md:rounded-[3rem] shadow-[0_40px_100px_-20px_rgba(0,0,0,0.1)] border border-white/80 ring-1 ring-black/[0.03] p-10 md:p-20 relative overflow-hidden z-20"
-        >
-          {/* LIQUID FILL LAYER (GSAP controlled) */}
-          <div 
-            ref={liquidFillRef}
-            className="absolute inset-x-0 bottom-0 z-0 pointer-events-none flex flex-col justify-start overflow-hidden rounded-[2rem] md:rounded-[3rem]"
-          >
-            {/* The liquid body */}
-            <div className="absolute inset-x-0 bottom-0 top-[20px] bg-gradient-to-t from-sky-200/60 to-sky-100/20 mix-blend-multiply" />
-            
-            {/* Animated Wave 1 */}
-            <div 
-              className="absolute left-0 w-[200%] h-[40px] md:h-[60px] opacity-70 mix-blend-multiply top-0" 
-              style={{ 
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M0,50 C200,100 400,0 600,50 C800,100 1000,0 1200,50 L1200,120 L0,120 Z\' fill=\'%23bae6fd\'/%3E%3C/svg%3E")',
-                backgroundSize: '50% 100%',
-                animation: 'wave-move 12s linear infinite'
-              }}
-            />
-            {/* Animated Wave 2 */}
-            <div 
-              className="absolute left-0 w-[200%] h-[50px] md:h-[70px] opacity-50 mix-blend-multiply top-[5px]" 
-              style={{ 
-                backgroundImage: 'url("data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 1200 120\' preserveAspectRatio=\'none\'%3E%3Cpath d=\'M0,70 C250,10 350,130 600,70 C850,10 950,130 1200,70 L1200,120 L0,120 Z\' fill=\'%237dd3fc\'/%3E%3C/svg%3E")',
-                backgroundSize: '50% 100%',
-                animation: 'wave-move 8s linear infinite reverse'
-              }}
-            />
-          </div>
+  {/* Background Dot Grid */}
+ <div 
+ className="absolute inset-0 opacity-40 z-0 pointer-events-none"
+ style={{
+ backgroundImage: 'radial-gradient(circle, var(--wa-border-hover) 1px, transparent 1px)',
+ backgroundSize: '32px 32px'
+ }}
+ />
 
-          {/* Subtle Noise Texture overlay */}
-          <div className="absolute inset-0 opacity-[0.4] pointer-events-none mix-blend-overlay z-0" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E")' }} />
-          
-          {/* Inner top/left highlight for 3D glass effect */}
-          <div className="absolute inset-0 rounded-[2rem] md:rounded-[3rem] shadow-[inset_0_1px_1px_rgba(255,255,255,1),inset_1px_0_1px_rgba(255,255,255,0.8)] pointer-events-none z-0" />
+ {/* ── BACKGROUND AESTHETIC DOODLES ── */}
+ <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden opacity-30 dark:opacity-10 mix-blend-overlay">
+    {/* Giant network structural circles */}
+    <div className="absolute -left-[10%] top-[20%] w-[60vw] max-w-[800px] aspect-square border-[0.5px] border-wa-border/60 rounded-full" />
+    <div className="absolute -left-[5%] top-[25%] w-[40vw] max-w-[500px] aspect-square border-[0.5px] border-wa-border/60 rounded-full border-dashed animate-[spin_120s_linear_infinite_reverse]" />
+    
+    {/* Tech plus signs */}
+    <div className="absolute top-[30%] right-[15%] text-wa-text-muted/40 text-lg font-light tracking-[2em]">+ +</div>
+    <div className="absolute bottom-[15%] left-[20%] text-wa-text-muted/40 text-lg font-light tracking-[2em]">+ +</div>
+    
+    {/* Structural line */}
+    <div className="absolute top-[60%] left-0 right-0 h-px bg-gradient-to-r from-transparent via-wa-border/60 to-transparent" />
+  </div>
 
-          {/* Gradient Overlay for lighting */}
-          <div className="absolute inset-0 bg-gradient-to-br from-white/90 via-white/40 to-white/10 pointer-events-none z-0" />
+ <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 md:px-12 flex flex-col">
+ 
+ {/* Header */}
+ <div className="text-center mb-16 md:mb-24 pointer-events-none">
+ <motion.h3 
+ initial={{ opacity: 0, y: 10, filter: "blur(8px)" }}
+ whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+ viewport={{ once: true }}
+ transition={{ duration: 0.6 }}
+ className="text-sm font-bold text-wa-text-muted opacity-90 uppercase tracking-widest mb-4"
+ >
+ The Ecosystem
+ </motion.h3>
+ <motion.h2 
+ initial={{ opacity: 0, y: 20 }}
+ whileInView={{ opacity: 1, y: 0 }}
+ viewport={{ once: true }}
+ transition={{ type: "spring", bounce: 0, duration: 0.8, delay: 0.1 }}
+ className="text-4xl md:text-6xl font-black tracking-apple-display text-wa-text leading-[1.05]"
+ >
+ A perfectly connected<br className="hidden md:block" /> offline network.
+ </motion.h2>
+ <p className="mt-6 text-wa-text-muted text-sm font-medium tracking-wide uppercase max-w-sm mx-auto animate-pulse">
+ ( Drag nodes to interact )
+ </p>
+ </div>
 
-          {/* Header inside the card */}
-          <div className="text-center mb-16 md:mb-24 relative z-20">
-            <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">
-              The Ecosystem
-            </h3>
-            <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-black leading-tight drop-shadow-sm">
-              A perfectly connected<br className="hidden md:block" /> offline network.
-            </h2>
-          </div>
+ {/* Desktop Hub and Spoke Layout */}
+ <div ref={layoutRef} className="hidden md:block relative w-full h-[600px] max-w-[1000px] mx-auto z-10">
+ 
+ {/* Animated SVG Lines */}
+ <svg className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible">
+ <defs>
+ <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+ <stop offset="0%" stopColor="var(--wa-border-hover)" />
+ <stop offset="50%" stopColor="#3333FF" stopOpacity="0.8" />
+ <stop offset="100%" stopColor="var(--wa-border-hover)" />
+ </linearGradient>
+ </defs>
+ {nodes.map((node, i) => {
+ const nodeX = dim.w * (node.left / 100) + offsets[i].x;
+ const nodeY = dim.h * (node.top / 100) + offsets[i].y;
+ return (
+ <motion.line
+ key={`line-${i}`}
+ x1={centerX}
+ y1={centerY}
+ x2={nodeX}
+ y2={nodeY}
+ stroke="url(#lineGrad)"
+ strokeWidth="2.5"
+ strokeLinecap="round"
+ initial={{ pathLength: 0 }}
+ whileInView={{ pathLength: 1 }}
+ viewport={{ once: true }}
+ transition={{ duration: 1.5, ease: "easeInOut" }}
+ />
+ );
+ })}
+ </svg>
+ 
+ {/* Traveling data packets */}
+ {nodes.map((node, i) => {
+ const nodeX = dim.w * (node.left / 100) + offsets[i].x;
+ const nodeY = dim.h * (node.top / 100) + offsets[i].y;
+ const radius = 6;
+ return (
+ <motion.div
+ key={`dot-${i}`}
+ animate={{ 
+ x: [centerX - radius, nodeX - radius], 
+ y: [centerY - radius, nodeY - radius], 
+ opacity: [0, 1, 1, 0] 
+ }}
+ transition={{ duration: 2.5, repeat: Infinity, ease: "linear", delay: i * 0.4 }}
+ className="absolute w-3 h-3 rounded-full bg-[#3333FF] shadow-[0_0_15px_4px_rgba(51,51,255,0.6)] z-10 pointer-events-none top-0 left-0"
+ />
+ );
+ })}
 
-          {/* The Nodes Grid */}
-          <div className="relative w-full mx-auto mt-12 md:mt-20 mb-8 md:mb-12">
-            
-            {/* Animated Progress Line */}
-            <motion.div 
-              initial={{ width: "0%" }}
-              whileInView={{ width: "80%" }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="absolute top-[40px] left-[10%] h-[1px] bg-slate-200 hidden md:block origin-left z-0 relative" 
-            >
-              {/* Traveling Data Packet */}
-              <motion.div
-                animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_12px_3px_rgba(34,211,238,0.6)]"
-              />
-              <motion.div
-                animate={{ left: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "linear", delay: 1.25 }}
-                className="absolute top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-blue-400 shadow-[0_0_12px_3px_rgba(96,165,250,0.6)]"
-              />
-            </motion.div>
-            
-            <motion.div 
-              initial={{ height: "0%" }}
-              whileInView={{ height: "80%" }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-              className="absolute top-[10%] left-1/2 -translate-x-1/2 w-[1px] bg-slate-200 md:hidden origin-top z-0 relative" 
-            >
-              <motion.div
-                animate={{ top: ["0%", "100%"], opacity: [0, 1, 1, 0] }}
-                transition={{ duration: 2.5, repeat: Infinity, ease: "linear" }}
-                className="absolute left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-cyan-400 shadow-[0_0_12px_3px_rgba(34,211,238,0.6)]"
-              />
-            </motion.div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-0 relative z-10 w-full py-8 md:py-0">
-              {[
-                { icon: Building2, title: "Brands", desc: "Initiate targeted local campaigns." },
-                { icon: Printer, title: "Printing Press", desc: "Produces serialized label rolls." },
-                { icon: Factory, title: "Water Plant", desc: "Bottles and applies labels." },
-                { icon: Truck, title: "Distributors", desc: "Deliver to target consumer zones." },
-              ].map((node, i) => (
-                <motion.div 
-                  key={i}
-                  initial={{ opacity: 0, y: 15, scale: 0.98 }}
-                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: i * 0.15 }}
-                  className="flex flex-col items-center text-center relative group cursor-pointer"
-                >
-                  <div className="w-20 h-20 relative z-10 mb-6">
-                    {/* Pulsing Ring Behind */}
-                    <motion.div 
-                      animate={{ scale: [1, 1.4, 1], opacity: [0.1, 0.4, 0.1] }}
-                      transition={{ duration: 2.5 + i * 0.3, repeat: Infinity, ease: "easeInOut" }}
-                      className="absolute inset-0 rounded-full bg-sky-300/30 -z-10 group-hover:bg-cyan-400/40 group-hover:scale-[1.6] transition-all duration-500"
-                    />
-                    {/* Main Icon Circle */}
-                    <div className="absolute inset-0 rounded-full bg-white shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05),inset_0_1px_1px_rgba(255,255,255,1)] border border-slate-100 flex items-center justify-center text-slate-400 transition-all duration-500 group-hover:scale-[1.15] group-hover:shadow-[0_8px_30px_-4px_rgba(34,211,238,0.3)] group-hover:text-cyan-500 group-hover:border-cyan-200">
-                      <node.icon className="w-6 h-6" strokeWidth={1.5} />
-                    </div>
-                  </div>
-                  <div>
-                    <h4 className="text-[17px] font-bold text-[#111827] mb-2 group-hover:text-cyan-600 transition-colors">{node.title}</h4>
-                    <p className="text-[13px] font-medium text-[#64748b] px-4 max-w-[200px] mx-auto leading-relaxed">{node.desc}</p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </motion.div>
+ {/* Center Hub */}
+ <DraggableHub onOffsetChange={setCenterOffset} />
 
-        {/* Reflection */}
-        <div 
-          className="w-full h-[250px] md:h-[350px] mt-2 relative pointer-events-none opacity-30 select-none overflow-hidden z-0"
-          style={{
-            maskImage: "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 80%)",
-            WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0) 80%)"
-          }}
-        >
-          <motion.div 
-            animate={{ y: [10, -10] }}
-            transition={{ duration: 6, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-            className="absolute top-0 left-0 right-0"
-            style={{ transform: "scaleY(-1)" }}
-          >
-             <div className="w-full bg-white/40 rounded-[2rem] md:rounded-[3rem] p-10 md:p-20 blur-[2px] border border-white/50">
-               <div className="text-center mb-16 md:mb-24 relative z-20 opacity-80">
-                 <h3 className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-4">The Ecosystem</h3>
-                 <h2 className="text-4xl md:text-5xl font-medium tracking-tight text-black leading-tight">
-                   Seamless distribution<br className="hidden md:block" /> network.
-                 </h2>
-               </div>
-               <div className="grid grid-cols-1 md:grid-cols-4 gap-16 md:gap-0 mt-12 md:mt-20 mb-8 md:mb-12 relative opacity-50">
-                  <div className="absolute top-[40px] left-[10%] w-[80%] h-[1px] bg-slate-300 hidden md:block" />
-                  {[1,2,3,4].map((i) => (
-                    <div key={i} className="flex flex-col items-center">
-                      <div className="w-20 h-20 rounded-full bg-white/80 border border-white/50 mb-6" />
-                      <div className="w-24 h-5 bg-slate-300/50 rounded mb-2" />
-                      <div className="w-32 h-3 bg-slate-200/50 rounded" />
-                    </div>
-                  ))}
-               </div>
-             </div>
-          </motion.div>
-        </div>
+ {/* Spoke Cards */}
+ {nodes.map((node, i) => (
+ <DraggableSpoke 
+ key={`card-${i}`} 
+ node={node} 
+ delay={0.2 + i * 0.15} 
+ onOffsetChange={(pos) => {
+ setOffsets(prev => {
+ const newOffsets = [...prev];
+ newOffsets[i] = pos;
+ return newOffsets;
+ });
+ }}
+ />
+ ))}
+ </div>
 
-      </motion.div>
-    </section>
-  );
+ {/* Mobile Grid Layout (Not Draggable due to screen space) */}
+ <div className="grid grid-cols-2 gap-4 md:hidden relative z-10 w-full px-2">
+ {/* Mobile Hub */}
+ <div className="col-span-2 flex justify-center mb-8 relative">
+ <motion.div
+ initial={{ scale: 0.5, opacity: 0 }}
+ whileInView={{ scale: 1, opacity: 1 }}
+ viewport={{ once: true }}
+ transition={{ type: "spring", stiffness: 100, damping: 20 }}
+ className="relative w-[140px] h-[140px] flex items-center justify-center"
+ >
+ <motion.div 
+ animate={{ rotate: 360 }}
+ transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+ className="absolute inset-0 rounded-[35px] border border-[#3333FF]/20" 
+ />
+ <motion.div 
+ animate={{ rotate: -360 }}
+ transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+ className="absolute inset-1.5 rounded-[30px] border-2 border-dashed border-[#3333FF]/30" 
+ />
+ <div className="absolute inset-3 rounded-[24px] backdrop-blur-xl bg-wa-card/90 shadow-[0_0_40px_rgba(51,51,255,0.2)] " />
+ <motion.div
+ animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.8, 0.5] }}
+ transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+ className="absolute inset-6 rounded-xl bg-[#3333FF]/20 blur-lg"
+ />
+ <div className="relative z-10 w-16 h-16 bg-wa-bg rounded-[16px] shadow-inner flex items-center justify-center ">
+ <Droplet className="w-7 h-7 text-[#3333FF] drop-shadow-md" strokeWidth={2} />
+ </div>
+ </motion.div>
+ </div>
+ 
+ {/* Mobile Cards */}
+ {nodes.map((node, i) => (
+ <motion.div
+ key={`mobile-${i}`}
+ initial={{ opacity: 0, y: 20 }}
+ whileInView={{ opacity: 1, y: 0 }}
+ viewport={{ once: true }}
+ transition={{ duration: 0.6, delay: i * 0.15 }}
+ className="flex flex-col items-center text-center w-full backdrop-blur-md bg-wa-card/90 rounded-2xl p-5 shadow-sm"
+ >
+ <div className="w-12 h-12 relative z-10 mb-3 pointer-events-none">
+ <div className="absolute inset-0 rounded-full bg-wa-bg shadow-sm flex items-center justify-center text-[#3333FF]">
+ <node.icon className="w-5 h-5" strokeWidth={1.5} />
+ </div>
+ </div>
+ <h4 className="text-sm font-black text-wa-text mb-1 leading-tight">{node.title}</h4>
+ <p className="text-[11px] font-medium text-wa-text-muted leading-relaxed">{node.desc}</p>
+ </motion.div>
+ ))}
+ </div>
+
+ </div>
+ </section>
+ );
 }

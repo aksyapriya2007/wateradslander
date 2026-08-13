@@ -60,10 +60,10 @@ const FoldText = ({
       if (typeof content === 'string') {
         const lower = content.toLowerCase();
         if (lower === 'leading' || lower === 'brands' || lower === 'offline' || lower === 'advertising') {
-            specialClass = "text-cyan-500 font-bold";
+            specialClass = "text-[#3333FF] font-bold";
         }
         if (lower === 'water' || lower === 'plants') {
-            specialClass = "text-blue-500 font-bold";
+            specialClass = "text-[#3333FF] font-bold";
         }
       }
 
