@@ -14,20 +14,22 @@ export default function FooterSection() {
       </div>
 
       {/* Main Footer Box */}
-      <div className="w-full max-w-[1400px] bg-slate-100 rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 lg:p-16 flex flex-col relative">
+      <div className="w-full max-w-[1400px] bg-white rounded-[2.5rem] md:rounded-[3.5rem] p-8 md:p-12 lg:p-16 flex flex-col relative shadow-[0_20px_60px_-15px_rgba(0,0,0,0.03)] border border-wa-text/5">
         
         {/* Header Row */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center w-full mb-16 md:mb-24 gap-6">
           {/* Logo / Icon */}
           <div className="flex-1">
-            <ArrowDownRight className="w-10 h-10 md:w-12 md:h-12 text-wa-text" strokeWidth={3} />
+            <ArrowDownRight className="w-8 h-8 md:w-10 md:h-10 text-wa-text" strokeWidth={2.5} />
           </div>
 
-          {/* Centered Brand */}
+          {/* Centered Brand - Premium Apple-like Wordmark */}
           <div className="flex-1 flex justify-start md:justify-center">
-            <h2 className="text-3xl md:text-4xl font-black tracking-tighter text-wa-text">
-              waterads
-            </h2>
+            <div className="flex items-baseline select-none">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-[-0.05em] text-wa-text leading-none">
+                Water<span className="font-light">Ads</span>
+              </h2>
+            </div>
           </div>
 
           {/* Action Buttons */}
