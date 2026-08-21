@@ -2,14 +2,10 @@ import { useState, useEffect } from "react"
 import { motion, AnimatePresence, useScroll, useSpring } from "framer-motion"
 import {
  QrCode,
- Building2,
- Printer,
- Truck,
  Calculator,
  ArrowRight,
  ArrowLeft,
- Plus,
- Droplets
+ Plus
 } from "lucide-react"
 
 import SplashScreen from "./components/SplashScreen"
@@ -708,8 +704,8 @@ export default function App() {
  <div className="w-full flex flex-col items-center justify-center mb-8">
  <StrokeText
  text="CONNECT YOUR"
- strokeColor="#cbd5e1"
- fillColor="#111111"
+ strokeColor={isDark ? "#475569" : "#cbd5e1"}
+ fillColor={isDark ? "#FFFFFF" : "#111111"}
  strokeWidth={1.5}
  drawDuration={1.2}
  fillDelay={0.1}
@@ -723,8 +719,8 @@ export default function App() {
  />
  <StrokeText
  text="BRAND OR PLANT"
- strokeColor="#cbd5e1"
- fillColor="#111111"
+ strokeColor={isDark ? "#475569" : "#cbd5e1"}
+ fillColor={isDark ? "#FFFFFF" : "#111111"}
  strokeWidth={1.5}
  drawDuration={1.2}
  fillDelay={0.1}
