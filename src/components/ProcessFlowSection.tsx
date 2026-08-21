@@ -43,14 +43,7 @@ const participants = [
 const StakeholderCard = ({ item }: { item: typeof participants[0] }) => {
   const prefersReducedMotion = useReducedMotion();
   const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current || prefersReducedMotion) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    setMousePos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
-  };
 
   const cardVariants = {
     hidden: { opacity: 0, y: 30, scale: 0.985 },
@@ -80,35 +73,19 @@ const StakeholderCard = ({ item }: { item: typeof participants[0] }) => {
   return (
     <motion.div
       ref={cardRef}
-      onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       variants={cardVariants}
       className={`relative overflow-hidden bg-wa-bg-card border border-wa-border hover:border-[#3333FF]/30 rounded-[32px] p-10 md:p-12 flex flex-col shadow-sm transition-all duration-400 ${item.span} group`}
       whileHover={prefersReducedMotion ? {} : { y: -5, scale: 1.005 }}
     >
-      {/* Premium Blue Border Trace */}
-      {!prefersReducedMotion && (
-        <div className="absolute inset-0 pointer-events-none rounded-[32px] overflow-hidden z-0">
-          <motion.div
-            className="absolute inset-[-100%] opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-            style={{ background: 'conic-gradient(from 0deg, transparent 70%, rgba(51, 51, 255, 0.4) 100%)' }}
-            animate={{ rotate: 360 }}
-            transition={{ repeat: Infinity, duration: 4, ease: 'linear' }}
-          />
-          <div className="absolute inset-[1px] bg-wa-bg-card rounded-[31px] z-10" />
-        </div>
-      )}
-
-      {/* Pointer Radial Highlight */}
-      {!prefersReducedMotion && (
-        <div 
-          className="absolute inset-0 z-10 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500 hidden md:block"
-          style={{
-            background: `radial-gradient(circle 300px at ${mousePos.x}px ${mousePos.y}px, rgba(51,51,255,0.03), transparent)`
-          }}
-        />
-      )}
+      {/* Textured Background Effect (Grain) */}
+      <div 
+        className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none mix-blend-overlay"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
+        }}
+      />
 
       {/* Content Container (z-20) */}
       <div className="relative z-20 flex flex-col h-full pointer-events-auto">
