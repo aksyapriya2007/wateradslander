@@ -4,7 +4,6 @@ import {
  QrCode,
  Calculator,
  ArrowRight,
- ArrowLeft,
  Plus
 } from "lucide-react"
 
@@ -22,6 +21,7 @@ import WaterParticles from "./components/WaterParticles"
 import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
 import ProcessFlowSection from "./components/ProcessFlowSection"
+import { MorphingCardStack } from "./components/ui/morphing-card-stack"
 
 // Simple CountUp Component
 function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
@@ -474,101 +474,90 @@ export default function App() {
  </span>
  </div>
 
- <div className="flex flex-col border-l-2 border-blue-100 pl-6 relative">
- <div className="absolute -left-[2px] top-0 w-[2px] h-10 bg-[#3333FF]" />
- <AnimatedNumber value={20} suffix="K+" duration={2} className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-wa-text leading-none" />
- <span className="text-[10px] font-bold text-wa-text-muted opacity-60 uppercase tracking-widest mt-4 flex items-center gap-2">
- <span className="w-1 h-1 rounded-full bg-[#3333FF] block" />
- Scans Recorded
- </span>
- </div>
- </motion.div>
- </div>
- </div>
- </section>
+          <div className="flex flex-col border-l-2 border-blue-100 pl-6 relative">
+            <div className="absolute -left-[2px] top-0 w-[2px] h-10 bg-[#3333FF]" />
+            <AnimatedNumber value={20} suffix="K+" duration={2} className="text-5xl sm:text-6xl md:text-[80px] font-semibold tracking-tighter text-wa-text leading-none" />
+            <span className="text-[10px] font-bold text-wa-text-muted opacity-60 uppercase tracking-widest mt-4 flex items-center gap-2">
+              <span className="w-1 h-1 rounded-full bg-[#3333FF] block" />
+              Scans Recorded
+            </span>
+          </div>
+        </motion.div>
+      </div>
+    </div>
+  </section>
 
+  {/* ── 12.5 TESTIMONIALS (MORPHING CARD STACK) ── */}
+  <section id="testimonials" className="relative z-10 py-32 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto bg-wa-bg">
+    <div className="flex flex-col items-center w-full">
+      {/* Header Row */}
+      <div className="w-full flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-8">
+        <div className="space-y-4">
+          <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest">
+            Testimonials
+          </span>
+          <h2 className="text-display-large text-wa-text">
+            What Our Users<br />Say About WaterAds
+          </h2>
+        </div>
+      </div>
 
- {/* ── 12.5 TESTIMONIALS (TABELA STYLE) ── */}
- <section id="testimonials" className="relative z-10 py-32 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto bg-wa-bg">
- <div className="relative overflow-hidden">
- 
- {/* Header Row */}
- <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-20 md:mb-32 gap-8">
- <div className="space-y-4">
- {/* Clean label */}
- <span className="text-[11px] font-bold text-[#3333FF] uppercase tracking-widest">
- Testimonials
- </span>
- <h2 className="text-display-large text-wa-text">
- What Our Users<br />Say About WaterAds
- </h2>
- </div>
- 
- {/* Arrows */}
- <div className="flex gap-3">
- <button className="w-12 h-12 rounded-full bg-wa-card hover:bg-slate-100 flex items-center justify-center text-wa-text -hover transition-colors">
- <ArrowLeft className="w-5 h-5" />
- </button>
- <button className="w-12 h-12 rounded-full bg-wa-card hover:bg-slate-100 flex items-center justify-center text-wa-text -hover transition-colors">
- <ArrowRight className="w-5 h-5" />
- </button>
- </div>
- </div>
-
- {/* Cards Grid */}
- <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
- 
- {[ 
- {
- icon: <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="mb-10 text-[#3333FF]"><path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z"/></svg>,
- quote: '"As a regional distributor, I appreciate the real-time tracking and robust verification measures WaterAds offers. It has not only simplified our day-to-day operations but also given our clients peace of mind regarding placement."',
- name: 'Alastair Frankl', role: 'Regional Distributor', img: 'https://i.pravatar.cc/150?img=11', offset: false
- },
- {
- icon: <motion.div animate={{ rotate: 360 }} transition={{ duration: 20, repeat: Infinity, ease: 'linear' }} className="w-8 h-8 rounded-full border-[7px] border-sky-400 mb-10" />,
- quote: '"WaterAds has been a game-changer for our printing press. The automated routing functionality allows us to seamlessly accept nearby orders, and the digital asset delivery ensures we print perfectly every time."',
- name: 'Jason Mueller', role: 'Print Facility Manager', img: 'https://i.pravatar.cc/150?img=12', offset: true
- },
- {
- icon: <div className="grid grid-cols-2 gap-1 w-8 h-8 mb-10">
- {[0,1,2,3].map(j => <motion.div key={j} animate={{ scale: [1, 1.2, 1] }} transition={{ duration: 2, repeat: Infinity, delay: j * 0.3 }} className="w-3.5 h-3.5 rounded-full bg-[#3333FF]" />)}
- </div>,
- quote: '"Working with WaterAds has transformed the way I approach offline marketing. The targeted hydration campaigns allow me to provide more attentive reach to our customers, and the ROI tracking is unmatched."',
- name: 'Jill Pescosolido', role: 'Brand Director', img: 'https://i.pravatar.cc/150?img=47', offset: false
- }
- ].map((card, i) => (
- <motion.div
- key={i}
- initial={{ opacity: 0, y: 40 }}
- whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true, margin: '-80px' }}
- transition={{ duration: 0.7, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
- whileHover={{ y: -6, transition: { duration: 0.3 } }}
- className={`apple-glass rounded-3xl p-8 md:p-10 flex flex-col justify-between h-auto min-h-[420px] border border-white/20 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_8px_32px_rgba(0,0,0,0.06)] ${card.offset ? 'md:mt-16' : ''} hover:border-white/40 hover:shadow-[0_8px_40px_rgba(0,0,0,0.08)] cursor-default`}
- >
- <div>
- {card.icon}
- <p className="text-sm md:text-[15px] font-medium text-wa-text-muted leading-relaxed">{card.quote}</p>
- </div>
- <motion.div
- initial={{ opacity: 0, y: 10 }}
- whileInView={{ opacity: 1, y: 0 }}
- viewport={{ once: true }}
- transition={{ duration: 0.5, delay: i * 0.15 + 0.3 }}
- className="flex items-center gap-4 mt-12"
- >
- <img src={card.img} alt={card.name} className="w-12 h-12 rounded-full object-cover" />
- <div>
- <h4 className="text-sm font-bold text-wa-text">{card.name}</h4>
- <p className="text-xs text-[#3333FF] font-semibold mt-1">{card.role}</p>
- </div>
- </motion.div>
- </motion.div>
- ))}
-
- </div>
- </div>
- </section>
+      {/* Morphing Card Stack Component */}
+      <MorphingCardStack
+        defaultLayout="grid"
+        cards={[
+          {
+            id: "1",
+            icon: (
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" className="text-[#3333FF]">
+                <path d="M12 0L14.59 9.41L24 12L14.59 14.59L12 24L9.41 14.59L0 12L9.41 9.41L12 0Z" />
+              </svg>
+            ),
+            description: '"As a regional distributor, I appreciate the real-time tracking and robust verification measures WaterAds offers. It has not only simplified our day-to-day operations but also given our clients peace of mind regarding placement."',
+            title: "Alastair Frankl",
+            subtitle: "Regional Distributor",
+            avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+            offset: false
+          },
+          {
+            id: "2",
+            icon: (
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                className="w-8 h-8 rounded-full border-[6px] border-sky-400"
+              />
+            ),
+            description: '"WaterAds has been a game-changer for our printing press. The automated routing functionality allows us to seamlessly accept nearby orders, and the digital asset delivery ensures we print perfectly every time."',
+            title: "Jason Mueller",
+            subtitle: "Print Facility Manager",
+            avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+            offset: true
+          },
+          {
+            id: "3",
+            icon: (
+              <div className="grid grid-cols-2 gap-1.5 w-8 h-8">
+                {[0, 1, 2, 3].map((j) => (
+                  <motion.div
+                    key={j}
+                    animate={{ scale: [1, 1.15, 1] }}
+                    transition={{ duration: 2, repeat: Infinity, delay: j * 0.3 }}
+                    className="w-3 h-3 rounded-full bg-[#3333FF]"
+                  />
+                ))}
+              </div>
+            ),
+            description: '"Working with WaterAds has transformed the way I approach offline marketing. The targeted hydration campaigns allow me to provide more attentive reach to our customers, and the ROI tracking is unmatched."',
+            title: "Jill Pescosolido",
+            subtitle: "Brand Director",
+            avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+            offset: false
+          }
+        ]}
+      />
+    </div>
+  </section>
 
  {/* ── 12.8 FAQ ── */}
  <section className="relative z-10 py-32 md:py-40 px-6 md:px-12 max-w-[1400px] mx-auto">
