@@ -433,8 +433,6 @@ export default function App() {
  </section>
  )}
 
- </section>
-
  {/* ── 12. METRICS SECTION (Minimalist + Geometric Spice) ── */}
  <section className="relative z-10 pt-16 pb-32 overflow-hidden bg-wa-bg">
  
