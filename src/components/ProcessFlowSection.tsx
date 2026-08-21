@@ -6,9 +6,6 @@ const participants = [
     id: 'brands',
     pill: 'FOR BRANDS',
     title: 'Launch & measure offline campaigns.',
-    highlightWords: 'offline campaigns',
-    highlightColor: '#00D4E6', // Electric Cyan
-    glowColor: 'rgba(0, 212, 230, 0.08)',
     desc: 'Target hyper-local regions with transparent QR attribution and real-time ROI tracking.',
     span: 'md:col-span-2',
     pillStyle: 'solid'
@@ -17,9 +14,6 @@ const participants = [
     id: 'printers',
     pill: 'FOR PRINTERS',
     title: 'Receive nearby print orders.',
-    highlightWords: 'print orders',
-    highlightColor: '#818CF8', // Indigo
-    glowColor: 'rgba(129, 140, 248, 0.08)',
     desc: 'Get automated print jobs delivered directly to your press with digital artwork assets.',
     span: 'md:col-span-1',
     pillStyle: 'outline'
@@ -28,9 +22,6 @@ const participants = [
     id: 'plants',
     pill: 'FOR PLANTS',
     title: 'Automate label application.',
-    highlightWords: 'label application',
-    highlightColor: '#3333FF', // Signature Royal Blue
-    glowColor: 'rgba(51, 51, 255, 0.08)',
     desc: 'Receive pre-printed serialized labels to seamlessly apply during your standard bottling runs.',
     span: 'md:col-span-1',
     pillStyle: 'outline'
@@ -39,96 +30,13 @@ const participants = [
     id: 'distributors',
     pill: 'FOR DISTRIBUTORS',
     title: 'Deliver with verified routing.',
-    highlightWords: 'verified routing',
-    highlightColor: '#38BDF8', // Sky Blue
-    glowColor: 'rgba(56, 189, 248, 0.08)',
     desc: 'Execute hyper-local drops with guaranteed GPS verification through our driver application.',
     span: 'md:col-span-2',
     pillStyle: 'outline'
   }
 ];
 
-// --- STROKE-TO-FILL WORD COMPONENT ---
-const StrokeFillWord = ({
-  word,
-  isHighlight,
-  highlightColor,
-  delay
-}: {
-  word: string;
-  isHighlight: boolean;
-  highlightColor: string;
-  delay: number;
-}) => {
-  return (
-    <span className="inline-block mr-[0.25em] relative overflow-visible">
-      {/* 1. Outlined Stroke Layer (Drawn first) */}
-      <motion.span
-        initial={{ opacity: 0.5 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.6, delay }}
-        className="inline-block transition-colors duration-500"
-        style={{
-          WebkitTextStroke: isHighlight
-            ? `1.5px ${highlightColor}`
-            : '1.2px currentColor',
-          color: 'transparent',
-        }}
-      >
-        {word}
-      </motion.span>
 
-      {/* 2. Color Fill Layer (Wipes in over the stroke outline) */}
-      <motion.span
-        initial={{ clipPath: 'inset(0 100% 0 0)' }}
-        whileInView={{ clipPath: 'inset(0 0% 0 0)' }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.75, delay: delay + 0.25 }}
-        className="absolute inset-0 inline-block pointer-events-none"
-        style={{
-          color: isHighlight ? highlightColor : 'inherit'
-        }}
-      >
-        {word}
-      </motion.span>
-    </span>
-  );
-};
-
-// --- STROKE-TO-FILL HEADING ---
-const StrokeFillTitle = ({
-  title,
-  highlightWords,
-  highlightColor,
-  className = ""
-}: {
-  title: string;
-  highlightWords?: string;
-  highlightColor: string;
-  className?: string;
-}) => {
-  const words = title.split(' ');
-  const highlightParts = highlightWords ? highlightWords.toLowerCase().split(' ') : [];
-
-  return (
-    <h3 className={`font-black tracking-tight leading-[1.1] ${className}`}>
-      {words.map((word, i) => {
-        const cleanWord = word.toLowerCase().replace(/[^a-z0-9]/g, '');
-        const isHighlight = highlightParts.some(hp => cleanWord.includes(hp.replace(/[^a-z0-9]/g, '')));
-        return (
-          <StrokeFillWord
-            key={i}
-            word={word}
-            isHighlight={isHighlight}
-            highlightColor={highlightColor}
-            delay={i * 0.06}
-          />
-        );
-      })}
-    </h3>
-  );
-};
 
 // --- CARD COMPONENT ---
 
@@ -144,7 +52,7 @@ const StakeholderCard = ({ item }: { item: typeof participants[0] }) => {
       scale: 1,
       transition: {
         duration: 0.75,
-        ease: "easeOut",
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number],
       }
     }
   };
@@ -156,7 +64,7 @@ const StakeholderCard = ({ item }: { item: typeof participants[0] }) => {
       y: 0,
       transition: {
         duration: 0.6,
-        ease: "easeOut"
+        ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
       }
     }
   };
@@ -165,15 +73,9 @@ const StakeholderCard = ({ item }: { item: typeof participants[0] }) => {
     <motion.div
       ref={cardRef}
       variants={cardVariants}
-      className={`relative overflow-hidden bg-wa-bg-card border border-wa-border hover:border-[#3333FF]/40 rounded-[32px] p-10 md:p-12 flex flex-col shadow-sm transition-all duration-500 ${item.span} group`}
+      className={`relative overflow-hidden bg-wa-bg-card border border-wa-border hover:border-[#3333FF]/30 rounded-[32px] p-10 md:p-12 flex flex-col shadow-sm transition-all duration-400 ${item.span} group`}
       whileHover={prefersReducedMotion ? {} : { y: -5, scale: 1.005 }}
     >
-      {/* Ambient Accent Glow on Hover / View */}
-      <div 
-        className="absolute -top-24 -right-24 w-72 h-72 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-        style={{ background: item.glowColor }}
-      />
-
       {/* Textured Background Effect (Grain) */}
       <div 
         className="absolute inset-0 z-0 opacity-[0.04] pointer-events-none mix-blend-overlay"
@@ -194,13 +96,9 @@ const StakeholderCard = ({ item }: { item: typeof participants[0] }) => {
            </span>
          </motion.div>
          
-         <motion.div variants={contentVariants} className="text-4xl md:text-[2.75rem] text-wa-text mb-6 max-w-xl">
-           <StrokeFillTitle 
-             title={item.title} 
-             highlightWords={item.highlightWords}
-             highlightColor={item.highlightColor}
-           />
-         </motion.div>
+         <motion.h3 variants={contentVariants} className="text-4xl md:text-[2.75rem] font-black text-wa-text leading-[1.1] mb-6 tracking-tight max-w-xl">
+           {item.title}
+         </motion.h3>
          
          <motion.p variants={contentVariants} className="text-wa-text-muted text-lg max-w-md">
            {item.desc}
@@ -260,4 +158,3 @@ export default function ProcessFlowSection() {
     </section>
   );
 }
-

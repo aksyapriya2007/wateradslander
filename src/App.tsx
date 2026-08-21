@@ -704,8 +704,8 @@ export default function App() {
  <div className="w-full flex flex-col items-center justify-center mb-8">
  <StrokeText
  text="CONNECT YOUR"
- strokeColor={isDark ? "#475569" : "#cbd5e1"}
- fillColor={isDark ? "#FFFFFF" : "#111111"}
+ strokeColor="#cbd5e1"
+ fillColor="#111111"
  strokeWidth={1.5}
  drawDuration={1.2}
  fillDelay={0.1}
@@ -719,8 +719,8 @@ export default function App() {
  />
  <StrokeText
  text="BRAND OR PLANT"
- strokeColor={isDark ? "#475569" : "#cbd5e1"}
- fillColor={isDark ? "#FFFFFF" : "#111111"}
+ strokeColor="#cbd5e1"
+ fillColor="#111111"
  strokeWidth={1.5}
  drawDuration={1.2}
  fillDelay={0.1}
