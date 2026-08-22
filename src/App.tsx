@@ -22,6 +22,7 @@ import GradientWaves from "./components/GradientWaves"
 import FooterSection from "./components/FooterSection"
 import ProcessFlowSection from "./components/ProcessFlowSection"
 import { MorphingCardStack } from "./components/ui/morphing-card-stack"
+import DistributorLiveFeed from "./components/ui/DistributorLiveFeed"
 
 // Simple CountUp Component
 function CountUp({ end, suffix = "", prefix = "", decimals = 0 }: { end: number; suffix?: string; prefix?: string; decimals?: number }) {
@@ -247,71 +248,22 @@ export default function App() {
  </div>
  </motion.div>
 
- {/* Right Column: Animated Dashboard Preview */}
- <motion.div 
- initial={{ opacity: 0, scale: 0.93, y: 30 }}
- whileInView={{ opacity: 1, scale: 1, y: 0 }}
- transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
- viewport={{ once: true }}
- className="relative w-full flex-1 aspect-square md:aspect-auto md:h-[600px] rounded-[40px] flex items-center justify-center p-8 overflow-hidden"
- >
- {/* Animated background grid */}
- <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(var(--wa-text) 1px, transparent 1px), linear-gradient(to right, var(--wa-text) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
- {/* Glowing accent */}
- <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#3333FF]/10 blur-3xl" />
+        {/* Right Column: Animated Live Distributor Feed Preview */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.93, y: 30 }}
+          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: true }}
+          className="relative w-full flex-1 flex items-center justify-center p-2 sm:p-6 overflow-hidden"
+        >
+          {/* Animated background grid */}
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(var(--wa-text) 1px, transparent 1px), linear-gradient(to right, var(--wa-text) 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+          {/* Glowing accent */}
+          <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-[#3333FF]/15 blur-3xl" />
 
- <motion.div 
-    className="relative w-full max-w-sm p-8 rounded-[32px] flex flex-col space-y-8 apple-glass border border-white/20 dark:border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.4),0_20px_50px_-15px_rgba(51,51,255,0.1)]"
- >
- 
- <div className="flex items-center justify-between pb-6 border-b border-wa-border/50">
- <div className="flex items-center gap-4">
- <div className="w-10 h-10 apple-glass-light text-wa-text flex items-center justify-center rounded-lg">
- <QrCode className="w-5 h-5" />
- </div>
- <div>
- <h4 className="text-sm font-bold text-wa-text tracking-tight">BATCH #WA-2026-89</h4>
- <span className="text-[10px] font-bold text-wa-text-muted opacity-80 uppercase tracking-widest">METROPOLITAN REGION</span>
- </div>
- </div>
- <motion.span
- animate={{ opacity: [1, 0.4, 1] }}
- transition={{ duration: 2, repeat: Infinity }}
- className="px-2 py-1 border border-emerald-500/30 text-emerald-400 text-[9px] font-bold uppercase tracking-widest rounded-full"
- >
- ● LIVE
- </motion.span>
- </div>
-
- {/* QR Scan Beam Visual */}
- <div className="relative apple-glass-light p-12 rounded-xl flex flex-col items-center justify-center space-y-8 overflow-hidden">
- <motion.div 
-   animate={{ rotateY: [-8, 8, -8], rotateX: [8, -8, 8], scale: [1, 1.05, 1] }}
-   transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-   className="w-32 h-32 bg-white p-3 rounded-lg flex items-center justify-center relative overflow-hidden shadow-[0_0_30px_rgba(51,51,255,0.15)]"
-   style={{ transformStyle: 'preserve-3d' }}
- >
- <svg viewBox="0 0 100 100" className="w-full h-full relative z-10 drop-shadow-sm">
- <path d="M10 10 h30 v30 h-30 z M15 15 h20 v20 h-20 z" fill="#000" />
- <path d="M60 10 h30 v30 h-30 z M65 15 h20 v20 h-20 z" fill="#000" />
- <path d="M10 60 h30 v30 h-30 z M15 65 h20 v20 h-20 z" fill="#000" />
- <rect x="45" y="45" width="10" height="10" fill="#000" />
- <rect x="60" y="60" width="15" height="15" fill="#000" />
- <rect x="75" y="75" width="15" height="15" fill="#000" />
- </svg>
- <motion.div 
- animate={{ top: ['-20%', '100%', '-20%'] }}
- transition={{ duration: 2.5, ease: 'linear', repeat: Infinity }}
- className="absolute inset-x-0 h-[40%] bg-gradient-to-b from-transparent to-[#3333FF]/30 border-b-[3px] border-[#3333FF] shadow-[0_0_20px_#3333FF] z-20" 
- />
- </motion.div>
- <div className="text-[10px] font-bold text-wa-text-muted opacity-80 uppercase tracking-widest">
- SCAN TO VIEW ATTRIBUTION
- </div>
- </div>
-
- </motion.div>
- </motion.div>
+          {/* Distributor Partner App Live Feed */}
+          <DistributorLiveFeed />
+        </motion.div>
 
  </div>
  </div>
